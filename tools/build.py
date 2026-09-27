@@ -32,7 +32,7 @@ NAV = [("services.html", "nav.services", "services", "Services"),
        ("index.html#about", "nav.about", "about", "About"),
        ("index.html#contact", "nav.contact", "contact", "Contact")]
 SVC = [("screen", "01"), ("hot", "02"), ("coat", "03"), ("paint", "04"), ("cliche", "05"), ("pad", "06")]
-TECHS = ["screen", "hot", "coat", "paint", "pad"]
+TECHS = ["screen", "hot", "coat", "paint", "pad", "cliche"]
 
 
 def e(s):
@@ -287,7 +287,7 @@ def build_index():
       <div class="banner__frame">
         <a class="banner__link" href="{e(b.get("link") or "portfolio.html")}" data-banner-link>
           <div class="banner__media" data-banner-media>
-            <video autoplay muted loop playsinline preload="metadata" poster="{e(b.get("poster"))}">
+            <video autoplay muted loop playsinline preload="metadata" poster="{e(b.get("poster"))}" data-src="{e(b.get("src"))}">
               {f'<source src="{e(b.get("srcWebm"))}" type="video/webm">' if b.get("srcWebm") else ""}
               <source src="{e(b.get("src"))}" type="video/mp4">
             </video>

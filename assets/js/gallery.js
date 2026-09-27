@@ -25,38 +25,6 @@
   let content = AAG.content || null;
 
   /* =========================================================
-     HERO — gentle crossfade between photos
-     ========================================================= */
-  const heroBox = $("[data-hero-slides]");
-  let heroTimer = null, heroIndex = 0;
-  function renderHero() {
-    if (!heroBox || !content || !content.hero || !Array.isArray(content.hero.images) || !content.hero.images.length) return;
-    const imgs = content.hero.images;
-    const current = $$("img", heroBox).map((i) => i.getAttribute("src"));
-    if (current.join("|") !== imgs.join("|")) {
-      heroBox.innerHTML = imgs.map((src, i) => `<img src="${esc(src)}" alt="" class="${i === 0 ? "is-active" : ""}" loading="${i === 0 ? "eager" : "lazy"}" decoding="async">`).join("");
-      heroIndex = 0;
-    }
-    startHero();
-  }
-  function showHero(i) {
-    const imgs = $$("img", heroBox);
-    if (!imgs.length) return;
-    heroIndex = (i + imgs.length) % imgs.length;
-    imgs.forEach((img, k) => img.classList.toggle("is-active", k === heroIndex));
-    const c = $("[data-hero-count]");
-    if (c) c.textContent = `${pad(heroIndex + 1)} / ${pad(imgs.length)}`;
-    const bar = $(".hero__bar span");
-    if (bar) { bar.style.animation = "none"; void bar.offsetWidth; bar.style.animation = ""; }
-  }
-  function startHero() {
-    clearInterval(heroTimer);
-    if (!heroBox || reduced || $$("img", heroBox).length < 2) return;
-    heroTimer = setInterval(() => { if (!document.hidden) showHero(heroIndex + 1); }, 4800);
-  }
-  if (heroBox) { showHero(0); startHero(); }
-
-  /* =========================================================
      HOME — full portfolio grid + partners
      ========================================================= */
   const grid = $("[data-portfolio-grid]");
@@ -313,7 +281,13 @@
 
   /* ---------- filters ---------- */
   let currentFilter = "all";
+  // show only technique chips that have at least one project
+  function syncChips() {
+    const techs = new Set($$(".product", list || document).map((p) => p.dataset.tech));
+    $$("[data-filter]").forEach((b) => { if (b.dataset.filter !== "all") b.hidden = !techs.has(b.dataset.filter); });
+  }
   function applyFilter(f) {
+    syncChips();
     currentFilter = f;
     let visible = 0;
     $$(".product", list || document).forEach((p) => {
@@ -352,11 +326,11 @@
 
   /* ---------- boot ---------- */
   initGalleries();
+  if (list) syncChips();
   if (list) $$(".product", list).forEach(updateNote);
   window.addEventListener("aag:content", (e) => {
     content = e.detail;
-    renderHero();
-    renderGrid(); renderPartners();
+        renderGrid(); renderPartners();
     renderProducts({ rebuild: true });
     if (document.body.classList.contains("loaded")) scrollToHash();
   });
@@ -365,5 +339,5 @@
     renderProducts();
   });
   window.addEventListener("aag:ready", scrollToHash);
-  if (content) { renderHero(); renderGrid(); renderPartners(); renderProducts({ rebuild: true }); }
+  if (content) { renderGrid(); renderPartners(); renderProducts({ rebuild: true }); }
 })();
