@@ -335,7 +335,7 @@ def build_index():
         <div class="svc-index">
 {svc_rows}
         </div>
-        <div class="grid sec-foot"><a class="link-arrow reveal" href="services.html"><span data-i18n="svc.all">All services</span>{ARROW}</a></div>
+        <div class="grid sec-foot"><a class="link-arrow sec-link reveal" href="services.html"><span data-i18n="svc.all">All services</span>{ARROW}</a></div>
       </div>
     </section>
 
