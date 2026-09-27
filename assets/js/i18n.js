@@ -81,6 +81,11 @@ window.AAG_I18N = {
     "ft.about": "Glass decoration factory in Chișinău, Moldova. Since 2000.",
     "ft.nav": "Company", "ft.svc": "Services", "ft.contact": "Contact", "ft.rights": "All rights reserved.",
 
+    "ui.scroll": "Scroll", "ft.top": "Back to top",
+    "co.label": "Company", "co.title": "Company profile", "co.name": "Company name", "co.founded": "Founded", "co.foundedV": "11 October 2000",
+    "co.director": "Founder & Director", "co.directorV": "Serghei Drăguțanu", "co.loc": "Location", "co.locV": "Chișinău, Republic of Moldova",
+    "co.biz": "Business", "co.bizV": "Decoration of glass and ceramic containers — screen printing, hot stamping, coating, painting, pad printing, decal transfer and cliché making.",
+    "co.staff": "Team", "co.staffV": "10–49 employees", "co.web": "Website",
     "items": [
       { t: "Cabernet Reserve", k: "Screen printing · 2 colours", d: "Ceramic white and gold on green Bordeaux glass, fired for a permanent, label-free finish." },
       { t: "Noir", k: "Matte coating · hot stamping", d: "Soft-touch black coating with a gold foil crest and fine-line typography." },
@@ -172,6 +177,11 @@ window.AAG_I18N = {
     "ft.about": "Fabrică de decor pe sticlă din Chișinău, Moldova. Din 2000.",
     "ft.nav": "Companie", "ft.svc": "Servicii", "ft.contact": "Contact", "ft.rights": "Toate drepturile rezervate.",
 
+    "ui.scroll": "Derulează", "ft.top": "Sus",
+    "co.label": "Companie", "co.title": "Profilul companiei", "co.name": "Denumire", "co.founded": "Fondată", "co.foundedV": "11 octombrie 2000",
+    "co.director": "Fondator și director", "co.directorV": "Serghei Drăguțanu", "co.loc": "Sediu", "co.locV": "Chișinău, Republica Moldova",
+    "co.biz": "Activitate", "co.bizV": "Decorarea recipientelor din sticlă și ceramică — serigrafie, ștanțare la cald, acoperire, vopsire, tampografie, decalcomanie și producere de clișee.",
+    "co.staff": "Echipa", "co.staffV": "10–49 angajați", "co.web": "Site",
     "items": [
       { t: "Cabernet Reserve", k: "Serigrafie · 2 culori", d: "Alb și auriu ceramic pe sticlă Bordeaux verde, coapte pentru un finisaj permanent, fără etichetă." },
       { t: "Noir", k: "Acoperire mată · ștanțare la cald", d: "Acoperire soft-touch neagră cu blazon din folie aurie și tipografie fină." },
@@ -263,6 +273,11 @@ window.AAG_I18N = {
     "ft.about": "Предприятие по декору стекла в Кишинёве, Молдова. С 2000 года.",
     "ft.nav": "Компания", "ft.svc": "Услуги", "ft.contact": "Контакты", "ft.rights": "Все права защищены.",
 
+    "ui.scroll": "Листайте", "ft.top": "Наверх",
+    "co.label": "Компания", "co.title": "О компании", "co.name": "Название", "co.founded": "Основана", "co.foundedV": "11 октября 2000 года",
+    "co.director": "Основатель и директор", "co.directorV": "Сергей Драгуцану", "co.loc": "Адрес", "co.locV": "Кишинёв, Республика Молдова",
+    "co.biz": "Деятельность", "co.bizV": "Декорирование стеклянной и керамической тары — шелкография, горячее тиснение, покрытие, покраска, тампопечать, деколи и изготовление клише.",
+    "co.staff": "Команда", "co.staffV": "10–49 сотрудников", "co.web": "Сайт",
     "items": [
       { t: "Cabernet Reserve", k: "Шелкография · 2 цвета", d: "Белая и золотая керамическая краска на зелёном бордоском стекле, закреплённая обжигом." },
       { t: "Noir", k: "Матовое покрытие · тиснение", d: "Чёрное soft-touch покрытие с гербом из золотой фольги и тонкой типографикой." },

@@ -86,6 +86,7 @@ const AAG_CONFIG = {
     document.body.classList.toggle("menu-open", open);
     burger.setAttribute("aria-expanded", open);
     $(".mobile-menu").setAttribute("aria-hidden", !open);
+    if (window.AAG.lenis) open ? window.AAG.lenis.stop() : window.AAG.lenis.start();
   };
   burger.addEventListener("click", () => setMenu(!document.body.classList.contains("menu-open")));
   $$(".mobile-menu a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
@@ -204,7 +205,8 @@ const AAG_CONFIG = {
   }));
   const openInViewer = (i) => {
     if (window.AAG_CAROUSEL) window.AAG_CAROUSEL.goTo(i);
-    $("#viewer").scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+    if (window.AAG.scrollTo) window.AAG.scrollTo("#viewer");
+    else $("#viewer").scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
   };
   pfCards.forEach((c) => {
     c.addEventListener("click", () => openInViewer(+c.dataset.index));
@@ -216,7 +218,7 @@ const AAG_CONFIG = {
     const i = +deep[1] - 1;
     const go = () => window.AAG_CAROUSEL ? window.AAG_CAROUSEL.goTo(i) : setTimeout(go, 200);
     go();
-    addEventListener("load", () => $("#viewer").scrollIntoView({ block: "start" }));
+    addEventListener("aag:ready", () => (window.AAG.scrollTo ? window.AAG.scrollTo("#viewer", { immediate: true }) : $("#viewer").scrollIntoView({ block: "start" })));
   }
 
   /* ---------- contact form ---------- */
@@ -317,5 +319,6 @@ const AAG_CONFIG = {
   /* ---------- boot ---------- */
   applyLang(lang);
   onScroll();
-  requestAnimationFrame(() => document.body.classList.add("loaded"));
+  // motion.js adds "loaded" after the intro; this is only a fallback
+  setTimeout(() => document.body.classList.add("loaded"), 4000);
 })();

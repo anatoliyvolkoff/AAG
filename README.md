@@ -20,6 +20,37 @@ Static, dependency-free portfolio site for **Agroalimgrup S.R.L. (AAG)**, a glas
 - **Motion.** Line reveals, fade-up on scroll, word-by-word statement, counters, the scroll-driven hero bottle, the pinned process section and the 3D carousel. `prefers-reduced-motion` is respected.
 - EN / RO / RU language switch.
 
+## Motion layer (v3)
+
+v3 adds the following, inspired by Japanese corporate-agency sites (reference: bright-avenue.jp). The code is in `assets/js/motion.js` and `assets/css/motion.css`.
+
+- **Opening loader.** Shown on the first visit of a session: logo reveal, a 000→100 counter, a progress line, then a wipe.
+- **Page transitions.** A dark curtain covers the page on internal navigation and lifts on the next page.
+- **Smooth scroll.** Uses [Lenis](https://github.com/darkroomengineering/lenis), included locally in `assets/vendor/lenis` (MIT). In-page anchors glide to their target.
+- **Giant English section titles** (Service, Works, About, Company, Contact) with letter-by-letter reveals, numbered `(01)` to `(05)`.
+- **Masked image reveals and parallax** on every product image.
+- **Hovers:**
+  - text roll on all links and buttons
+  - fill wipe and arrow swap on buttons
+  - ink wipe on service rows
+  - zoom, dim and underline on project cards
+  - underline sweep on company-profile rows
+  - circle-fill on the big contact block
+- **Cursor labels** ("View", "Drag", "Open", "Contact") over interactive areas, desktop only.
+- **Marquee** of service names whose speed and direction follow your scrolling.
+- **Fullscreen menu** with numbered links and staggered entry.
+- **Company profile table** built from public registry data.
+- **Scroll indicator** in the hero, and a **back-to-top** control in the footer.
+
+All of these are disabled when the visitor has `prefers-reduced-motion` set.
+
+## Versions
+
+| branch | version |
+| --- | --- |
+| `release/v2.0-grid-design` | Approved grid redesign (frozen) |
+| `release/v3.0-motion` | v2 + motion layer |
+
 ## Run locally
 
 ```bash
