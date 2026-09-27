@@ -6,9 +6,7 @@ window.AAG_I18N = {
 
     "hero.label": "Glass decoration · Chișinău · Since 2000",
     "hero.l1": "Glass decoration", "hero.l2": "for brands", "hero.l3": "that last.",
-    "hero.lead": "Screen printing, hot stamping, coating and painting on glass bottles for wine, spirits, beverages and cosmetics.",
-    "hero.cta1": "Our services", "hero.cta2": "Request a quote",
-    "hero.meta1": "Matte coating", "hero.meta2": "Hot stamping",
+    "hero.lead": "Screen printing, hot stamping, coating and painting on glass bottles for wine, spirits, beverages and cosmetics.", "hero.cta2": "Request a quote",
 
     "intro.statement": "The first company in Moldova to decorate glass for wine. Twenty-five years later, every bottle still leaves our line as if it were the only one.",
     "stats.founded": "Founded in Chișinău", "stats.years": "Years of glass decoration", "stats.tech": "Decoration technologies in-house", "stats.first": "First wine-glass decorator in Moldova",
@@ -43,9 +41,8 @@ window.AAG_I18N = {
     "svc.pad.app": "Complex shapes, souvenirs, ceramic flasks", "svc.pad.sub": "Glass, ceramics, porcelain", "svc.pad.fin": "Multi-colour · photographic · fired",
 
     "pf.label": "Portfolio", "pf.title": "Selected work", "pf.open": "Open portfolio",
-    "pf.hero": "Selected<br>work.", "pf.lead": "Each piece is shown as a live 3D model. Drag to rotate the collection or pick a project below.",
-    "pf.fallback": "Your browser can't display the 3D view. Please get in touch and we'll send you our catalogue.",
-    "pf.all": "All", "pf.grid": "All projects", "pf.drag": "Drag to rotate",
+    "pf.hero": "Selected<br>work.", "pf.lead": "Each project with its photos and details. Hover a photo to zoom in, click it to view full screen.",
+    "pf.all": "All", "pf.grid": "All projects",
 
     "pr.label": "Process", "pr.title": "From sketch to shelf.",
     "pr.s1.t": "Brief", "pr.s1.d": "Tell us about the bottle, the brand and the run. We advise on technique, inks and budget.",
@@ -81,20 +78,14 @@ window.AAG_I18N = {
     "ft.about": "Glass decoration factory in Chișinău, Moldova. Since 2000.",
     "ft.nav": "Company", "ft.svc": "Services", "ft.contact": "Contact", "ft.rights": "All rights reserved.",
 
-    "ui.scroll": "Scroll", "ft.top": "Back to top",
+    "ui.scroll": "Scroll", "ft.top": "Back to top", "ft.credits": "Photo credits",
     "co.label": "Company", "co.title": "Company profile", "co.name": "Company name", "co.founded": "Founded", "co.foundedV": "11 October 2000",
     "co.director": "Founder & Director", "co.directorV": "Serghei Drăguțanu", "co.loc": "Location", "co.locV": "Chișinău, Republic of Moldova",
     "co.biz": "Business", "co.bizV": "Decoration of glass and ceramic containers — screen printing, hot stamping, coating, painting, pad printing, decal transfer and cliché making.",
     "co.staff": "Team", "co.staffV": "10–49 employees", "co.web": "Website",
-    "items": [
-      { t: "Cabernet Reserve", k: "Screen printing · 2 colours", d: "Ceramic white and gold on green Bordeaux glass, fired for a permanent, label-free finish." },
-      { t: "Noir", k: "Matte coating · hot stamping", d: "Soft-touch black coating with a gold foil crest and fine-line typography." },
-      { t: "Ice", k: "Frost coating · relief print", d: "Frosted finish with raised, tactile print — referencing our volumetric work for ICE vodka." },
-      { t: "Rosé", k: "Bottle painting · gradient", d: "Sprayed gradient from rose to clear glass, with a white screen-printed mark." },
-      { t: "Botanica", k: "Screen printing · 4 colours", d: "Wrap-around botanical artwork in four registered colours on an octagonal gin bottle." },
-      { t: "Heritage", k: "Decal transfer · ceramics", d: "Multi-colour decal with folk ornament, fired onto a white ceramic flask." },
-      { t: "Aura", k: "Soft-touch coating · silver foil", d: "Pastel soft-touch cosmetic jar with a silver hot-stamped logo." }
-    ]
+    "spec.technique": "Technique", "spec.container": "Container", "spec.finish": "Finish", "spec.colours": "Colours",
+    "pf.request": "Request a similar project", "pf.visual": "Concept visualisation", "pf.nophoto": "Photos coming soon", "pf.empty": "No projects for this technique yet.",
+    "ui.photo": "Photo", "ui.prev": "Previous photo", "ui.next": "Next photo", "ui.expand": "Open full screen", "ui.close": "Close", "ui.skip": "Skip to content"
   },
 
   ro: {
@@ -102,9 +93,7 @@ window.AAG_I18N = {
 
     "hero.label": "Decor pe sticlă · Chișinău · Din 2000",
     "hero.l1": "Decor pe sticlă", "hero.l2": "pentru branduri", "hero.l3": "care rămân.",
-    "hero.lead": "Serigrafie, ștanțare la cald, acoperire și vopsire a sticlelor pentru vin, spirtoase, băuturi și cosmetică.",
-    "hero.cta1": "Serviciile noastre", "hero.cta2": "Cere ofertă",
-    "hero.meta1": "Acoperire mată", "hero.meta2": "Ștanțare la cald",
+    "hero.lead": "Serigrafie, ștanțare la cald, acoperire și vopsire a sticlelor pentru vin, spirtoase, băuturi și cosmetică.", "hero.cta2": "Cere ofertă",
 
     "intro.statement": "Prima companie din Moldova care a decorat sticla pentru vin. După douăzeci și cinci de ani, fiecare sticlă pleacă de pe linia noastră ca și cum ar fi singura.",
     "stats.founded": "Fondată la Chișinău", "stats.years": "Ani de decor pe sticlă", "stats.tech": "Tehnologii de decor proprii", "stats.first": "Primul decorator de sticlă pentru vin din Moldova",
@@ -139,9 +128,8 @@ window.AAG_I18N = {
     "svc.pad.app": "Forme complexe, suveniruri, plosci ceramice", "svc.pad.sub": "Sticlă, ceramică, porțelan", "svc.pad.fin": "Multicolor · fotografic · copt",
 
     "pf.label": "Portofoliu", "pf.title": "Lucrări selectate", "pf.open": "Deschide portofoliul",
-    "pf.hero": "Lucrări<br>selectate.", "pf.lead": "Fiecare lucrare este prezentată ca model 3D. Trageți pentru a roti colecția sau alegeți un proiect mai jos.",
-    "pf.fallback": "Browserul dvs. nu poate afișa vizualizarea 3D. Contactați-ne și vă trimitem catalogul.",
-    "pf.all": "Toate", "pf.grid": "Toate proiectele", "pf.drag": "Trageți pentru a roti",
+    "pf.hero": "Lucrări<br>selectate.", "pf.lead": "Fiecare proiect cu fotografiile și detaliile sale. Treceți cu mouse-ul peste o fotografie pentru a mări, faceți clic pentru ecran complet.",
+    "pf.all": "Toate", "pf.grid": "Toate proiectele",
 
     "pr.label": "Proces", "pr.title": "De la schiță la raft.",
     "pr.s1.t": "Brief", "pr.s1.d": "Spuneți-ne despre sticlă, brand și tiraj. Vă consultăm privind tehnica, cernelurile și bugetul.",
@@ -177,20 +165,14 @@ window.AAG_I18N = {
     "ft.about": "Fabrică de decor pe sticlă din Chișinău, Moldova. Din 2000.",
     "ft.nav": "Companie", "ft.svc": "Servicii", "ft.contact": "Contact", "ft.rights": "Toate drepturile rezervate.",
 
-    "ui.scroll": "Derulează", "ft.top": "Sus",
+    "ui.scroll": "Derulează", "ft.top": "Sus", "ft.credits": "Credite foto",
     "co.label": "Companie", "co.title": "Profilul companiei", "co.name": "Denumire", "co.founded": "Fondată", "co.foundedV": "11 octombrie 2000",
     "co.director": "Fondator și director", "co.directorV": "Serghei Drăguțanu", "co.loc": "Sediu", "co.locV": "Chișinău, Republica Moldova",
     "co.biz": "Activitate", "co.bizV": "Decorarea recipientelor din sticlă și ceramică — serigrafie, ștanțare la cald, acoperire, vopsire, tampografie, decalcomanie și producere de clișee.",
     "co.staff": "Echipa", "co.staffV": "10–49 angajați", "co.web": "Site",
-    "items": [
-      { t: "Cabernet Reserve", k: "Serigrafie · 2 culori", d: "Alb și auriu ceramic pe sticlă Bordeaux verde, coapte pentru un finisaj permanent, fără etichetă." },
-      { t: "Noir", k: "Acoperire mată · ștanțare la cald", d: "Acoperire soft-touch neagră cu blazon din folie aurie și tipografie fină." },
-      { t: "Ice", k: "Acoperire frost · imprimare în relief", d: "Finisaj frost cu imprimare în relief, tactilă — în referință la lucrarea volumetrică pentru vodca ICE." },
-      { t: "Rosé", k: "Vopsire · degrade", d: "Degrade pulverizat de la roz la sticlă transparentă, cu un semn alb serigrafiat." },
-      { t: "Botanica", k: "Serigrafie · 4 culori", d: "Grafică botanică pe toată circumferința, în patru culori, pe o sticlă de gin octogonală." },
-      { t: "Heritage", k: "Decalcomanie · ceramică", d: "Decal multicolor cu ornament popular, copt pe o ploscă ceramică albă." },
-      { t: "Aura", k: "Soft-touch · folie argintie", d: "Borcan cosmetic pastel soft-touch cu logo argintiu ștanțat la cald." }
-    ]
+    "spec.technique": "Tehnică", "spec.container": "Recipient", "spec.finish": "Finisaj", "spec.colours": "Culori",
+    "pf.request": "Cere un proiect similar", "pf.visual": "Vizualizare de concept", "pf.nophoto": "Fotografii în curând", "pf.empty": "Încă nu sunt proiecte pentru această tehnică.",
+    "ui.photo": "Foto", "ui.prev": "Fotografia anterioară", "ui.next": "Fotografia următoare", "ui.expand": "Deschide pe tot ecranul", "ui.close": "Închide", "ui.skip": "Salt la conținut"
   },
 
   ru: {
@@ -198,9 +180,7 @@ window.AAG_I18N = {
 
     "hero.label": "Декор стекла · Кишинёв · С 2000 года",
     "hero.l1": "Декор стекла", "hero.l2": "для брендов,", "hero.l3": "которые остаются.",
-    "hero.lead": "Шелкография, горячее тиснение, покрытие и покраска стеклянных бутылок для вина, крепких напитков, воды и косметики.",
-    "hero.cta1": "Наши услуги", "hero.cta2": "Запросить цену",
-    "hero.meta1": "Матовое покрытие", "hero.meta2": "Горячее тиснение",
+    "hero.lead": "Шелкография, горячее тиснение, покрытие и покраска стеклянных бутылок для вина, крепких напитков, воды и косметики.", "hero.cta2": "Запросить цену",
 
     "intro.statement": "Первая компания в Молдове, начавшая декорировать стекло для вина. Двадцать пять лет спустя каждая бутылка сходит с нашей линии так, будто она единственная.",
     "stats.founded": "Основана в Кишинёве", "stats.years": "Лет декорирования стекла", "stats.tech": "Технологий декора на производстве", "stats.first": "Первый декоратор винной тары в Молдове",
@@ -235,9 +215,8 @@ window.AAG_I18N = {
     "svc.pad.app": "Сложные формы, сувениры, керамические фляги", "svc.pad.sub": "Стекло, керамика, фарфор", "svc.pad.fin": "Многоцветная · фотографичная · обжиг",
 
     "pf.label": "Портфолио", "pf.title": "Избранные работы", "pf.open": "Открыть портфолио",
-    "pf.hero": "Избранные<br>работы.", "pf.lead": "Каждая работа показана как 3D-модель. Потяните, чтобы вращать коллекцию, или выберите проект ниже.",
-    "pf.fallback": "Ваш браузер не поддерживает 3D. Свяжитесь с нами — мы пришлём каталог.",
-    "pf.all": "Все", "pf.grid": "Все проекты", "pf.drag": "Потяните для вращения",
+    "pf.hero": "Избранные<br>работы.", "pf.lead": "Каждый проект — с фотографиями и деталями. Наведите на фото, чтобы увеличить, нажмите — чтобы открыть на весь экран.",
+    "pf.all": "Все", "pf.grid": "Все проекты",
 
     "pr.label": "Процесс", "pr.title": "От эскиза до полки.",
     "pr.s1.t": "Бриф", "pr.s1.d": "Расскажите о бутылке, бренде и тираже. Мы подскажем технологию, краски и бюджет.",
@@ -273,19 +252,13 @@ window.AAG_I18N = {
     "ft.about": "Предприятие по декору стекла в Кишинёве, Молдова. С 2000 года.",
     "ft.nav": "Компания", "ft.svc": "Услуги", "ft.contact": "Контакты", "ft.rights": "Все права защищены.",
 
-    "ui.scroll": "Листайте", "ft.top": "Наверх",
+    "ui.scroll": "Листайте", "ft.top": "Наверх", "ft.credits": "Авторы фото",
     "co.label": "Компания", "co.title": "О компании", "co.name": "Название", "co.founded": "Основана", "co.foundedV": "11 октября 2000 года",
     "co.director": "Основатель и директор", "co.directorV": "Сергей Драгуцану", "co.loc": "Адрес", "co.locV": "Кишинёв, Республика Молдова",
     "co.biz": "Деятельность", "co.bizV": "Декорирование стеклянной и керамической тары — шелкография, горячее тиснение, покрытие, покраска, тампопечать, деколи и изготовление клише.",
     "co.staff": "Команда", "co.staffV": "10–49 сотрудников", "co.web": "Сайт",
-    "items": [
-      { t: "Cabernet Reserve", k: "Шелкография · 2 цвета", d: "Белая и золотая керамическая краска на зелёном бордоском стекле, закреплённая обжигом." },
-      { t: "Noir", k: "Матовое покрытие · тиснение", d: "Чёрное soft-touch покрытие с гербом из золотой фольги и тонкой типографикой." },
-      { t: "Ice", k: "Фрост · рельефная печать", d: "Фрост-отделка с рельефной тактильной печатью — отсылка к нашей объёмной работе для водки ICE." },
-      { t: "Rosé", k: "Покраска · градиент", d: "Градиент от розового к прозрачному стеклу и белый знак шелкографией." },
-      { t: "Botanica", k: "Шелкография · 4 цвета", d: "Круговая ботаническая графика в четыре цвета на восьмигранной бутылке для джина." },
-      { t: "Heritage", k: "Деколь · керамика", d: "Многоцветная деколь с народным орнаментом на белой керамической фляге." },
-      { t: "Aura", k: "Soft-touch · серебряная фольга", d: "Пастельная soft-touch банка для косметики с серебряным логотипом горячим тиснением." }
-    ]
+    "spec.technique": "Технология", "spec.container": "Тара", "spec.finish": "Отделка", "spec.colours": "Цвета",
+    "pf.request": "Запросить похожий проект", "pf.visual": "Концепт-визуализация", "pf.nophoto": "Фото скоро появятся", "pf.empty": "Пока нет проектов в этой технике.",
+    "ui.photo": "Фото", "ui.prev": "Предыдущее фото", "ui.next": "Следующее фото", "ui.expand": "Открыть на весь экран", "ui.close": "Закрыть", "ui.skip": "Перейти к содержанию"
   }
 };

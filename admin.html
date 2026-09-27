@@ -30,8 +30,9 @@
     <nav class="adm-nav" aria-label="Sections">
       <a href="#sec-connect" class="is-active">Connection</a>
       <a href="#sec-banner">Banner</a>
+      <a href="#sec-hero">Hero slideshow</a>
       <a href="#sec-services">Service images</a>
-      <a href="#sec-portfolio">Portfolio images</a>
+      <a href="#sec-portfolio">Portfolio</a>
       <a href="#sec-contact">Contact details</a>
     </nav>
 
@@ -99,7 +100,7 @@
           </div>
         </div>
 
-        <div class="adm-langs" role="tablist">
+        <div class="adm-langs adm-langs--banner" role="group" aria-label="Language">
           <button type="button" class="is-active" data-l="en">English</button>
           <button type="button" data-l="ro">Română</button>
           <button type="button" data-l="ru">Русский</button>
@@ -112,22 +113,37 @@
         </div>
       </section>
 
+      <!-- HERO -->
+      <section class="adm-card" id="sec-hero">
+        <div class="adm-card__head">
+          <h2 class="h3">Hero slideshow</h2>
+          <p class="muted">Photos that crossfade on the right of the home-page hero. Portrait photos (4:5) work best.</p>
+        </div>
+        <div id="hero-list"></div>
+      </section>
+
       <!-- SERVICE IMAGES -->
       <section class="adm-card" id="sec-services">
         <div class="adm-card__head">
           <h2 class="h3">Service images</h2>
-          <p class="muted">Replace the 3D renders on the Services page with real photos. Portrait photos (about 4:5) work best.</p>
+          <p class="muted">One photo per service on the Services page. Click or drop a photo to replace it. Portrait photos (4:5) work best.</p>
         </div>
         <div class="adm-grid" id="svc-grid"></div>
       </section>
 
-      <!-- PORTFOLIO IMAGES -->
+      <!-- PORTFOLIO -->
       <section class="adm-card" id="sec-portfolio">
         <div class="adm-card__head">
-          <h2 class="h3">Portfolio images</h2>
-          <p class="muted">Photos for the project cards on the home and portfolio pages. The 3D viewer keeps showing the models.</p>
+          <h2 class="h3">Portfolio</h2>
+          <p class="muted">Each product has its own photo carousel and an information panel. Add several photos per product (front, angle, close-up of the decoration), then edit the texts in each language.</p>
         </div>
-        <div class="adm-grid" id="pf-grid"></div>
+        <div class="adm-langs adm-langs--pf" role="group" aria-label="Language">
+          <button type="button" class="is-active" data-l="en">English</button>
+          <button type="button" data-l="ro">Română</button>
+          <button type="button" data-l="ru">Русский</button>
+        </div>
+        <div id="pf-list" class="adm-prods"></div>
+        <button class="btn btn--line" id="pf-add" type="button">+ Add product</button>
       </section>
 
       <!-- CONTACT -->

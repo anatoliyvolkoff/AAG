@@ -25,26 +25,25 @@ const AAG_CONFIG = {
   const t = (key) => (dict[lang] && dict[lang][key]) ?? dict.en[key] ?? key;
   window.AAG = { t, get lang() { return lang; }, config: AAG_CONFIG, heroProgress: 0 };
 
+  // translate a subtree (also used for markup rendered later, e.g. product galleries)
+  function translate(root = document) {
+    $$("[data-i18n]", root).forEach((el) => { el.textContent = t(el.dataset.i18n); });
+    $$("[data-i18n-html]", root).forEach((el) => { el.innerHTML = t(el.dataset.i18nHtml); });
+    $$("[data-i18n-aria]", root).forEach((el) => { el.setAttribute("aria-label", t(el.dataset.i18nAria)); });
+  }
+  window.AAG.translate = translate;
+
   function applyLang(next) {
     lang = dict[next] ? next : "en";
     document.documentElement.lang = lang;
-    $$("[data-i18n]").forEach((el) => { el.textContent = t(el.dataset.i18n); });
-    $$("[data-i18n-html]").forEach((el) => { el.innerHTML = t(el.dataset.i18nHtml); });
-    $$(".lang button").forEach((b) => b.classList.toggle("is-active", b.dataset.lang === lang));
-    // project titles on work cards
-    const items = t("items");
-    $$("[data-item]").forEach((el) => fillItem(el, items[+el.dataset.item]));
-    $$(".pf-grid .work").forEach((el) => fillItem(el, items[+el.dataset.index]));
+    translate();
+    $$(".lang button").forEach((b) => {
+      b.classList.toggle("is-active", b.dataset.lang === lang);
+      b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
+    });
     splitStatement();
     try { localStorage.setItem("aag-lang", lang); } catch (e) {}
     window.dispatchEvent(new CustomEvent("aag:lang", { detail: lang }));
-  }
-  function fillItem(el, item) {
-    if (!item) return;
-    $("[data-item-t]", el).textContent = item.t;
-    $("[data-item-k]", el).textContent = item.k;
-    const shot = $(".shot", el);
-    if (shot) shot.dataset.alt = item.t;
   }
   $$(".lang button").forEach((b) => b.addEventListener("click", () => applyLang(b.dataset.lang)));
 
@@ -175,6 +174,8 @@ const AAG_CONFIG = {
     });
   }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
   $$(".reveal").forEach((el) => io.observe(el));
+  // lets later-rendered markup join the reveal animation
+  window.AAG.observe = (root) => $$(".reveal", root).forEach((el) => (reduced ? el.classList.add("in") : io.observe(el)));
 
   /* ---------- counters ---------- */
   const cio = new IntersectionObserver((entries) => {
@@ -196,38 +197,11 @@ const AAG_CONFIG = {
   }, { threshold: 0.6 });
   $$("[data-count]").forEach((el) => cio.observe(el));
 
-  /* ---------- portfolio: filters + open in 3D viewer ---------- */
-  const pfCards = $$(".pf-grid .work");
-  $$(".filters button").forEach((b) => b.addEventListener("click", () => {
-    $$(".filters button").forEach((x) => x.classList.toggle("is-active", x === b));
-    const f = b.dataset.filter;
-    pfCards.forEach((c) => c.classList.toggle("is-out", f !== "all" && c.dataset.tech !== f));
-  }));
-  const openInViewer = (i) => {
-    if (window.AAG_CAROUSEL) window.AAG_CAROUSEL.goTo(i);
-    if (window.AAG.scrollTo) window.AAG.scrollTo("#viewer");
-    else $("#viewer").scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
-  };
-  pfCards.forEach((c) => {
-    c.addEventListener("click", () => openInViewer(+c.dataset.index));
-    c.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openInViewer(+c.dataset.index); } });
-  });
-  // deep link from home page cards: portfolio.html#p2
-  const deep = location.hash.match(/^#p(\d+)$/);
-  if (deep && pfCards.length) {
-    const i = +deep[1] - 1;
-    const go = () => window.AAG_CAROUSEL ? window.AAG_CAROUSEL.goTo(i) : setTimeout(go, 200);
-    go();
-    addEventListener("aag:ready", () => (window.AAG.scrollTo ? window.AAG.scrollTo("#viewer", { immediate: true }) : $("#viewer").scrollIntoView({ block: "start" })));
-  }
-
   /* ---------- contact form ---------- */
   const form = $("#contact-form");
-  if (form) {
-    const status = $(".form__status", form);
-    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-    // preselect a service when arriving from "Request a quote" on the services page
+  // preselect a service when arriving from a "Request a quote" link
+  function preselect() {
+    if (!form) return;
     try {
       const pre = sessionStorage.getItem("aag-service");
       if (pre) {
@@ -236,6 +210,11 @@ const AAG_CONFIG = {
         sessionStorage.removeItem("aag-service");
       }
     } catch (e) {}
+  }
+  if (form) {
+    const status = $(".form__status", form);
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    preselect();
 
     const validate = () => {
       let ok = true;
@@ -312,9 +291,13 @@ const AAG_CONFIG = {
       status.classList.add("ok");
     });
   }
-  $$("[data-service]").forEach((a) => a.addEventListener("click", () => {
-    try { sessionStorage.setItem("aag-service", a.dataset.service); } catch (e) {}
-  }));
+  // "Request a quote / similar project" links preselect the service (delegated: galleries render later)
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("[data-service]");
+    if (!a) return;
+    try { sessionStorage.setItem("aag-service", a.dataset.service); } catch (err) {}
+    if (form && a.getAttribute("href").endsWith("#contact") && document.body.dataset.page === "home") preselect();
+  });
 
   /* ---------- boot ---------- */
   applyLang(lang);

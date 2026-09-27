@@ -1,8 +1,9 @@
 /* =========================================================
    Agro Alim Grup — editable content
-   Loads content/content.json (edited via admin.html) and applies:
-   banner media + texts, photo overrides for service / portfolio
-   images, and contact details.
+   Loads content/content.json (edited via admin.html) and applies
+   banner media + texts, service photos and contact details.
+   Portfolio / hero / featured photos are rendered by gallery.js
+   from the same data ("aag:content" event).
    ========================================================= */
 (() => {
   const $ = (s, c = document) => c.querySelector(s);
@@ -78,43 +79,44 @@
     if (!content || !content.banner || !section) return;
     $$("[data-banner]", section).forEach((el) => {
       const val = pick(content.banner[el.dataset.banner]);
-      if (el.classList.contains("roll")) {
-        el.textContent = val;
-        const i = document.createElement("span"); i.className = "roll__i"; i.textContent = val;
-        el.textContent = ""; el.appendChild(i);
-      } else el.textContent = val;
+      el.textContent = val;
     });
     const title = pick(content.banner.title);
     const media = $("[data-banner-media] img", section);
     if (media) media.alt = title;
   }
 
-  /* ---------- photo overrides ---------- */
-  function setPhoto(shot, src, alt) {
-    if (!shot) return;
-    if (!src) return; // keep the 3D render
-    shot.dataset.photo = src;
-    shot.innerHTML = "";
-    const img = new Image();
-    img.decoding = "async";
-    img.alt = alt || "";
-    img.src = src;
-    img.onload = () => shot.classList.add("shot-ready");
-    shot.appendChild(img);
-    shot.classList.add("is-photo");
-  }
+  /* ---------- service photos ---------- */
   function applyPhotos(c) {
-    const items = (AAG.t && AAG.t("items")) || [];
     const svc = c.services || {};
     Object.keys(svc).forEach((k) => {
-      const shot = $(`.svc-block#${k} .shot`);
-      setPhoto(shot, svc[k] && svc[k].image, AAG.t ? AAG.t(`svc.${k}.t`) : k);
+      const src = svc[k] && svc[k].image;
+      $$(`[data-svc-img="${k}"]`).forEach((img) => { if (src && img.getAttribute("src") !== src) img.src = src; });
     });
-    (c.portfolio || []).forEach((p, i) => {
-      if (!p || !p.image) return;
-      const alt = items[i] ? items[i].t : "";
-      $$(`[data-item="${i}"] .shot, .pf-grid .work[data-index="${i}"] .shot`).forEach((s) => setPhoto(s, p.image, alt));
+  }
+
+  /* ---------- photo credits (footer) ---------- */
+  function applyCredits(c) {
+    const box = $("[data-credits]");
+    if (!box) return;
+    const seen = new Map();
+    const add = (p) => { if (p && p.src && p.credit && !seen.has(p.src)) seen.set(p.src, p.credit); };
+    (c.portfolio || []).forEach((it) => (it.photos || []).forEach(add));
+    Object.values(c.services || {}).forEach((s) => add(s && { src: s.image, credit: s.credit }));
+    const ul = $("ul", box);
+    ul.innerHTML = "";
+    [...new Set(seen.values())].forEach((txt) => {
+      const li = document.createElement("li");
+      const m = txt.match(/https?:\/\/\S+$/);
+      if (m) {
+        li.append(document.createTextNode(txt.slice(0, m.index)));
+        const a = document.createElement("a");
+        a.href = m[0]; a.target = "_blank"; a.rel = "noopener"; a.textContent = "source";
+        li.appendChild(a);
+      } else li.textContent = txt;
+      ul.appendChild(li);
     });
+    box.hidden = !ul.children.length;
   }
 
   /* ---------- contact ---------- */
@@ -141,6 +143,7 @@
       applyContact(c.contact);
       applyBanner(c.banner);
       applyPhotos(c);
+      applyCredits(c);
       window.dispatchEvent(new CustomEvent("aag:content", { detail: c }));
     })
     .catch(() => { /* keep built-in defaults */ });

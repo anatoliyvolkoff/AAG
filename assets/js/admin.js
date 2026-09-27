@@ -81,7 +81,9 @@
   /* ---------- rendering ---------- */
   function render() {
     renderBanner();
-    renderTiles();
+    renderHero();
+    renderServices();
+    renderProducts();
     renderContact();
   }
 
@@ -119,17 +121,17 @@
     $$("[data-bt]").forEach((el) => { el.value = (b[el.dataset.bt] || {})[lang] || ""; });
   }
 
-  // service + portfolio tiles
-  function tile({ label, path, onUpload, onReset }) {
+  /* ---------- single image tile (services) ---------- */
+  function tile({ label, path, onUpload }) {
     const wrap = document.createElement("div");
     wrap.className = "adm-tile";
     const box = document.createElement("div");
     box.className = "adm-tile__img";
     box.tabIndex = 0;
     box.setAttribute("role", "button");
-    box.setAttribute("aria-label", `Upload photo for ${label}`);
+    box.setAttribute("aria-label", `Replace photo for ${label}`);
     if (path) { box.appendChild(imgWithFallback(path, label)); if (path.startsWith(PENDING)) box.classList.add("is-pending"); }
-    else box.textContent = "3D render";
+    else box.textContent = "No photo";
     const open = async () => { const f = await pickFile("image/jpeg,image/png,image/webp"); if (f) onUpload(f); };
     box.addEventListener("click", open);
     box.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
@@ -138,38 +140,167 @@
     meta.className = "adm-tile__meta";
     meta.innerHTML = `<b></b>`;
     meta.querySelector("b").textContent = label;
-    if (path) {
-      const reset = document.createElement("button");
-      reset.type = "button"; reset.className = "adm-link"; reset.textContent = "Use 3D render";
-      reset.addEventListener("click", onReset);
-      meta.appendChild(reset);
-    }
     wrap.append(box, meta);
     return wrap;
   }
-  function renderTiles() {
+  function renderServices() {
     const sg = $("#svc-grid"); sg.innerHTML = "";
     SVC.forEach((k) => {
       content.services[k] = content.services[k] || { image: "" };
       sg.appendChild(tile({
         label: I18N.en[`svc.${k}.t`] || k,
         path: content.services[k].image,
-        onUpload: (f) => { const key = stagedFile(f); if (key) { content.services[k].image = key; markDirty(); renderTiles(); } },
-        onReset: () => { content.services[k].image = ""; markDirty(); renderTiles(); }
-      }));
-    });
-    const pg = $("#pf-grid"); pg.innerHTML = "";
-    const items = I18N.en.items || [];
-    items.forEach((it, i) => {
-      content.portfolio[i] = content.portfolio[i] || { image: "" };
-      pg.appendChild(tile({
-        label: it.t,
-        path: content.portfolio[i].image,
-        onUpload: (f) => { const key = stagedFile(f); if (key) { content.portfolio[i].image = key; markDirty(); renderTiles(); } },
-        onReset: () => { content.portfolio[i].image = ""; markDirty(); renderTiles(); }
+        onUpload: (f) => { const key = stagedFile(f); if (key) { content.services[k] = { image: key, credit: "", visual: false }; markDirty(); renderServices(); } }
       }));
     });
   }
+
+  /* ---------- photo list editor (hero + products) ----------
+     list: array of { src, credit, visual }  ·  onChange(): re-render */
+  function photoList(list, { onChange, credits = true, label = "photo" }) {
+    const box = document.createElement("div");
+    box.className = "adm-photos";
+    list.forEach((ph, i) => {
+      const cell = document.createElement("div");
+      cell.className = "adm-photo" + (ph.src.startsWith(PENDING) ? " is-pending" : "");
+      const fig = document.createElement("div");
+      fig.className = "adm-photo__img";
+      fig.appendChild(imgWithFallback(ph.src, `${label} ${i + 1}`));
+      if (ph.visual) { const b = document.createElement("span"); b.className = "adm-badge"; b.textContent = "Visualisation"; fig.appendChild(b); }
+      const bar = document.createElement("div");
+      bar.className = "adm-photo__bar";
+      const mk = (txt, title, fn, dis) => { const b = document.createElement("button"); b.type = "button"; b.textContent = txt; b.title = title; b.setAttribute("aria-label", `${title} (${label} ${i + 1})`); b.disabled = !!dis; b.addEventListener("click", fn); return b; };
+      bar.append(
+        mk("←", "Move left", () => { [list[i - 1], list[i]] = [list[i], list[i - 1]]; markDirty(); onChange(); }, i === 0),
+        mk("→", "Move right", () => { [list[i + 1], list[i]] = [list[i], list[i + 1]]; markDirty(); onChange(); }, i === list.length - 1),
+        mk("✕", "Remove", () => { list.splice(i, 1); markDirty(); onChange(); })
+      );
+      cell.append(fig, bar);
+      if (credits) {
+        const inp = document.createElement("input");
+        inp.type = "text"; inp.className = "adm-photo__credit"; inp.placeholder = "Credit / licence (optional)";
+        inp.value = ph.credit || "";
+        inp.addEventListener("input", () => { ph.credit = inp.value; markDirty(); });
+        cell.appendChild(inp);
+      }
+      box.appendChild(cell);
+    });
+    const add = document.createElement("button");
+    add.type = "button"; add.className = "adm-photo adm-photo--add";
+    add.innerHTML = "<span>+ Add photos</span><small>JPG · PNG · WebP · drop here</small>";
+    const addFiles = (files) => {
+      let n = 0;
+      [...files].filter((f) => /^image\/(jpeg|png|webp)$/.test(f.type)).forEach((f) => { const key = stagedFile(f); if (key) { list.push({ src: key, credit: "", visual: false }); n++; } });
+      if (n) { markDirty(); onChange(); } else toast("Please choose JPG, PNG or WebP images.");
+    };
+    add.addEventListener("click", () => {
+      const inp = document.createElement("input");
+      inp.type = "file"; inp.accept = "image/jpeg,image/png,image/webp"; inp.multiple = true;
+      inp.onchange = () => addFiles(inp.files);
+      inp.click();
+    });
+    add.addEventListener("dragover", (e) => { e.preventDefault(); add.classList.add("is-over"); });
+    add.addEventListener("dragleave", () => add.classList.remove("is-over"));
+    add.addEventListener("drop", (e) => { e.preventDefault(); add.classList.remove("is-over"); addFiles(e.dataTransfer.files); });
+    box.appendChild(add);
+    return box;
+  }
+
+  /* ---------- hero slideshow ---------- */
+  function renderHero() {
+    content.hero = content.hero || { images: [] };
+    const objs = (content.hero.images || []).map((src) => ({ src }));
+    const sync = () => { content.hero.images = objs.map((o) => o.src); renderHero(); };
+    const host = $("#hero-list"); host.innerHTML = "";
+    host.appendChild(photoList(objs, { onChange: sync, credits: false, label: "Hero photo" }));
+  }
+
+  /* ---------- products ---------- */
+  const TECHS = ["screen", "hot", "coat", "paint", "pad", "cliche"];
+  const PFIELDS = [["title", "Title", "input"], ["kind", "Subtitle (technique · detail)", "input"], ["text", "Description", "textarea"],
+    ["specs.container", "Container", "input"], ["specs.finish", "Finish", "input"], ["specs.colours", "Colours", "input"]];
+  const openCards = new Set([0]);
+  const getP = (o, path) => path.split(".").reduce((a, k) => (a ? a[k] : undefined), o);
+  const setP = (o, path, lng, v) => {
+    const ks = path.split(".");
+    let cur = o;
+    ks.forEach((k, i) => { if (i === ks.length - 1) { cur[k] = cur[k] && typeof cur[k] === "object" ? cur[k] : {}; cur[k][lng] = v; } else { cur[k] = cur[k] || {}; cur = cur[k]; } });
+  };
+  function renderProducts() {
+    const host = $("#pf-list"); host.innerHTML = "";
+    content.portfolio.forEach((item, idx) => {
+      item.photos = Array.isArray(item.photos) ? item.photos : [];
+      const card = document.createElement("details");
+      card.className = "adm-prod";
+      card.open = openCards.has(idx);
+      card.addEventListener("toggle", () => (card.open ? openCards.add(idx) : openCards.delete(idx)));
+      const sum = document.createElement("summary");
+      const thumb = item.photos[0] ? `<img src="${previewUrl(item.photos[0].src)}" alt="">` : "";
+      sum.innerHTML = `<span class="adm-prod__thumb">${thumb}</span><span class="adm-prod__name"></span><span class="adm-prod__meta"></span>`;
+      sum.querySelector(".adm-prod__name").textContent = `${String(idx + 1).padStart(2, "0")} · ${(item.title && (item.title.en || item.title[lang])) || "Untitled"}`;
+      sum.querySelector(".adm-prod__meta").textContent = `${I18N.en[`svc.${item.tech}.t`] || item.tech || ""} · ${item.photos.length} photo${item.photos.length === 1 ? "" : "s"}`;
+      card.appendChild(sum);
+
+      const body = document.createElement("div");
+      body.className = "adm-prod__body";
+      // technique
+      const tech = document.createElement("label");
+      tech.className = "adm-field";
+      tech.innerHTML = `<span>Technique (used for the portfolio filters)</span><select>${TECHS.map((k) => `<option value="${k}">${I18N.en[`svc.${k}.t`] || k}</option>`).join("")}</select>`;
+      const sel = tech.querySelector("select");
+      sel.value = item.tech || "screen";
+      sel.addEventListener("change", () => { item.tech = sel.value; markDirty(); renderProducts(); });
+      body.appendChild(tech);
+      // texts in the current language
+      const fields = document.createElement("div");
+      fields.className = "adm-fields adm-fields--2";
+      PFIELDS.forEach(([path, lab, kind]) => {
+        const l = document.createElement("label");
+        l.className = "adm-field" + (kind === "textarea" || path === "title" ? " adm-field--wide" : "");
+        l.innerHTML = `<span>${lab} · ${lang.toUpperCase()}</span>`;
+        const inp = document.createElement(kind);
+        if (kind === "textarea") inp.rows = 3; else inp.type = "text";
+        inp.value = (getP(item, path) || {})[lang] || "";
+        inp.addEventListener("input", () => { setP(item, path, lang, inp.value); markDirty(); });
+        l.appendChild(inp);
+        fields.appendChild(l);
+      });
+      body.appendChild(fields);
+      // photos
+      const ph = document.createElement("div");
+      ph.className = "adm-field__l";
+      ph.textContent = "Photos — the first one is the cover. Use ← → to reorder.";
+      body.append(ph, photoList(item.photos, { onChange: renderProducts, label: "Photo" }));
+      // actions
+      const acts = document.createElement("div");
+      acts.className = "adm-row adm-prod__acts";
+      const act = (txt, fn, dis) => { const b = document.createElement("button"); b.type = "button"; b.className = "btn btn--line btn--sm"; b.textContent = txt; b.disabled = !!dis; b.addEventListener("click", fn); return b; };
+      acts.append(
+        act("Move up", () => { [content.portfolio[idx - 1], content.portfolio[idx]] = [content.portfolio[idx], content.portfolio[idx - 1]]; markDirty(); renderProducts(); }, idx === 0),
+        act("Move down", () => { [content.portfolio[idx + 1], content.portfolio[idx]] = [content.portfolio[idx], content.portfolio[idx + 1]]; markDirty(); renderProducts(); }, idx === content.portfolio.length - 1),
+        act("Delete product", () => {
+          const name = (item.title && item.title.en) || "this product";
+          if (!confirm(`Delete "${name}" from the portfolio?`)) return;
+          content.portfolio.splice(idx, 1); openCards.clear(); markDirty(); renderProducts();
+        })
+      );
+      body.appendChild(acts);
+      card.appendChild(body);
+      host.appendChild(card);
+    });
+  }
+  $("#pf-add").addEventListener("click", () => {
+    content.portfolio.push({ id: "project-" + Date.now().toString(36), tech: "screen", title: { en: "New project" }, kind: {}, text: {}, specs: {}, photos: [] });
+    openCards.clear(); openCards.add(content.portfolio.length - 1);
+    markDirty(); renderProducts();
+    const last = $("#pf-list .adm-prod:last-child");
+    if (last) last.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+  $$(".adm-langs--pf button").forEach((b) => b.addEventListener("click", () => {
+    lang = b.dataset.l;
+    $$(".adm-langs button").forEach((x) => x.classList.toggle("is-active", x.dataset.l === lang));
+    renderBanner(); renderProducts();
+  }));
 
   function renderContact() {
     $$("[data-ct]").forEach((el) => { el.value = content.contact[el.dataset.ct] || ""; });
@@ -218,10 +349,10 @@
     if (key) { content.banner.poster = key; markDirty(); renderBanner(); }
   });
   $("#b-link").addEventListener("input", (e) => { content.banner.link = e.target.value.trim(); markDirty(); });
-  $$(".adm-langs button").forEach((b) => b.addEventListener("click", () => {
+  $$(".adm-langs--banner button").forEach((b) => b.addEventListener("click", () => {
     lang = b.dataset.l;
-    $$(".adm-langs button").forEach((x) => x.classList.toggle("is-active", x === b));
-    renderBanner();
+    $$(".adm-langs button").forEach((x) => x.classList.toggle("is-active", x.dataset.l === lang));
+    renderBanner(); renderProducts();
   }));
   $$("[data-bt]").forEach((el) => el.addEventListener("input", () => {
     const k = el.dataset.bt;
@@ -426,7 +557,8 @@
     c.contact = Object.assign({ email: "", phone: "", address: "", formEndpoint: "" }, c.contact);
     c.banner = Object.assign({ enabled: true, type: "video", src: "", srcWebm: "", poster: "", link: "portfolio.html", label: {}, title: {}, text: {}, cta: {} }, c.banner);
     c.services = c.services || {};
-    c.portfolio = Array.isArray(c.portfolio) ? c.portfolio : [];
+    c.hero = c.hero && Array.isArray(c.hero.images) ? c.hero : { images: [] };
+    c.portfolio = (Array.isArray(c.portfolio) ? c.portfolio : []).filter((p) => p && typeof p === "object" && !("image" in p && !p.photos));
     return c;
   }
   (async () => {

@@ -1,15 +1,14 @@
 /* =========================================================
-   Agro Alim Grup — motion layer (v3)
+   Agro Alim Grup — motion layer
    Smooth scroll (Lenis) · opening loader · page-transition curtain ·
-   cursor labels · text-roll hovers · char/line splits · masked reveals ·
-   parallax · velocity marquee
+   char/line splits · masked reveals · parallax · velocity marquee ·
+   banner expand
    ========================================================= */
 (() => {
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const html = document.documentElement;
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
   const AAG = window.AAG || (window.AAG = {});
   const store = {
     get: (k) => { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
@@ -50,19 +49,7 @@
       el.innerHTML = parts.map((p) => `<span class="split-line"><span>${p}</span></span>`).join("");
     });
   }
-  // hover text roll
-  function wrapRolls() {
-    $$(".roll").forEach((r) => {
-      if (r.firstElementChild && r.firstElementChild.classList.contains("roll__i")) return;
-      const txt = r.textContent;
-      r.innerHTML = "";
-      const i = document.createElement("span");
-      i.className = "roll__i";
-      i.textContent = txt;
-      r.appendChild(i);
-    });
-  }
-  function prepare() { splitChars(); splitLines(); wrapRolls(); }
+  function prepare() { splitChars(); splitLines(); }
   prepare();
   window.addEventListener("aag:lang", () => {
     prepare();
@@ -121,37 +108,6 @@
   const nav = $(".nav");
   const banner = $(".banner__frame");
   requestAnimationFrame(loop);
-
-  /* ---------- cursor labels ---------- */
-  const LABELS = {
-    en: { View: "View", Drag: "Drag", Open: "Open", Contact: "Contact" },
-    ro: { View: "Vezi", Drag: "Trage", Open: "Deschide", Contact: "Contact" },
-    ru: { View: "Смотреть", Drag: "Вращать", Open: "Открыть", Contact: "Связаться" }
-  };
-  if (fine && !reduced) {
-    html.classList.add("has-cursor");
-    const cur = $(".cursor");
-    const label = $(".cursor__label", cur);
-    let x = -200, y = -200, cx = x, cy = y, active = null;
-    addEventListener("pointermove", (e) => { x = e.clientX; y = e.clientY; if (cx < -150) { cx = x; cy = y; } }, { passive: true });
-    document.addEventListener("pointerover", (e) => {
-      const el = e.target.closest("[data-cursor]");
-      if (el === active) return;
-      active = el;
-      if (el) {
-        const lang = (AAG.lang in LABELS) ? AAG.lang : "en";
-        label.textContent = LABELS[lang][el.dataset.cursor] || el.dataset.cursor;
-        cur.classList.toggle("is-light", !!el.closest(".panel"));
-        cur.classList.add("is-on");
-      } else cur.classList.remove("is-on");
-    });
-    document.addEventListener("pointerleave", () => { cur.classList.remove("is-on"); active = null; });
-    (function follow() {
-      cx += (x - cx) * 0.18; cy += (y - cy) * 0.18;
-      cur.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
-      requestAnimationFrame(follow);
-    })();
-  }
 
   /* ---------- links: anchors + page transitions ---------- */
   const curtain = $(".curtain");

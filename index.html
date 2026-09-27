@@ -9,18 +9,16 @@
   <meta property="og:title" content="Agro Alim Grup — Glass decoration, Chișinău">
   <meta property="og:description" content="Agro Alim Grup (AAG) — glass decoration factory in Chișinău, Moldova since 2000. Screen printing, hot stamping, coating, bottle painting and cliché making.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/media/banner-poster.jpg">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='10' fill='%23111'/%3E%3Cpath d='M14 7h4v5c0 1.5 3 3 3 7v6a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 11 25v-6c0-4 3-5.5 3-7z' fill='none' stroke='%23fff' stroke-width='1.4'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Montserrat = Gotham fallback for the UI. Instrument Serif is used only inside the 3D bottle label artwork. -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/motion.css">
   <script>try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches){if(sessionStorage.getItem("aag-pt"))document.documentElement.classList.add("pt-arrive");else if(!sessionStorage.getItem("aag-visited"))document.documentElement.classList.add("is-first")}}catch(e){}</script>
-  <script type="importmap">
-  { "imports": { "three": "./assets/vendor/three/three.module.min.js", "three/addons/": "./assets/vendor/three/addons/" } }
-  </script>
 </head><body data-page="home" id="top">
+  <a class="skip" href="#main" data-i18n="ui.skip">Skip to content</a>
   <div class="progress" aria-hidden="true"><span></span></div>
   <div class="grid-overlay" aria-hidden="true"><div class="wrap grid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
 
@@ -28,23 +26,23 @@
     <div class="wrap nav__bar">
       <a class="nav__logo" href="index.html" aria-label="Agro Alim Grup — home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#111"/><path d="M14 7h4v5c0 1.5 3 3 3 7v6a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 11 25v-6c0-4 3-5.5 3-7z" fill="none" stroke="#fff" stroke-width="1.4"/></svg><span>AGRO ALIM GRUP</span></a>
       <nav class="nav__links" aria-label="Main">
-        <a href="services.html"><span class="roll" data-i18n="nav.services">Services</span></a>
-        <a href="portfolio.html"><span class="roll" data-i18n="nav.portfolio">Portfolio</span></a>
-        <a href="index.html#about"><span class="roll" data-i18n="nav.about">About</span></a>
-        <a href="index.html#contact"><span class="roll" data-i18n="nav.contact">Contact</span></a>
+        <a href="services.html" data-i18n="nav.services">Services</a>
+        <a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a>
+        <a href="index.html#about" data-i18n="nav.about">About</a>
+        <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
       </nav>
       <div class="nav__right">
         <div class="lang" role="group" aria-label="Language">
           <button type="button" data-lang="en">EN</button><button type="button" data-lang="ro">RO</button><button type="button" data-lang="ru">RU</button>
         </div>
-        <a href="index.html#contact" class="btn btn--dark btn--sm"><span class="roll" data-i18n="nav.cta">Request a quote</span></a>
-        <button class="nav__burger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+        <a href="index.html#contact" class="btn btn--dark btn--sm" data-i18n="nav.cta">Request a quote</a>
+        <button class="nav__burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
       </div>
     </div>
   </header>
-  <div class="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu" id="menu" aria-hidden="true">
     <div class="wrap grid menu__grid">
-      <nav class="menu__links">
+      <nav class="menu__links" aria-label="Menu">
         <a href="services.html"><span class="menu__n">01</span><span class="menu__t" data-i18n="nav.services">Services</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a href="portfolio.html"><span class="menu__n">02</span><span class="menu__t" data-i18n="nav.portfolio">Portfolio</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a href="index.html#about"><span class="menu__n">03</span><span class="menu__t" data-i18n="nav.about">About</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -53,7 +51,7 @@
       <div class="menu__side">
         <span class="label">Agroalimgrup S.R.L.</span>
         <p class="muted" data-i18n="ft.about">Glass decoration factory in Chișinău, Moldova. Since 2000.</p>
-        <a data-contact="email" href="#">—</a>
+        <a data-contact="email" href="mailto:info@aag.md">info@aag.md</a>
         <a href="https://aag.md" target="_blank" rel="noopener">aag.md</a>
       </div>
     </div>
@@ -65,9 +63,8 @@
     <div class="loader__bar"><span></span></div>
   </div>
   <div class="curtain" aria-hidden="true"><div class="curtain__mark"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#111"/><path d="M14 7h4v5c0 1.5 3 3 3 7v6a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 11 25v-6c0-4 3-5.5 3-7z" fill="none" stroke="#fff" stroke-width="1.4"/></svg></div></div>
-  <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
 
-  <main>
+  <main id="main">
     <section class="hero" id="hero">
       <div class="hero__sticky">
         <div class="grid hero__grid">
@@ -80,13 +77,13 @@
             </h1>
             <p class="lead" data-i18n="hero.lead"></p>
             <div class="hero__cta">
-              <a href="services.html" class="btn btn--dark"><span class="roll" data-i18n="hero.cta1">Our services</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-              <a href="#contact" class="btn btn--line"><span class="roll" data-i18n="hero.cta2">Request a quote</span></a>
+              <a href="portfolio.html" class="btn btn--dark"><span data-i18n="pf.open">Open portfolio</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              <a href="#contact" class="btn btn--line" data-i18n="hero.cta2">Request a quote</a>
             </div>
           </div>
           <div class="hero__stage">
-            <canvas id="hero-canvas" aria-label="Decorated bottle, rotating"></canvas>
-            <div class="hero__meta"><span data-i18n="hero.meta1">Matte coating</span><span data-i18n="hero.meta2">Hot stamping</span></div>
+            <div class="hero__slides" data-hero-slides><img src="assets/photos/noir-front.jpg" alt="" class="is-active" loading="eager" decoding="async"><img src="assets/photos/cabernet-front.jpg" alt="" class="" loading="lazy" decoding="async"><img src="assets/photos/rose-front.jpg" alt="" class="" loading="lazy" decoding="async"><img src="assets/photos/ice-front.jpg" alt="" class="" loading="lazy" decoding="async"><img src="assets/photos/botanica-front.jpg" alt="" class="" loading="lazy" decoding="async"></div>
+            <div class="hero__meta"><span data-hero-count>01 / 05</span><span class="hero__bar"><span></span></span></div>
           </div>
         </div>
         <div class="scroll-ind" aria-hidden="true"><span class="scroll-ind__line"></span><span class="scroll-ind__t" data-i18n="ui.scroll">Scroll</span></div>
@@ -107,7 +104,7 @@
 
     <section class="banner" id="reel" aria-label="Showreel">
       <div class="banner__frame">
-        <a class="banner__link" href="portfolio.html" data-banner-link data-cursor="Open">
+        <a class="banner__link" href="portfolio.html" data-banner-link>
           <div class="banner__media" data-banner-media>
             <video autoplay muted loop playsinline preload="metadata" poster="assets/media/banner-poster.jpg">
               <source src="assets/media/banner.webm" type="video/webm">
@@ -118,8 +115,8 @@
           <div class="wrap grid banner__overlay">
             <span class="label banner__label" data-banner="label">Showreel</span>
             <h2 class="h2 banner__title" data-banner="title">Every finish, in motion.</h2>
-            <p class="banner__text" data-banner="text"></p>
-            <span class="banner__cta"><span class="roll" data-banner="cta">View portfolio</span><span class="banner__circle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+            <p class="banner__text" data-banner="text">Screen printing, foil, coating, paint and decals — seven projects, one line.</p>
+            <span class="banner__cta"><span data-banner="cta">View portfolio</span><span class="banner__circle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
           </div>
         </a>
         <button class="banner__toggle" type="button" aria-label="Pause video" aria-pressed="false">
@@ -130,7 +127,7 @@
     </section>
 
     <div class="marquee" aria-hidden="true"><div class="marquee__track" data-marquee>
-      <span data-i18n="svc.screen.t">screen</span><i></i><span data-i18n="svc.hot.t">hot</span><i></i><span data-i18n="svc.coat.t">coat</span><i></i><span data-i18n="svc.paint.t">paint</span><i></i><span data-i18n="svc.cliche.t">cliche</span><i></i><span data-i18n="svc.pad.t">pad</span><i></i><span data-i18n="svc.screen.t">screen</span><i></i><span data-i18n="svc.hot.t">hot</span><i></i><span data-i18n="svc.coat.t">coat</span><i></i><span data-i18n="svc.paint.t">paint</span><i></i><span data-i18n="svc.cliche.t">cliche</span><i></i><span data-i18n="svc.pad.t">pad</span><i></i>
+      <span data-i18n="svc.screen.t">Screen printing</span><i></i><span data-i18n="svc.hot.t">Hot stamping</span><i></i><span data-i18n="svc.coat.t">Coating</span><i></i><span data-i18n="svc.paint.t">Bottle painting</span><i></i><span data-i18n="svc.cliche.t">Cliché making</span><i></i><span data-i18n="svc.pad.t">Pad printing & decals</span><i></i><span data-i18n="svc.screen.t">Screen printing</span><i></i><span data-i18n="svc.hot.t">Hot stamping</span><i></i><span data-i18n="svc.coat.t">Coating</span><i></i><span data-i18n="svc.paint.t">Bottle painting</span><i></i><span data-i18n="svc.cliche.t">Cliché making</span><i></i><span data-i18n="svc.pad.t">Pad printing & decals</span><i></i>
     </div></div>
 
     <section class="section section--tight" id="services">
@@ -141,47 +138,45 @@
           <h2 class="h2 reveal" data-i18n-html="svc.title"></h2>
           <p class="lead reveal" data-i18n="svc.lead"></p>
         </div>
-        <div class="svc-index-wrap">
-          <div class="svc-index">
+        <div class="svc-index">
           <a class="svc-row reveal" href="services.html#screen">
             <span class="svc-row__n">01</span>
-            <span class="svc-row__t" data-i18n="svc.screen.t">screen</span>
+            <span class="svc-row__t" data-i18n="svc.screen.t">Screen printing</span>
             <span class="svc-row__d" data-i18n="svc.screen.d"></span>
             <span class="svc-row__a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
           <a class="svc-row reveal" href="services.html#hot">
             <span class="svc-row__n">02</span>
-            <span class="svc-row__t" data-i18n="svc.hot.t">hot</span>
+            <span class="svc-row__t" data-i18n="svc.hot.t">Hot stamping</span>
             <span class="svc-row__d" data-i18n="svc.hot.d"></span>
             <span class="svc-row__a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
           <a class="svc-row reveal" href="services.html#coat">
             <span class="svc-row__n">03</span>
-            <span class="svc-row__t" data-i18n="svc.coat.t">coat</span>
+            <span class="svc-row__t" data-i18n="svc.coat.t">Coating</span>
             <span class="svc-row__d" data-i18n="svc.coat.d"></span>
             <span class="svc-row__a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
           <a class="svc-row reveal" href="services.html#paint">
             <span class="svc-row__n">04</span>
-            <span class="svc-row__t" data-i18n="svc.paint.t">paint</span>
+            <span class="svc-row__t" data-i18n="svc.paint.t">Bottle painting</span>
             <span class="svc-row__d" data-i18n="svc.paint.d"></span>
             <span class="svc-row__a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
           <a class="svc-row reveal" href="services.html#cliche">
             <span class="svc-row__n">05</span>
-            <span class="svc-row__t" data-i18n="svc.cliche.t">cliche</span>
+            <span class="svc-row__t" data-i18n="svc.cliche.t">Cliché making</span>
             <span class="svc-row__d" data-i18n="svc.cliche.d"></span>
             <span class="svc-row__a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
           <a class="svc-row reveal" href="services.html#pad">
             <span class="svc-row__n">06</span>
-            <span class="svc-row__t" data-i18n="svc.pad.t">pad</span>
+            <span class="svc-row__t" data-i18n="svc.pad.t">Pad printing & decals</span>
             <span class="svc-row__d" data-i18n="svc.pad.d"></span>
             <span class="svc-row__a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
-          </div>
         </div>
-        <div class="grid" style="margin-top:40px"><a class="link-arrow reveal" style="grid-column:2 / 9" href="services.html"><span class="roll" data-i18n="svc.all">All services</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        <div class="grid sec-foot"><a class="link-arrow reveal" href="services.html"><span data-i18n="svc.all">All services</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </div>
     </section>
 
@@ -191,24 +186,24 @@
         <div class="grid sec-head">
           <span class="label reveal" data-i18n="pf.label">Portfolio</span>
           <h2 class="h2 reveal" data-i18n="pf.title">Selected work</h2>
-          <a class="link-arrow sec-link reveal" href="portfolio.html"><span class="roll" data-i18n="pf.open">Open portfolio</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="link-arrow sec-link reveal" href="portfolio.html"><span data-i18n="pf.open">Open portfolio</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
-        <div class="grid work-grid">
-          <a class="work  reveal" href="portfolio.html#p2" data-item="1" data-cursor="View">
-            <div class="shot shot--dark mask" data-shot="1" data-bg="#1a1a1a" data-view="angle"></div>
-            <div class="work__meta"><span class="work__t" data-item-t>—</span><span class="work__k" data-item-k>—</span></div>
+        <div class="grid work-grid" data-featured>
+          <a class="work reveal" href="portfolio.html#p2" data-item="1">
+            <div class="shot mask"><img src="assets/photos/noir-front.jpg" alt="Noir" loading="lazy" decoding="async"></div>
+            <div class="work__meta"><span class="work__t" data-p="title">Noir</span><span class="work__k" data-p="kind">Matte coating · hot stamping</span></div>
           </a>
-          <a class="work  reveal" href="portfolio.html#p1" data-item="0" data-cursor="View">
-            <div class="shot shot--dark mask" data-shot="0" data-bg="#1a1a1a" data-view="front"></div>
-            <div class="work__meta"><span class="work__t" data-item-t>—</span><span class="work__k" data-item-k>—</span></div>
+          <a class="work reveal" href="portfolio.html#p1" data-item="0">
+            <div class="shot mask"><img src="assets/photos/cabernet-front.jpg" alt="Cabernet Reserve" loading="lazy" decoding="async"></div>
+            <div class="work__meta"><span class="work__t" data-p="title">Cabernet Reserve</span><span class="work__k" data-p="kind">Screen printing · 2 colours</span></div>
           </a>
-          <a class="work  reveal" href="portfolio.html#p4" data-item="3" data-cursor="View">
-            <div class="shot shot--dark mask" data-shot="3" data-bg="#1a1a1a" data-view="front"></div>
-            <div class="work__meta"><span class="work__t" data-item-t>—</span><span class="work__k" data-item-k>—</span></div>
+          <a class="work reveal" href="portfolio.html#p4" data-item="3">
+            <div class="shot mask"><img src="assets/photos/rose-front.jpg" alt="Rosé" loading="lazy" decoding="async"></div>
+            <div class="work__meta"><span class="work__t" data-p="title">Rosé</span><span class="work__k" data-p="kind">Bottle painting · gradient</span></div>
           </a>
-          <a class="work  reveal" href="portfolio.html#p3" data-item="2" data-cursor="View">
-            <div class="shot shot--dark mask" data-shot="2" data-bg="#1a1a1a" data-view="angle"></div>
-            <div class="work__meta"><span class="work__t" data-item-t>—</span><span class="work__k" data-item-k>—</span></div>
+          <a class="work reveal" href="portfolio.html#p3" data-item="2">
+            <div class="shot mask"><img src="assets/photos/ice-front.jpg" alt="Ice" loading="lazy" decoding="async"></div>
+            <div class="work__meta"><span class="work__t" data-p="title">Ice</span><span class="work__k" data-p="kind">Frost coating · relief print</span></div>
           </a>
         </div>
       </div>
@@ -231,7 +226,7 @@
           <div class="grid heritage__row reveal"><span class="heritage__k" data-i18n="ab.k1"></span><span class="heritage__t">EXCLUSIV</span><p class="heritage__d" data-i18n="ab.h1"></p></div>
           <div class="grid heritage__row reveal"><span class="heritage__k" data-i18n="ab.k2"></span><span class="heritage__t">HUNTER</span><p class="heritage__d" data-i18n="ab.h2"></p></div>
           <div class="grid heritage__row reveal"><span class="heritage__k" data-i18n="ab.k3"></span><span class="heritage__t">ICE</span><p class="heritage__d" data-i18n="ab.h3"></p></div>
-          <div class="grid heritage__row reveal" style="border-bottom:0">
+          <div class="grid heritage__row heritage__row--last reveal">
             <span class="heritage__k" data-i18n="ab.ind">Industries</span>
             <ul class="industries">
               <li data-i18n="ind.wine"></li><li data-i18n="ind.spirits"></li><li data-i18n="ind.bev"></li><li data-i18n="ind.cos"></li><li data-i18n="ind.gift"></li>
@@ -242,7 +237,7 @@
         <div class="company" id="company">
           <div class="sec-en" aria-hidden="true"><span class="sec-en__n">(04)</span><span class="sec-en__w" data-split-chars>Company</span></div>
           <div class="grid sec-head">
-            <span class="label reveal" data-i18n="co.label">Company profile</span>
+            <span class="label reveal" data-i18n="co.label">Company</span>
             <h2 class="h2 reveal" data-i18n="co.title">Company profile</h2>
           </div>
           <dl class="co-table">
@@ -259,7 +254,7 @@
       </div>
     </section>
 
-    <section class="section" id="contact" style="padding-top:0">
+    <section class="section section--flush-top" id="contact">
       <div class="wrap"><div class="sec-en" aria-hidden="true"><span class="sec-en__n">(05)</span><span class="sec-en__w" data-split-chars>Contact</span></div></div>
       <div class="wrap grid">
         <div class="contact__intro reveal">
@@ -268,7 +263,7 @@
           <p class="muted" data-i18n="ct.lead"></p>
           <ul class="contact__info">
             <li><span class="ci-k" data-i18n="ct.addr">Address</span><span class="ci-v" data-contact="address">Chișinău, Republic of Moldova</span></li>
-            <li><span class="ci-k" data-i18n="ct.mail">Email</span><a class="ci-v" data-contact="email" href="#">—</a></li>
+            <li><span class="ci-k" data-i18n="ct.mail">Email</span><a class="ci-v" data-contact="email" href="mailto:info@aag.md">info@aag.md</a></li>
             <li data-contact-row="phone" hidden><span class="ci-k" data-i18n="ct.phone">Phone</span><a class="ci-v" data-contact="phone" href="#">—</a></li>
             <li><span class="ci-k" data-i18n="ct.web">Web</span><a class="ci-v" href="https://aag.md" target="_blank" rel="noopener">aag.md</a></li>
           </ul>
@@ -277,13 +272,13 @@
         <form class="form reveal" id="contact-form" novalidate>
           <fieldset class="form__services">
             <legend data-i18n="f.interest">I'm interested in</legend>
-            <label class="pill"><input type="checkbox" name="services" value="screen"><span data-i18n="svc.screen.t">screen</span></label><label class="pill"><input type="checkbox" name="services" value="hot"><span data-i18n="svc.hot.t">hot</span></label><label class="pill"><input type="checkbox" name="services" value="coat"><span data-i18n="svc.coat.t">coat</span></label><label class="pill"><input type="checkbox" name="services" value="paint"><span data-i18n="svc.paint.t">paint</span></label><label class="pill"><input type="checkbox" name="services" value="cliche"><span data-i18n="svc.cliche.t">cliche</span></label><label class="pill"><input type="checkbox" name="services" value="pad"><span data-i18n="svc.pad.t">pad</span></label>
+            <label class="pill"><input type="checkbox" name="services" value="screen"><span data-i18n="svc.screen.t">Screen printing</span></label><label class="pill"><input type="checkbox" name="services" value="hot"><span data-i18n="svc.hot.t">Hot stamping</span></label><label class="pill"><input type="checkbox" name="services" value="coat"><span data-i18n="svc.coat.t">Coating</span></label><label class="pill"><input type="checkbox" name="services" value="paint"><span data-i18n="svc.paint.t">Bottle painting</span></label><label class="pill"><input type="checkbox" name="services" value="cliche"><span data-i18n="svc.cliche.t">Cliché making</span></label><label class="pill"><input type="checkbox" name="services" value="pad"><span data-i18n="svc.pad.t">Pad printing & decals</span></label>
           </fieldset>
           <div class="form__row">
             <div class="field">
-              <input id="f-name" name="name" type="text" autocomplete="name" placeholder=" " required>
+              <input id="f-name" name="name" type="text" autocomplete="name" placeholder=" " required aria-describedby="e-name">
               <label for="f-name" data-i18n="f.name">Your name</label>
-              <small class="field__err" data-i18n="f.err.name"></small>
+              <small class="field__err" id="e-name" data-i18n="f.err.name"></small>
             </div>
             <div class="field">
               <input id="f-company" name="company" type="text" autocomplete="organization" placeholder=" ">
@@ -292,9 +287,9 @@
           </div>
           <div class="form__row">
             <div class="field">
-              <input id="f-email" name="email" type="email" autocomplete="email" placeholder=" " required>
+              <input id="f-email" name="email" type="email" autocomplete="email" placeholder=" " required aria-describedby="e-email">
               <label for="f-email" data-i18n="f.email">Email</label>
-              <small class="field__err" data-i18n="f.err.email"></small>
+              <small class="field__err" id="e-email" data-i18n="f.err.email"></small>
             </div>
             <div class="field">
               <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder=" ">
@@ -302,7 +297,7 @@
             </div>
           </div>
           <div class="field field--select">
-            <select id="f-qty" name="quantity" aria-label="Run size">
+            <select id="f-qty" name="quantity" aria-label="Estimated run size">
               <option value="" data-i18n="f.qty.0">Estimated run size</option>
               <option value="< 1,000">&lt; 1,000</option>
               <option value="1,000 – 10,000">1,000 – 10,000</option>
@@ -311,13 +306,13 @@
             </select>
           </div>
           <div class="field">
-            <textarea id="f-msg" name="message" rows="4" placeholder=" " required></textarea>
+            <textarea id="f-msg" name="message" rows="4" placeholder=" " required aria-describedby="e-msg"></textarea>
             <label for="f-msg" data-i18n="f.msg">Tell us about your project</label>
-            <small class="field__err" data-i18n="f.err.msg"></small>
+            <small class="field__err" id="e-msg" data-i18n="f.err.msg"></small>
           </div>
           <label class="consent"><input type="checkbox" name="consent" required><span data-i18n="f.consent"></span></label>
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
-          <button class="btn btn--dark" type="submit"><span class="roll" data-i18n="f.send">Send request</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <button class="btn btn--dark" type="submit"><span data-i18n="f.send">Send request</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
           <p class="form__status" role="status" aria-live="polite"></p>
         </form>
       </div>
@@ -333,18 +328,15 @@
         </div>
         <div class="footer__col">
           <span class="label" data-i18n="ft.nav">Company</span>
-          <a href="services.html"><span class="roll" data-i18n="nav.services">Services</span></a>
-          <a href="portfolio.html"><span class="roll" data-i18n="nav.portfolio">Portfolio</span></a>
-          <a href="index.html#about"><span class="roll" data-i18n="nav.about">About</span></a>
-          <a href="index.html#contact"><span class="roll" data-i18n="nav.contact">Contact</span></a>
+          <a href="services.html" data-i18n="nav.services">Services</a><a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a><a href="index.html#about" data-i18n="nav.about">About</a><a href="index.html#contact" data-i18n="nav.contact">Contact</a>
         </div>
         <div class="footer__col">
           <span class="label" data-i18n="ft.svc">Services</span>
-          <a href="services.html#screen"><span class="roll" data-i18n="svc.screen.t">screen</span></a><a href="services.html#hot"><span class="roll" data-i18n="svc.hot.t">hot</span></a><a href="services.html#coat"><span class="roll" data-i18n="svc.coat.t">coat</span></a><a href="services.html#paint"><span class="roll" data-i18n="svc.paint.t">paint</span></a><a href="services.html#cliche"><span class="roll" data-i18n="svc.cliche.t">cliche</span></a><a href="services.html#pad"><span class="roll" data-i18n="svc.pad.t">pad</span></a>
+          <a href="services.html#screen" data-i18n="svc.screen.t">Screen printing</a><a href="services.html#hot" data-i18n="svc.hot.t">Hot stamping</a><a href="services.html#coat" data-i18n="svc.coat.t">Coating</a><a href="services.html#paint" data-i18n="svc.paint.t">Bottle painting</a><a href="services.html#cliche" data-i18n="svc.cliche.t">Cliché making</a><a href="services.html#pad" data-i18n="svc.pad.t">Pad printing & decals</a>
         </div>
         <div class="footer__col">
           <span class="label" data-i18n="ft.contact">Contact</span>
-          <a data-contact="email" href="#">—</a>
+          <a data-contact="email" href="mailto:info@aag.md">info@aag.md</a>
           <a data-contact="phone" href="#" hidden>—</a>
           <a href="https://aag.md" target="_blank" rel="noopener">aag.md</a>
           <span class="muted" data-contact="address">Chișinău, Republic of Moldova</span>
@@ -352,7 +344,8 @@
       </div>
       <div class="footer__bottom">
         <span>© <span data-year>2026</span> Agroalimgrup S.R.L. <span data-i18n="ft.rights">All rights reserved.</span></span>
-        <a href="#top" class="to-top" data-to-top><span class="roll" data-i18n="ft.top">Back to top</span><span class="to-top__c"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span></a>
+        <details class="credits" data-credits hidden><summary data-i18n="ft.credits">Photo credits</summary><ul></ul></details>
+        <a href="#top" class="to-top"><span data-i18n="ft.top">Back to top</span><span class="to-top__c"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span></a>
       </div>
     </div>
   </footer>
@@ -361,7 +354,7 @@
   <script src="assets/js/i18n.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/content.js"></script>
+  <script src="assets/js/gallery.js"></script>
   <script src="assets/js/motion.js"></script>
-  <script type="module" src="assets/js/scene.js"></script>
 </body>
 </html>

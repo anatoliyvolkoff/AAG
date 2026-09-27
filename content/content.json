@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "contact": {
     "email": "info@aag.md",
     "phone": "",
@@ -13,30 +13,474 @@
     "srcWebm": "assets/media/banner.webm",
     "poster": "assets/media/banner-poster.jpg",
     "link": "portfolio.html",
-    "label": { "en": "Showreel", "ro": "Showreel", "ru": "Шоурил" },
-    "title": { "en": "Every finish, in motion.", "ro": "Fiecare finisaj, în mișcare.", "ru": "Каждая отделка — в движении." },
-    "text": {
-      "en": "Screen printing, foil, coating, paint and decals — the collection in 3D.",
-      "ro": "Serigrafie, folie, acoperire, vopsire și decaluri — colecția în 3D.",
-      "ru": "Шелкография, фольга, покрытие, покраска и деколи — коллекция в 3D."
+    "label": {
+      "en": "Showreel",
+      "ro": "Showreel",
+      "ru": "Шоурил"
     },
-    "cta": { "en": "View portfolio", "ro": "Vezi portofoliul", "ru": "Смотреть портфолио" }
+    "title": {
+      "en": "Every finish, in motion.",
+      "ro": "Fiecare finisaj, în mișcare.",
+      "ru": "Каждая отделка — в движении."
+    },
+    "text": {
+      "en": "Screen printing, foil, coating, paint and decals — seven projects, one line.",
+      "ro": "Serigrafie, folie, acoperire, vopsire și decaluri — șapte proiecte, o singură linie.",
+      "ru": "Шелкография, фольга, покрытие, покраска и деколи — семь проектов, одна линия."
+    },
+    "cta": {
+      "en": "View portfolio",
+      "ro": "Vezi portofoliul",
+      "ru": "Смотреть портфолио"
+    }
+  },
+  "hero": {
+    "images": [
+      "assets/photos/noir-front.jpg",
+      "assets/photos/cabernet-front.jpg",
+      "assets/photos/rose-front.jpg",
+      "assets/photos/ice-front.jpg",
+      "assets/photos/botanica-front.jpg"
+    ]
   },
   "services": {
-    "screen": { "image": "" },
-    "hot": { "image": "" },
-    "coat": { "image": "" },
-    "paint": { "image": "" },
-    "cliche": { "image": "" },
-    "pad": { "image": "" }
+    "screen": {
+      "image": "assets/photos/botanica-angle.jpg",
+      "credit": "",
+      "visual": true
+    },
+    "hot": {
+      "image": "assets/photos/noir-detail.jpg",
+      "credit": "",
+      "visual": true
+    },
+    "coat": {
+      "image": "assets/photos/aura-front.jpg",
+      "credit": "",
+      "visual": true
+    },
+    "paint": {
+      "image": "assets/photos/rose-front.jpg",
+      "credit": "",
+      "visual": true
+    },
+    "cliche": {
+      "image": "assets/photos/cliche-plate.jpg",
+      "credit": "",
+      "visual": true
+    },
+    "pad": {
+      "image": "assets/photos/heritage-angle.jpg",
+      "credit": "",
+      "visual": true
+    }
   },
   "portfolio": [
-    { "image": "" },
-    { "image": "" },
-    { "image": "" },
-    { "image": "" },
-    { "image": "" },
-    { "image": "" },
-    { "image": "" }
+    {
+      "id": "cabernet",
+      "tech": "screen",
+      "title": {
+        "en": "Cabernet Reserve",
+        "ro": "Cabernet Reserve",
+        "ru": "Cabernet Reserve"
+      },
+      "kind": {
+        "en": "Screen printing · 2 colours",
+        "ro": "Serigrafie · 2 culori",
+        "ru": "Шелкография · 2 цвета"
+      },
+      "text": {
+        "en": "Ceramic white and gold printed directly on green Bordeaux glass and fired for a permanent, label-free finish.",
+        "ro": "Alb și auriu ceramic imprimate direct pe sticlă Bordeaux verde și coapte pentru un finisaj permanent, fără etichetă.",
+        "ru": "Белая и золотая керамическая краска напечатана прямо на зелёном стекле «Бордо» и закреплена обжигом — без этикетки."
+      },
+      "specs": {
+        "container": {
+          "en": "Bordeaux wine bottle, 750 ml",
+          "ro": "Sticlă de vin Bordeaux, 750 ml",
+          "ru": "Винная бутылка «Бордо», 750 мл"
+        },
+        "finish": {
+          "en": "Ceramic inks, fired",
+          "ro": "Cerneluri ceramice, coapte",
+          "ru": "Керамические краски, обжиг"
+        },
+        "colours": {
+          "en": "White, gold",
+          "ro": "Alb, auriu",
+          "ru": "Белый, золото"
+        }
+      },
+      "photos": [
+        {
+          "src": "assets/photos/cabernet-front.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/cabernet-angle.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/cabernet-detail.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/cabernet-back.jpg",
+          "credit": "",
+          "visual": true
+        }
+      ]
+    },
+    {
+      "id": "noir",
+      "tech": "hot",
+      "title": {
+        "en": "Noir",
+        "ro": "Noir",
+        "ru": "Noir"
+      },
+      "kind": {
+        "en": "Matte coating · hot stamping",
+        "ro": "Acoperire mată · ștanțare la cald",
+        "ru": "Матовое покрытие · горячее тиснение"
+      },
+      "text": {
+        "en": "Soft-touch black coating with a gold-foil crest and fine-line typography for a premium vodka.",
+        "ro": "Acoperire neagră soft-touch cu blazon din folie aurie și tipografie fină pentru o vodcă premium.",
+        "ru": "Чёрное soft-touch покрытие, герб из золотой фольги и тонкая типографика для премиальной водки."
+      },
+      "specs": {
+        "container": {
+          "en": "Vodka bottle, 700 ml",
+          "ro": "Sticlă de vodcă, 700 ml",
+          "ru": "Бутылка для водки, 700 мл"
+        },
+        "finish": {
+          "en": "Soft-touch coating + gold foil",
+          "ro": "Soft-touch + folie aurie",
+          "ru": "Soft-touch + золотая фольга"
+        },
+        "colours": {
+          "en": "Black, gold",
+          "ro": "Negru, auriu",
+          "ru": "Чёрный, золото"
+        }
+      },
+      "photos": [
+        {
+          "src": "assets/photos/noir-front.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/noir-angle.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/noir-detail.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/noir-back.jpg",
+          "credit": "",
+          "visual": true
+        }
+      ]
+    },
+    {
+      "id": "ice",
+      "tech": "coat",
+      "title": {
+        "en": "Ice",
+        "ro": "Ice",
+        "ru": "Ice"
+      },
+      "kind": {
+        "en": "Frost coating · relief print",
+        "ro": "Acoperire frost · imprimare în relief",
+        "ru": "Фрост · рельефная печать"
+      },
+      "text": {
+        "en": "Frosted finish with a raised, tactile print — a nod to our volumetric decoration for ICE vodka.",
+        "ro": "Finisaj frost cu imprimare în relief, tactilă — o trimitere la decorul volumetric realizat pentru vodca ICE.",
+        "ru": "Фрост-отделка с рельефной тактильной печатью — отсылка к нашему объёмному декору для водки ICE."
+      },
+      "specs": {
+        "container": {
+          "en": "Vodka bottle, 700 ml",
+          "ro": "Sticlă de vodcă, 700 ml",
+          "ru": "Бутылка для водки, 700 мл"
+        },
+        "finish": {
+          "en": "Frost coating + raised print",
+          "ro": "Frost + imprimare în relief",
+          "ru": "Фрост + рельефная печать"
+        },
+        "colours": {
+          "en": "Frost white",
+          "ro": "Alb frost",
+          "ru": "Белый фрост"
+        }
+      },
+      "photos": [
+        {
+          "src": "assets/photos/ice-front.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/ice-angle.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/ice-detail.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/ice-back.jpg",
+          "credit": "",
+          "visual": true
+        }
+      ]
+    },
+    {
+      "id": "rose",
+      "tech": "paint",
+      "title": {
+        "en": "Rosé",
+        "ro": "Rosé",
+        "ru": "Rosé"
+      },
+      "kind": {
+        "en": "Bottle painting · gradient",
+        "ro": "Vopsire · degrade",
+        "ru": "Покраска · градиент"
+      },
+      "text": {
+        "en": "Sprayed gradient from rose to clear glass, finished with a white screen-printed mark.",
+        "ro": "Degrade pulverizat de la roz la sticlă transparentă, completat cu un semn alb serigrafiat.",
+        "ru": "Напылённый градиент от розового к прозрачному стеклу и белый знак шелкографией."
+      },
+      "specs": {
+        "container": {
+          "en": "Flute bottle, 750 ml, clear glass",
+          "ro": "Sticlă flute, 750 ml, transparentă",
+          "ru": "Бутылка «флют», 750 мл, прозрачная"
+        },
+        "finish": {
+          "en": "Sprayed gradient + screen print",
+          "ro": "Degrade pulverizat + serigrafie",
+          "ru": "Градиентное напыление + шелкография"
+        },
+        "colours": {
+          "en": "Rose to clear, white",
+          "ro": "Roz spre transparent, alb",
+          "ru": "От розового к прозрачному, белый"
+        }
+      },
+      "photos": [
+        {
+          "src": "assets/photos/rose-front.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/rose-angle.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/rose-detail.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/rose-back.jpg",
+          "credit": "",
+          "visual": true
+        }
+      ]
+    },
+    {
+      "id": "botanica",
+      "tech": "screen",
+      "title": {
+        "en": "Botanica",
+        "ro": "Botanica",
+        "ru": "Botanica"
+      },
+      "kind": {
+        "en": "Screen printing · 4 colours",
+        "ro": "Serigrafie · 4 culori",
+        "ru": "Шелкография · 4 цвета"
+      },
+      "text": {
+        "en": "Wrap-around botanical artwork in four registered colours on an octagonal gin bottle.",
+        "ro": "Grafică botanică pe toată circumferința, în patru culori aliniate, pe o sticlă octogonală de gin.",
+        "ru": "Круговая ботаническая графика в четыре цвета с точной приводкой на восьмигранной бутылке для джина."
+      },
+      "specs": {
+        "container": {
+          "en": "Octagonal gin bottle, 700 ml",
+          "ro": "Sticlă octogonală de gin, 700 ml",
+          "ru": "Восьмигранная бутылка для джина, 700 мл"
+        },
+        "finish": {
+          "en": "360° wrap-around print",
+          "ro": "Imprimare 360°",
+          "ru": "Круговая печать 360°"
+        },
+        "colours": {
+          "en": "Green, orange, violet, black",
+          "ro": "Verde, portocaliu, violet, negru",
+          "ru": "Зелёный, оранжевый, фиолетовый, чёрный"
+        }
+      },
+      "photos": [
+        {
+          "src": "assets/photos/botanica-front.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/botanica-angle.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/botanica-detail.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/botanica-back.jpg",
+          "credit": "",
+          "visual": true
+        }
+      ]
+    },
+    {
+      "id": "heritage",
+      "tech": "pad",
+      "title": {
+        "en": "Heritage",
+        "ro": "Heritage",
+        "ru": "Heritage"
+      },
+      "kind": {
+        "en": "Decal transfer · ceramics",
+        "ro": "Decalcomanie · ceramică",
+        "ru": "Деколь · керамика"
+      },
+      "text": {
+        "en": "Multi-colour decal with Moldovan folk ornament, fired onto a white ceramic flask for a gift edition.",
+        "ro": "Decal multicolor cu ornament popular moldovenesc, copt pe o ploscă ceramică albă pentru o ediție cadou.",
+        "ru": "Многоцветная деколь с молдавским народным орнаментом на белой керамической фляге для подарочной серии."
+      },
+      "specs": {
+        "container": {
+          "en": "Ceramic flask, 500 ml",
+          "ro": "Ploscă ceramică, 500 ml",
+          "ru": "Керамическая фляга, 500 мл"
+        },
+        "finish": {
+          "en": "Fired ceramic decal",
+          "ro": "Decal ceramic copt",
+          "ru": "Керамическая деколь, обжиг"
+        },
+        "colours": {
+          "en": "Full colour",
+          "ro": "Policromie",
+          "ru": "Полноцвет"
+        }
+      },
+      "photos": [
+        {
+          "src": "assets/photos/heritage-front.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/heritage-angle.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/heritage-detail.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/heritage-back.jpg",
+          "credit": "",
+          "visual": true
+        }
+      ]
+    },
+    {
+      "id": "aura",
+      "tech": "hot",
+      "title": {
+        "en": "Aura",
+        "ro": "Aura",
+        "ru": "Aura"
+      },
+      "kind": {
+        "en": "Soft-touch coating · silver foil",
+        "ro": "Soft-touch · folie argintie",
+        "ru": "Soft-touch · серебряная фольга"
+      },
+      "text": {
+        "en": "Pastel soft-touch cosmetic jar with a crisp silver hot-stamped logo.",
+        "ro": "Borcan cosmetic pastel soft-touch cu logo argintiu ștanțat la cald.",
+        "ru": "Пастельная soft-touch банка для косметики с чётким серебряным логотипом горячим тиснением."
+      },
+      "specs": {
+        "container": {
+          "en": "Cosmetic jar, 50 ml",
+          "ro": "Borcan cosmetic, 50 ml",
+          "ru": "Косметическая банка, 50 мл"
+        },
+        "finish": {
+          "en": "Soft-touch coating + silver foil",
+          "ro": "Soft-touch + folie argintie",
+          "ru": "Soft-touch + серебряная фольга"
+        },
+        "colours": {
+          "en": "Lilac, silver",
+          "ro": "Lila, argintiu",
+          "ru": "Сиреневый, серебро"
+        }
+      },
+      "photos": [
+        {
+          "src": "assets/photos/aura-front.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/aura-angle.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/aura-detail.jpg",
+          "credit": "",
+          "visual": true
+        },
+        {
+          "src": "assets/photos/aura-back.jpg",
+          "credit": "",
+          "visual": true
+        }
+      ]
+    }
   ]
 }
