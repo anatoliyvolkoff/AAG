@@ -65,9 +65,28 @@
       return null;
     }
     if (file.size > 12 * 1024 * 1024) toast("Large file — it will work, but a compressed MP4 under 10 MB loads much faster for visitors.", 7000);
+    // the same file used in several places is uploaded only once
+    const id = `${file.name}|${file.size}|${file.lastModified}`;
+    for (const [k, v] of pending) if (v.id === id) return k;
     const key = PENDING + Math.random().toString(36).slice(2);
-    pending.set(key, { file, url: URL.createObjectURL(file) });
+    pending.set(key, { file, id, url: URL.createObjectURL(file) });
     return key;
+  }
+
+  // Large JPEG/WebP photos are resized in the browser (max 2400px, quality .86) before upload.
+  // PNG (possible transparency), GIF (animation) and video are uploaded untouched.
+  async function optimise(file) {
+    if (!/^image\/(jpeg|webp)$/.test(file.type) || file.size < 700 * 1024 || !window.createImageBitmap) return file;
+    try {
+      const bmp = await createImageBitmap(file);
+      const scale = Math.min(1, 2400 / Math.max(bmp.width, bmp.height));
+      const c = document.createElement("canvas");
+      c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
+      c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+      const blob = await new Promise((res) => c.toBlob(res, "image/jpeg", 0.86));
+      if (!blob || blob.size >= file.size) return file;
+      return new File([blob], file.name.replace(/\.[^.]+$/, "") + ".jpg", { type: "image/jpeg", lastModified: file.lastModified });
+    } catch (e) { return file; }
   }
   function pickFile(accept) {
     return new Promise((res) => {
@@ -508,9 +527,9 @@
       let n = 0;
       for (const [obj, k, key] of refs) {
         if (!uploaded.has(key)) {
-          const { file } = pending.get(key);
           n++;
           setStatus(`Uploading ${n}/${new Set(refs.map((r) => r[2])).size}…`);
+          const file = await optimise(pending.get(key).file);
           const ext = (file.name.split(".").pop() || "bin").toLowerCase();
           const path = `assets/uploads/${slug(file.name.replace(/\.[^.]+$/, ""))}-${stamp()}.${ext}`;
           await api(`contents/${path}`, { method: "PUT", body: JSON.stringify({ message: `Admin: upload ${file.name}`, content: await fileToB64(file), branch: gh.branch }) });
