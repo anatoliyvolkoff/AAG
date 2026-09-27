@@ -3,349 +3,216 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Agro Alim Grup — Glass Decoration Studio, Chișinău</title>
-  <meta name="description" content="Agro Alim Grup (AAG) — glass decoration factory in Chișinău, Moldova since 2000. Screen printing, hot stamping, coating, bottle painting and cliché making for wine, spirits, beverages and cosmetics.">
-  <meta name="theme-color" content="#f5f5f7">
-  <meta property="og:title" content="Agro Alim Grup — Glass, elevated.">
-  <meta property="og:description" content="Screen printing, hot stamping, coating, bottle painting and cliché making. Chișinău, since 2000.">
+  <title>Agro Alim Grup — Glass decoration, Chișinău</title>
+  <meta name="description" content="Agro Alim Grup (AAG) — glass decoration factory in Chișinău, Moldova since 2000. Screen printing, hot stamping, coating, bottle painting and cliché making.">
+  <meta name="theme-color" content="#f4f4f4">
+  <meta property="og:title" content="Agro Alim Grup — Glass decoration, Chișinău">
+  <meta property="og:description" content="Agro Alim Grup (AAG) — glass decoration factory in Chișinău, Moldova since 2000. Screen printing, hot stamping, coating, bottle painting and cliché making.">
   <meta property="og:type" content="website">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='20' fill='%231d1d1f'/%3E%3Cpath d='M28 10h8v10c0 3 6 6 6 14v18a4 4 0 0 1-4 4H26a4 4 0 0 1-4-4V34c0-8 6-11 6-14z' fill='%23d4b16a'/%3E%3C/svg%3E">
-
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='10' fill='%23111'/%3E%3Cpath d='M14 7h4v5c0 1.5 3 3 3 7v6a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 11 25v-6c0-4 3-5.5 3-7z' fill='none' stroke='%23fff' stroke-width='1.4'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Montserrat = Gotham fallback for the UI. Instrument Serif is used only inside the 3D bottle label artwork. -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
-
   <script type="importmap">
-  {
-    "imports": {
-      "three": "./assets/vendor/three/three.module.min.js",
-      "three/addons/": "./assets/vendor/three/addons/"
-    }
-  }
+  { "imports": { "three": "./assets/vendor/three/three.module.min.js", "three/addons/": "./assets/vendor/three/addons/" } }
   </script>
-</head>
-<body>
+</head><body data-page="home">
   <div class="progress" aria-hidden="true"><span></span></div>
-  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="grid-overlay" aria-hidden="true"><div class="wrap grid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
 
-  <!-- ============ NAV ============ -->
-  <header class="nav" id="top">
-    <a class="nav__logo" href="#top" aria-label="Agro Alim Grup — home">
-      <span class="logo-mark" aria-hidden="true">
-        <svg viewBox="0 0 64 64"><rect width="64" height="64" rx="20"/><path d="M28 10h8v10c0 3 6 6 6 14v18a4 4 0 0 1-4 4H26a4 4 0 0 1-4-4V34c0-8 6-11 6-14z"/></svg>
-      </span>
-      <span class="logo-type">Agro Alim <em>Grup</em></span>
-    </a>
-    <nav class="nav__links" aria-label="Main">
-      <a href="#services" data-i18n="nav.services">Services</a>
-      <a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
-      <a href="#process" data-i18n="nav.process">Process</a>
-      <a href="#about" data-i18n="nav.about">About</a>
-    </nav>
-    <div class="nav__right">
-      <div class="lang" role="group" aria-label="Language">
-        <button type="button" data-lang="en" class="is-active">EN</button>
-        <button type="button" data-lang="ro">RO</button>
-        <button type="button" data-lang="ru">RU</button>
+  <header class="nav">
+    <div class="wrap nav__bar">
+      <a class="nav__logo" href="index.html" aria-label="Agro Alim Grup — home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#111"/><path d="M14 7h4v5c0 1.5 3 3 3 7v6a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 11 25v-6c0-4 3-5.5 3-7z" fill="none" stroke="#fff" stroke-width="1.4"/></svg><span>AGRO ALIM GRUP</span></a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="services.html" data-i18n="nav.services">Services</a>
+        <a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a>
+        <a href="index.html#about" data-i18n="nav.about">About</a>
+        <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+      <div class="nav__right">
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-lang="en">EN</button><button type="button" data-lang="ro">RO</button><button type="button" data-lang="ru">RU</button>
+        </div>
+        <a href="index.html#contact" class="btn btn--dark btn--sm" data-i18n="nav.cta">Request a quote</a>
+        <button class="nav__burger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
       </div>
-      <a href="#contact" class="btn btn--dark btn--sm magnetic" data-i18n="nav.cta">Get in touch</a>
-      <button class="nav__burger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
     </div>
   </header>
-
   <div class="mobile-menu" aria-hidden="true">
-    <a href="#services" data-i18n="nav.services">Services</a>
-    <a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
-    <a href="#process" data-i18n="nav.process">Process</a>
-    <a href="#about" data-i18n="nav.about">About</a>
-    <a href="#contact" data-i18n="nav.cta">Get in touch</a>
+    <a href="services.html" data-i18n="nav.services">Services</a>
+    <a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a>
+    <a href="index.html#about" data-i18n="nav.about">About</a>
+    <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
   </div>
 
   <main>
-    <!-- ============ HERO ============ -->
     <section class="hero" id="hero">
       <div class="hero__sticky">
-        <div class="hero__copy">
-          <p class="eyebrow reveal" data-i18n="hero.eyebrow">Glass decoration · Chișinău · Since 2000</p>
-          <h1 class="hero__title">
-            <span class="line"><span data-i18n="hero.t1">Glass,</span></span>
-            <span class="line"><em data-i18n="hero.t2">elevated.</em></span>
-          </h1>
-          <p class="hero__lead reveal" data-i18n="hero.lead">Screen printing, hot stamping, coating and hand-finished painting for the bottles that carry Moldova's finest wines and spirits.</p>
-          <div class="hero__cta reveal">
-            <a href="#portfolio" class="btn btn--dark magnetic" data-i18n="hero.cta1">Explore the work</a>
-            <a href="#contact" class="btn btn--ghost magnetic" data-i18n="hero.cta2">Start a project</a>
+        <div class="grid hero__grid">
+          <div class="hero__copy">
+            <span class="label" data-i18n="hero.label">Glass decoration · Chișinău · Since 2000</span>
+            <h1 class="display">
+              <span class="split-line"><span data-i18n="hero.l1">Glass decoration</span></span>
+              <span class="split-line"><span data-i18n="hero.l2">for brands</span></span>
+              <span class="split-line"><span data-i18n="hero.l3">that last.</span></span>
+            </h1>
+            <p class="lead" data-i18n="hero.lead"></p>
+            <div class="hero__cta">
+              <a href="services.html" class="btn btn--dark"><span data-i18n="hero.cta1">Our services</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              <a href="#contact" class="btn btn--line" data-i18n="hero.cta2">Request a quote</a>
+            </div>
           </div>
-        </div>
-        <div class="hero__stage">
-          <div class="hero__halo" aria-hidden="true"></div>
-          <canvas id="hero-canvas" aria-label="Rotating decorated bottle"></canvas>
-          <div class="hero__tags" aria-hidden="true">
-            <span class="tag tag--1" data-i18n="svc.hot.t">Hot stamping</span>
-            <span class="tag tag--2" data-i18n="svc.coat.t">Coating</span>
-            <span class="tag tag--3" data-i18n="svc.screen.t">Screen printing</span>
+          <div class="hero__stage">
+            <canvas id="hero-canvas" aria-label="Decorated bottle, rotating"></canvas>
+            <div class="hero__meta"><span data-i18n="hero.meta1">Matte coating</span><span data-i18n="hero.meta2">Hot stamping</span></div>
           </div>
-        </div>
-        <a class="scroll-hint" href="#intro" aria-label="Scroll down"><span></span></a>
-      </div>
-    </section>
-
-    <!-- ============ MARQUEE ============ -->
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee__track">
-        <span>Screen printing</span><i>✦</i><span>Hot stamping</span><i>✦</i><span>Coating</span><i>✦</i><span>Bottle painting</span><i>✦</i><span>Clichés</span><i>✦</i><span>Pad printing</span><i>✦</i><span>Decals</span><i>✦</i>
-        <span>Screen printing</span><i>✦</i><span>Hot stamping</span><i>✦</i><span>Coating</span><i>✦</i><span>Bottle painting</span><i>✦</i><span>Clichés</span><i>✦</i><span>Pad printing</span><i>✦</i><span>Decals</span><i>✦</i>
-      </div>
-    </div>
-
-    <!-- ============ INTRO / STATEMENT ============ -->
-    <section class="intro section" id="intro">
-      <p class="statement" data-split data-i18n="intro.statement">We were the first in Moldova to decorate glass for wine. Twenty-five years later, every bottle still leaves our line as if it were the only one.</p>
-      <div class="stats">
-        <div class="stat reveal">
-          <span class="stat__num" data-count="2000" data-plain>2000</span>
-          <span class="stat__label" data-i18n="stats.founded">Founded in Chișinău</span>
-        </div>
-        <div class="stat reveal">
-          <span class="stat__num"><span data-count="25">25</span>+</span>
-          <span class="stat__label" data-i18n="stats.years">Years decorating glass</span>
-        </div>
-        <div class="stat reveal">
-          <span class="stat__num"><span data-count="6">6</span></span>
-          <span class="stat__label" data-i18n="stats.tech">Decoration technologies in-house</span>
-        </div>
-        <div class="stat reveal">
-          <span class="stat__num">N<sup>o</sup>1</span>
-          <span class="stat__label" data-i18n="stats.first">First wine-glass decorator in Moldova</span>
         </div>
       </div>
     </section>
 
-    <!-- ============ SERVICES ============ -->
-    <section class="services section" id="services">
-      <header class="section__head">
-        <p class="eyebrow reveal" data-i18n="svc.eyebrow">What we do</p>
-        <h2 class="section__title reveal" data-i18n-html="svc.title">Six crafts.<br><em>One line.</em></h2>
-        <p class="section__lead reveal" data-i18n="svc.lead">From the first cliché to the final firing, every step happens under one roof — so colour, register and finish stay exactly as designed.</p>
-      </header>
-
-      <div class="svc-grid">
-        <article class="svc svc--wide tilt reveal" data-svc="screen">
-          <div class="svc__visual svc__visual--screen" aria-hidden="true">
-            <div class="mesh"></div><div class="squeegee"></div>
-          </div>
-          <div class="svc__body">
-            <span class="svc__idx">01</span>
-            <h3 data-i18n="svc.screen.t">Screen printing</h3>
-            <p data-i18n="svc.screen.d">Silk-screen printing with ceramic and UV inks — crisp multi-colour logos, fine lines and full wrap-around designs, fired for permanence.</p>
-            <ul class="chips"><li>Ceramic inks</li><li>UV inks</li><li>360° wrap</li><li>Up to 6 colours</li></ul>
-          </div>
-        </article>
-
-        <article class="svc svc--dark tilt reveal" data-svc="hot">
-          <div class="svc__visual svc__visual--hot" aria-hidden="true"><div class="foil"></div></div>
-          <div class="svc__body">
-            <span class="svc__idx">02</span>
-            <h3 data-i18n="svc.hot.t">Hot stamping</h3>
-            <p data-i18n="svc.hot.d">Gold, silver and holographic foils pressed onto glass for a mirror-bright, luxurious accent.</p>
-          </div>
-        </article>
-
-        <article class="svc tilt reveal" data-svc="coat">
-          <div class="svc__visual svc__visual--coat" aria-hidden="true"><div class="drop"></div></div>
-          <div class="svc__body">
-            <span class="svc__idx">03</span>
-            <h3 data-i18n="svc.coat.t">Coating</h3>
-            <p data-i18n="svc.coat.d">Matte, gloss, soft-touch, frost and gradient finishes — the whole bottle becomes the colour of your brand.</p>
-          </div>
-        </article>
-
-        <article class="svc tilt reveal" data-svc="paint">
-          <div class="svc__visual svc__visual--paint" aria-hidden="true"><div class="stroke"></div></div>
-          <div class="svc__body">
-            <span class="svc__idx">04</span>
-            <h3 data-i18n="svc.paint.t">Bottle painting</h3>
-            <p data-i18n="svc.paint.d">Full-body and gradient painting, plus hand-finished details for limited editions and gift series.</p>
-          </div>
-        </article>
-
-        <article class="svc tilt reveal" data-svc="cliche">
-          <div class="svc__visual svc__visual--cliche" aria-hidden="true"><div class="plate"></div></div>
-          <div class="svc__body">
-            <span class="svc__idx">05</span>
-            <h3 data-i18n="svc.cliche.t">Cliché making</h3>
-            <p data-i18n="svc.cliche.d">We produce our own clichés, stamping dies and screen stencils in-house — faster samples, exact reproduction.</p>
-          </div>
-        </article>
-
-        <article class="svc svc--wide svc--gold tilt reveal" data-svc="pad">
-          <div class="svc__visual svc__visual--pad" aria-hidden="true"><div class="pad"></div></div>
-          <div class="svc__body">
-            <span class="svc__idx">06</span>
-            <h3 data-i18n="svc.pad.t">Pad printing &amp; decals</h3>
-            <p data-i18n="svc.pad.d">Tampography for curved and hard-to-reach surfaces, and ceramic decal transfer for photographic, multi-colour artwork on glass and ceramics.</p>
-            <ul class="chips"><li>Tampography</li><li>Decal transfer</li><li>Glass &amp; ceramics</li></ul>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- ============ PORTFOLIO 3D ============ -->
-    <section class="portfolio" id="portfolio">
-      <div class="portfolio__inner">
-        <header class="section__head section__head--light">
-          <p class="eyebrow reveal" data-i18n="pf.eyebrow">Portfolio</p>
-          <h2 class="section__title reveal" data-i18n-html="pf.title">Turn it. <em>Touch it.</em></h2>
-          <p class="section__lead reveal" data-i18n="pf.lead">Drag to spin the collection. Every bottle is a live 3D model showing one of our finishes.</p>
-        </header>
-
-        <div class="carousel" id="carousel">
-          <canvas id="carousel-canvas" aria-label="3D portfolio carousel. Use the arrow buttons or drag to rotate."></canvas>
-          <div class="carousel__fallback" hidden>
-            <p data-i18n="pf.fallback">Your browser can't display the 3D view. Please get in touch and we'll send you our catalogue.</p>
-          </div>
-          <div class="carousel__loader"><span></span></div>
-        </div>
-
-        <div class="carousel__ui">
-          <button class="round-btn magnetic" id="pf-prev" type="button" aria-label="Previous">
-            <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
-          </button>
-          <div class="pf-info" aria-live="polite">
-            <span class="pf-info__count"><b id="pf-idx">01</b> / <span id="pf-total">07</span></span>
-            <h3 class="pf-info__title" id="pf-title">—</h3>
-            <p class="pf-info__tech" id="pf-tech">—</p>
-            <p class="pf-info__desc" id="pf-desc">—</p>
-          </div>
-          <button class="round-btn magnetic" id="pf-next" type="button" aria-label="Next">
-            <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-          </button>
-        </div>
-        <div class="pf-dots" id="pf-dots" role="tablist" aria-label="Portfolio items"></div>
-      </div>
-    </section>
-
-    <!-- ============ PROCESS (horizontal pinned) ============ -->
-    <section class="process" id="process">
-      <div class="process__sticky">
-        <header class="process__head">
-          <p class="eyebrow" data-i18n="pr.eyebrow">How it works</p>
-          <h2 class="section__title" data-i18n-html="pr.title">From sketch<br><em>to shelf.</em></h2>
-        </header>
-        <div class="process__track">
-          <article class="step">
-            <span class="step__n">01</span>
-            <h3 data-i18n="pr.s1.t">Brief</h3>
-            <p data-i18n="pr.s1.d">Tell us about the bottle, the brand and the run. We advise on technique, inks and budget.</p>
-          </article>
-          <article class="step">
-            <span class="step__n">02</span>
-            <h3 data-i18n="pr.s2.t">Design &amp; 3D</h3>
-            <p data-i18n="pr.s2.d">We adapt artwork to the glass shape and build 3D previews — including volumetric relief decoration.</p>
-          </article>
-          <article class="step">
-            <span class="step__n">03</span>
-            <h3 data-i18n="pr.s3.t">Clichés &amp; screens</h3>
-            <p data-i18n="pr.s3.d">Clichés, dies and screen stencils are made in-house for exact, repeatable reproduction.</p>
-          </article>
-          <article class="step">
-            <span class="step__n">04</span>
-            <h3 data-i18n="pr.s4.t">Sample</h3>
-            <p data-i18n="pr.s4.d">A physical sample on your actual bottle — approved by you before a single run begins.</p>
-          </article>
-          <article class="step">
-            <span class="step__n">05</span>
-            <h3 data-i18n="pr.s5.t">Production</h3>
-            <p data-i18n="pr.s5.d">Printing, stamping, coating and firing on our line, with quality control at every stage.</p>
-          </article>
-          <article class="step step--last">
-            <span class="step__n">06</span>
-            <h3 data-i18n="pr.s6.t">Delivery</h3>
-            <p data-i18n="pr.s6.d">Packed, palletised and delivered to your bottling line — in Moldova and abroad.</p>
-          </article>
-        </div>
-        <div class="process__bar"><span></span></div>
-      </div>
-    </section>
-
-    <!-- ============ ABOUT / HERITAGE ============ -->
-    <section class="about section" id="about">
-      <div class="about__grid">
-        <div class="about__card about__card--big reveal">
-          <p class="eyebrow" data-i18n="ab.eyebrow">Since 2000</p>
-          <h2 class="section__title" data-i18n-html="ab.title">A quarter-century<br><em>on glass.</em></h2>
-          <p data-i18n="ab.p1">Agro Alim Grup was founded in Chișinău in October 2000 by engineer Serghei Drăguțanu, and became the first company in Moldova to decorate glass containers for wine and the beverage industry.</p>
-          <p data-i18n="ab.p2">Today we combine screen printing, hot stamping, coating, painting, pad printing and decal transfer to serve wineries, distilleries and beverage producers — from boutique runs to industrial volumes.</p>
-        </div>
-        <div class="about__card about__card--dark reveal">
-          <span class="about__k">EXCLUSIV</span>
-          <p data-i18n="ab.h1">Took part in promoting and producing EXCLUSIV vodka for the American market.</p>
-        </div>
-        <div class="about__card about__card--gold reveal">
-          <span class="about__k">HUNTER</span>
-          <p data-i18n="ab.h2">Design and production of the HUNTER premium vodka bottle.</p>
-        </div>
-        <div class="about__card about__card--frost reveal">
-          <span class="about__k">ICE</span>
-          <p data-i18n="ab.h3">3D volumetric decoration developed and modelled for ICE vodka.</p>
-        </div>
-        <div class="about__card about__card--list reveal">
-          <p class="eyebrow" data-i18n="ab.ind">Industries</p>
-          <ul class="industries">
-            <li data-i18n="ind.wine">Wine</li>
-            <li data-i18n="ind.spirits">Spirits</li>
-            <li data-i18n="ind.bev">Soft drinks &amp; water</li>
-            <li data-i18n="ind.cos">Cosmetics</li>
-            <li data-i18n="ind.gift">Gifts &amp; ceramics</li>
-          </ul>
+    <section class="section" id="intro">
+      <div class="wrap">
+        <div class="grid"><p class="statement" data-split></p></div>
+        <div class="grid stats">
+          <div class="stat reveal"><span class="stat__num" data-count="2000" data-from="1974">2000</span><span class="stat__label" data-i18n="stats.founded"></span></div>
+          <div class="stat reveal"><span class="stat__num"><span data-count="25">25</span>+</span><span class="stat__label" data-i18n="stats.years"></span></div>
+          <div class="stat reveal"><span class="stat__num" data-count="6">6</span><span class="stat__label" data-i18n="stats.tech"></span></div>
+          <div class="stat reveal"><span class="stat__num">No. 1</span><span class="stat__label" data-i18n="stats.first"></span></div>
         </div>
       </div>
     </section>
 
-    <!-- ============ CONTACT ============ -->
-    <section class="contact section" id="contact">
-      <div class="contact__wrap">
-        <div class="contact__intro">
-          <p class="eyebrow reveal" data-i18n="ct.eyebrow">Get in touch</p>
-          <h2 class="section__title reveal" data-i18n-html="ct.title">Let's decorate<br><em>something great.</em></h2>
-          <p class="section__lead reveal" data-i18n="ct.lead">Share a few details about your bottle and run. We usually reply within one business day.</p>
-          <ul class="contact__info reveal">
-            <li>
-              <span class="ci-k" data-i18n="ct.addr">Address</span>
-              <span class="ci-v" data-contact="address">Chișinău, Republic of Moldova</span>
-            </li>
-            <li>
-              <span class="ci-k" data-i18n="ct.mail">Email</span>
-              <a class="ci-v" data-contact="email" href="#">—</a>
-            </li>
-            <li data-contact-row="phone" hidden>
-              <span class="ci-k" data-i18n="ct.phone">Phone</span>
-              <a class="ci-v" data-contact="phone" href="#">—</a>
-            </li>
-            <li>
-              <span class="ci-k">Web</span>
-              <a class="ci-v" href="https://aag.md" target="_blank" rel="noopener">aag.md</a>
-            </li>
+    <section class="section section--tight" id="services">
+      <div class="wrap">
+        <div class="grid sec-head">
+          <span class="label reveal" data-i18n="svc.label">Services</span>
+          <h2 class="h2 reveal" data-i18n-html="svc.title"></h2>
+          <p class="lead reveal" data-i18n="svc.lead"></p>
+        </div>
+        <div class="svc-index-wrap">
+          <div class="svc-index">
+          <a class="svc-row reveal" href="services.html#screen">
+            <span class="svc-row__n">01</span>
+            <span class="svc-row__t" data-i18n="svc.screen.t">screen</span>
+            <span class="svc-row__d" data-i18n="svc.screen.d"></span>
+            <span class="svc-row__a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+          <a class="svc-row reveal" href="services.html#hot">
+            <span class="svc-row__n">02</span>
+            <span class="svc-row__t" data-i18n="svc.hot.t">hot</span>
+            <span class="svc-row__d" data-i18n="svc.hot.d"></span>
+            <span class="svc-row__a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+          <a class="svc-row reveal" href="services.html#coat">
+            <span class="svc-row__n">03</span>
+            <span class="svc-row__t" data-i18n="svc.coat.t">coat</span>
+            <span class="svc-row__d" data-i18n="svc.coat.d"></span>
+            <span class="svc-row__a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+          <a class="svc-row reveal" href="services.html#paint">
+            <span class="svc-row__n">04</span>
+            <span class="svc-row__t" data-i18n="svc.paint.t">paint</span>
+            <span class="svc-row__d" data-i18n="svc.paint.d"></span>
+            <span class="svc-row__a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+          <a class="svc-row reveal" href="services.html#cliche">
+            <span class="svc-row__n">05</span>
+            <span class="svc-row__t" data-i18n="svc.cliche.t">cliche</span>
+            <span class="svc-row__d" data-i18n="svc.cliche.d"></span>
+            <span class="svc-row__a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+          <a class="svc-row reveal" href="services.html#pad">
+            <span class="svc-row__n">06</span>
+            <span class="svc-row__t" data-i18n="svc.pad.t">pad</span>
+            <span class="svc-row__d" data-i18n="svc.pad.d"></span>
+            <span class="svc-row__a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+          </div>
+        </div>
+        <div class="grid" style="margin-top:40px"><a class="link-arrow reveal" style="grid-column:2 / 9" href="services.html"><span data-i18n="svc.all">All services</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </div>
+    </section>
+
+    <section class="panel section" id="work">
+      <div class="wrap">
+        <div class="grid sec-head">
+          <span class="label reveal" data-i18n="pf.label">Portfolio</span>
+          <h2 class="h2 reveal" data-i18n="pf.title">Selected work</h2>
+          <a class="link-arrow sec-link reveal" href="portfolio.html"><span data-i18n="pf.open">Open portfolio</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="grid work-grid">
+          <a class="work  reveal" href="portfolio.html#p2" data-item="1">
+            <div class="shot shot--dark" data-shot="1" data-bg="#1a1a1a" data-view="angle"></div>
+            <div class="work__meta"><span class="work__t" data-item-t>—</span><span class="work__k" data-item-k>—</span></div>
+          </a>
+          <a class="work  reveal" href="portfolio.html#p1" data-item="0">
+            <div class="shot shot--dark" data-shot="0" data-bg="#1a1a1a" data-view="front"></div>
+            <div class="work__meta"><span class="work__t" data-item-t>—</span><span class="work__k" data-item-k>—</span></div>
+          </a>
+          <a class="work  reveal" href="portfolio.html#p4" data-item="3">
+            <div class="shot shot--dark" data-shot="3" data-bg="#1a1a1a" data-view="front"></div>
+            <div class="work__meta"><span class="work__t" data-item-t>—</span><span class="work__k" data-item-k>—</span></div>
+          </a>
+          <a class="work  reveal" href="portfolio.html#p3" data-item="2">
+            <div class="shot shot--dark" data-shot="2" data-bg="#1a1a1a" data-view="angle"></div>
+            <div class="work__meta"><span class="work__t" data-item-t>—</span><span class="work__k" data-item-k>—</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="wrap">
+        <div class="grid sec-head">
+          <span class="label reveal" data-i18n="ab.label">About</span>
+          <h2 class="h2 reveal" data-i18n="ab.title">A quarter-century on glass.</h2>
+        </div>
+        <div class="grid">
+          <div class="about-text lead reveal">
+            <p data-i18n="ab.p1"></p>
+            <p data-i18n="ab.p2"></p>
+          </div>
+        </div>
+        <div class="heritage">
+          <div class="grid heritage__row reveal"><span class="heritage__k" data-i18n="ab.k1"></span><span class="heritage__t">EXCLUSIV</span><p class="heritage__d" data-i18n="ab.h1"></p></div>
+          <div class="grid heritage__row reveal"><span class="heritage__k" data-i18n="ab.k2"></span><span class="heritage__t">HUNTER</span><p class="heritage__d" data-i18n="ab.h2"></p></div>
+          <div class="grid heritage__row reveal"><span class="heritage__k" data-i18n="ab.k3"></span><span class="heritage__t">ICE</span><p class="heritage__d" data-i18n="ab.h3"></p></div>
+          <div class="grid heritage__row reveal" style="border-bottom:0">
+            <span class="heritage__k" data-i18n="ab.ind">Industries</span>
+            <ul class="industries">
+              <li data-i18n="ind.wine"></li><li data-i18n="ind.spirits"></li><li data-i18n="ind.bev"></li><li data-i18n="ind.cos"></li><li data-i18n="ind.gift"></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact" style="padding-top:0">
+      <div class="wrap grid">
+        <div class="contact__intro reveal">
+          <span class="label" data-i18n="ct.label">Contact</span>
+          <h2 class="h2" data-i18n="ct.title">Start a project.</h2>
+          <p class="muted" data-i18n="ct.lead"></p>
+          <ul class="contact__info">
+            <li><span class="ci-k" data-i18n="ct.addr">Address</span><span class="ci-v" data-contact="address">Chișinău, Republic of Moldova</span></li>
+            <li><span class="ci-k" data-i18n="ct.mail">Email</span><a class="ci-v" data-contact="email" href="#">—</a></li>
+            <li data-contact-row="phone" hidden><span class="ci-k" data-i18n="ct.phone">Phone</span><a class="ci-v" data-contact="phone" href="#">—</a></li>
+            <li><span class="ci-k" data-i18n="ct.web">Web</span><a class="ci-v" href="https://aag.md" target="_blank" rel="noopener">aag.md</a></li>
           </ul>
         </div>
 
         <form class="form reveal" id="contact-form" novalidate>
           <fieldset class="form__services">
             <legend data-i18n="f.interest">I'm interested in</legend>
-            <label class="pill"><input type="checkbox" name="services" value="Screen printing"><span data-i18n="svc.screen.t">Screen printing</span></label>
-            <label class="pill"><input type="checkbox" name="services" value="Hot stamping"><span data-i18n="svc.hot.t">Hot stamping</span></label>
-            <label class="pill"><input type="checkbox" name="services" value="Coating"><span data-i18n="svc.coat.t">Coating</span></label>
-            <label class="pill"><input type="checkbox" name="services" value="Bottle painting"><span data-i18n="svc.paint.t">Bottle painting</span></label>
-            <label class="pill"><input type="checkbox" name="services" value="Cliché making"><span data-i18n="svc.cliche.t">Cliché making</span></label>
-            <label class="pill"><input type="checkbox" name="services" value="Pad printing & decals"><span data-i18n="svc.pad.t">Pad printing &amp; decals</span></label>
+            <label class="pill"><input type="checkbox" name="services" value="screen"><span data-i18n="svc.screen.t">screen</span></label><label class="pill"><input type="checkbox" name="services" value="hot"><span data-i18n="svc.hot.t">hot</span></label><label class="pill"><input type="checkbox" name="services" value="coat"><span data-i18n="svc.coat.t">coat</span></label><label class="pill"><input type="checkbox" name="services" value="paint"><span data-i18n="svc.paint.t">paint</span></label><label class="pill"><input type="checkbox" name="services" value="cliche"><span data-i18n="svc.cliche.t">cliche</span></label><label class="pill"><input type="checkbox" name="services" value="pad"><span data-i18n="svc.pad.t">pad</span></label>
           </fieldset>
-
           <div class="form__row">
             <div class="field">
               <input id="f-name" name="name" type="text" autocomplete="name" placeholder=" " required>
               <label for="f-name" data-i18n="f.name">Your name</label>
-              <small class="field__err" data-i18n="f.err.name">Please tell us your name.</small>
+              <small class="field__err" data-i18n="f.err.name"></small>
             </div>
             <div class="field">
               <input id="f-company" name="company" type="text" autocomplete="organization" placeholder=" ">
@@ -356,7 +223,7 @@
             <div class="field">
               <input id="f-email" name="email" type="email" autocomplete="email" placeholder=" " required>
               <label for="f-email" data-i18n="f.email">Email</label>
-              <small class="field__err" data-i18n="f.err.email">Please enter a valid email.</small>
+              <small class="field__err" data-i18n="f.err.email"></small>
             </div>
             <div class="field">
               <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder=" ">
@@ -364,7 +231,7 @@
             </div>
           </div>
           <div class="field field--select">
-            <select id="f-qty" name="quantity">
+            <select id="f-qty" name="quantity" aria-label="Run size">
               <option value="" data-i18n="f.qty.0">Estimated run size</option>
               <option value="< 1,000">&lt; 1,000</option>
               <option value="1,000 – 10,000">1,000 – 10,000</option>
@@ -375,31 +242,47 @@
           <div class="field">
             <textarea id="f-msg" name="message" rows="4" placeholder=" " required></textarea>
             <label for="f-msg" data-i18n="f.msg">Tell us about your project</label>
-            <small class="field__err" data-i18n="f.err.msg">A few words about the project, please.</small>
+            <small class="field__err" data-i18n="f.err.msg"></small>
           </div>
-          <label class="consent">
-            <input type="checkbox" name="consent" required>
-            <span data-i18n="f.consent">I agree to be contacted about my request.</span>
-          </label>
-          <!-- honeypot -->
+          <label class="consent"><input type="checkbox" name="consent" required><span data-i18n="f.consent"></span></label>
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
-          <button class="btn btn--dark btn--lg magnetic" type="submit">
-            <span data-i18n="f.send">Send request</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
+          <button class="btn btn--dark" type="submit"><span data-i18n="f.send">Send request</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
           <p class="form__status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>
   </main>
 
-  <!-- ============ FOOTER ============ -->
   <footer class="footer">
-    <div class="footer__big" aria-hidden="true">AAG</div>
-    <div class="footer__row">
-      <span>© <span id="year">2026</span> Agroalimgrup S.R.L. · Chișinău, Moldova</span>
-      <span data-i18n="ft.tag">Glass decoration since 2000</span>
-      <a href="#top" class="to-top" data-i18n="ft.top">Back to top ↑</a>
+    <div class="wrap">
+      <div class="grid footer__top">
+        <div class="footer__brand">
+          <a class="nav__logo" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#111"/><path d="M14 7h4v5c0 1.5 3 3 3 7v6a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 11 25v-6c0-4 3-5.5 3-7z" fill="none" stroke="#fff" stroke-width="1.4"/></svg><span>AGRO ALIM GRUP</span></a>
+          <p data-i18n="ft.about">Glass decoration factory in Chișinău, Moldova. Since 2000.</p>
+        </div>
+        <div class="footer__col">
+          <span class="label" data-i18n="ft.nav">Company</span>
+          <a href="services.html" data-i18n="nav.services">Services</a>
+          <a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a>
+          <a href="index.html#about" data-i18n="nav.about">About</a>
+          <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
+        </div>
+        <div class="footer__col">
+          <span class="label" data-i18n="ft.svc">Services</span>
+          <a href="services.html#screen" data-i18n="svc.screen.t">screen</a><a href="services.html#hot" data-i18n="svc.hot.t">hot</a><a href="services.html#coat" data-i18n="svc.coat.t">coat</a><a href="services.html#paint" data-i18n="svc.paint.t">paint</a><a href="services.html#cliche" data-i18n="svc.cliche.t">cliche</a><a href="services.html#pad" data-i18n="svc.pad.t">pad</a>
+        </div>
+        <div class="footer__col">
+          <span class="label" data-i18n="ft.contact">Contact</span>
+          <a data-contact="email" href="#">—</a>
+          <a data-contact="phone" href="#" hidden>—</a>
+          <a href="https://aag.md" target="_blank" rel="noopener">aag.md</a>
+          <span class="muted" data-contact="address">Chișinău, Republic of Moldova</span>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© <span data-year>2026</span> Agroalimgrup S.R.L. <span data-i18n="ft.rights">All rights reserved.</span></span>
+        <span>Chișinău · Moldova</span>
+      </div>
     </div>
   </footer>
 

@@ -128,7 +128,7 @@ function buildDesigns() {
     { // 1 — Cabernet Reserve
       shape: "bordeaux",
       body: { kind: "glass", color: "#5f9a72", attenuation: "#1f5a36" },
-      liquid: { color: "#3a0610", fill: 2.35 },
+      liquid: { color: "#3a0610", fill: 1.9 },
       cap: { color: "#6b1024", metal: .7, rough: .35 },
       ink(ctx) {
         ctx.strokeStyle = "#f4efe4"; ctx.lineWidth = 2.5;
@@ -418,7 +418,7 @@ function initHero(designs) {
   const camera = new THREE.PerspectiveCamera(28, 1, .1, 100);
 
   const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(3, 5, 4); scene.add(key);
-  const rim = new THREE.DirectionalLight(0xffe7b8, 2.5); rim.position.set(-4, 3, -3); scene.add(rim);
+  const rim = new THREE.DirectionalLight(0xffffff, 2.2); rim.position.set(-4, 3, -3); scene.add(rim);
   scene.add(new THREE.AmbientLight(0xffffff, .3));
 
   const bottle = makeBottle(designs[1], renderer);
@@ -477,8 +477,8 @@ function initCarousel(designs) {
   const camera = new THREE.PerspectiveCamera(30, 1, .1, 100);
 
   const key = new THREE.DirectionalLight(0xffffff, 2); key.position.set(4, 6, 6); scene.add(key);
-  const rimL = new THREE.DirectionalLight(0xe9d3a0, 3); rimL.position.set(-6, 3, -2); scene.add(rimL);
-  const rimR = new THREE.DirectionalLight(0xb9d4ff, 1.6); rimR.position.set(6, 2, -3); scene.add(rimR);
+  const rimL = new THREE.DirectionalLight(0xffffff, 2.4); rimL.position.set(-6, 3, -2); scene.add(rimL);
+  const rimR = new THREE.DirectionalLight(0xffffff, 1.4); rimR.position.set(6, 2, -3); scene.add(rimR);
   scene.add(new THREE.AmbientLight(0xffffff, .25));
 
   const N = designs.length;
@@ -496,7 +496,7 @@ function initCarousel(designs) {
     bottle.position.y = -1.6;
     spinner.add(bottle);
     holder.add(spinner);
-    const glow = blob("233,211,160", .22);
+    const glow = blob("255,255,255", .14);
     glow.scale.set(2.6, 2.6, 1);
     glow.position.y = -1.61;
     holder.add(glow);
@@ -508,7 +508,7 @@ function initCarousel(designs) {
   // pedestal ring
   const ped = new THREE.Mesh(
     new THREE.TorusGeometry(R, .006, 8, 200),
-    new THREE.MeshBasicMaterial({ color: 0xe9d3a0, transparent: true, opacity: .25 })
+    new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .12 })
   );
   ped.rotation.x = Math.PI / 2; ped.position.y = -1.6;
   scene.add(ped);
@@ -580,6 +580,7 @@ function initCarousel(designs) {
     target = Math.round(target) + diff;
     autoTimer = 0;
   }
+  window.AAG_CAROUSEL = { goTo };
   document.getElementById("pf-prev").addEventListener("click", () => { target = Math.round(target) - 1; autoTimer = 0; });
   document.getElementById("pf-next").addEventListener("click", () => { target = Math.round(target) + 1; autoTimer = 0; });
   wrap.tabIndex = 0;
@@ -662,6 +663,116 @@ function initCarousel(designs) {
   });
 }
 
+
+/* =========================================================
+   CLICHÉ PLATE (mirrored relief, as a real stamping die)
+   ========================================================= */
+function makePlate(renderer) {
+  const w = 3.2, h = 2.2, rad = .28;
+  const shape = new THREE.Shape();
+  shape.moveTo(-w / 2 + rad, -h / 2);
+  shape.lineTo(w / 2 - rad, -h / 2); shape.quadraticCurveTo(w / 2, -h / 2, w / 2, -h / 2 + rad);
+  shape.lineTo(w / 2, h / 2 - rad); shape.quadraticCurveTo(w / 2, h / 2, w / 2 - rad, h / 2);
+  shape.lineTo(-w / 2 + rad, h / 2); shape.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - rad);
+  shape.lineTo(-w / 2, -h / 2 + rad); shape.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + rad, -h / 2);
+  const geo = new THREE.ExtrudeGeometry(shape, { depth: .14, bevelEnabled: true, bevelThickness: .03, bevelSize: .03, bevelSegments: 4, curveSegments: 24 });
+  const pos = geo.attributes.position, uv = geo.attributes.uv;
+  for (let i = 0; i < pos.count; i++) uv.setXY(i, (pos.getX(i) + w / 2) / w, (pos.getY(i) + h / 2) / h);
+
+  // relief artwork — mirrored, as engraved on a real cliché
+  const c = document.createElement("canvas");
+  c.width = 1024; c.height = Math.round(1024 * h / w);
+  const ctx = c.getContext("2d");
+  ctx.fillStyle = "#000"; ctx.fillRect(0, 0, c.width, c.height);
+  ctx.translate(c.width, 0); ctx.scale(-1, 1);
+  ctx.fillStyle = "#fff"; ctx.strokeStyle = "#fff";
+  ctx.lineWidth = 10;
+  ctx.strokeRect(90, 90, c.width - 180, c.height - 180);
+  ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.font = "600 220px Montserrat, sans-serif";
+  ctx.fillText("AAG", c.width / 2, c.height / 2 - 30);
+  ctx.font = "500 44px Montserrat, sans-serif";
+  if ("letterSpacing" in ctx) ctx.letterSpacing = "18px";
+  ctx.fillText("CHIȘINĂU · 2000", c.width / 2, c.height / 2 + 130);
+  const bump = new THREE.CanvasTexture(c);
+
+  const mat = new THREE.MeshPhysicalMaterial({
+    color: "#c7c8cc", metalness: 1, roughness: .32, bumpMap: bump, bumpScale: 10,
+    clearcoat: .4, envMapIntensity: 1.3
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  const g = new THREE.Group();
+  mesh.position.z = -.07;
+  g.add(mesh);
+  return g;
+}
+
+/* =========================================================
+   STILL SHOTS — renders product images for cards
+   <div data-shot="0..6 | plate" data-bg="#hex" data-view="front|close|angle">
+   ========================================================= */
+function renderShots(designs) {
+  const targets = [...document.querySelectorAll("[data-shot]")];
+  if (!targets.length) return;
+  const canvas = document.createElement("canvas");
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.setPixelRatio(1);
+  const W = 900, H = 1100;
+  renderer.setSize(W, H, false);
+
+  const scene = new THREE.Scene();
+  envFor(renderer, scene);
+  const key = new THREE.DirectionalLight(0xffffff, 2); key.position.set(4, 6, 6); scene.add(key);
+  const rim = new THREE.DirectionalLight(0xffffff, 2); rim.position.set(-5, 3, -3); scene.add(rim);
+  scene.add(new THREE.AmbientLight(0xffffff, .25));
+  const camera = new THREE.PerspectiveCamera(26, W / H, .1, 100);
+
+  const cache = new Map();
+  targets.forEach((el) => {
+    const id = el.dataset.shot;
+    const bg = el.dataset.bg || "#ededed";
+    const view = el.dataset.view || "front";
+    const key = `${id}|${bg}|${view}`;
+    if (!cache.has(key)) {
+      const obj = id === "plate" ? makePlate(renderer) : makeBottle(designs[+id], renderer);
+      const pivot = new THREE.Group();
+      pivot.add(obj);
+      scene.add(pivot);
+      scene.background = new THREE.Color(bg);
+      const dark = new THREE.Color(bg).getHSL({}).l < .3;
+      const shadow = blob(dark ? "255,255,255" : "0,0,0", dark ? .1 : .22);
+
+      if (id === "plate") {
+        pivot.rotation.set(-.9, 0, -.28);
+        camera.position.set(0, 0, 11);
+        camera.lookAt(0, 0, 0);
+      } else {
+        const hgt = obj.userData.height;
+        obj.position.y = -hgt / 2;
+        shadow.scale.set(2.4, 2.4, 1); shadow.position.y = -hgt / 2 - .01; scene.add(shadow);
+        pivot.rotation.y = view === "angle" ? -.55 : view === "close" ? -.15 : -.25;
+        if (view === "close") { camera.position.set(0, .2, 5.2); camera.lookAt(0, -.3, 0); }
+        else { camera.position.set(0, .6, 9.6); camera.lookAt(0, 0, 0); }
+      }
+      camera.updateProjectionMatrix();
+      renderer.render(scene, camera);
+      cache.set(key, canvas.toDataURL("image/jpeg", .9));
+      scene.remove(pivot); scene.remove(shadow);
+      obj.traverse((o) => { if (o.isMesh) { o.geometry.dispose(); [].concat(o.material).forEach((m) => { Object.values(m).forEach((v) => v && v.isTexture && v.dispose()); m.dispose(); }); } });
+    }
+    const img = new Image();
+    img.alt = el.dataset.alt || "";
+    img.decoding = "async";
+    img.src = cache.get(key);
+    el.appendChild(img);
+    requestAnimationFrame(() => el.classList.add("shot-ready"));
+  });
+  renderer.dispose();
+}
+
 /* =========================================================
    boot
    ========================================================= */
@@ -673,9 +784,10 @@ function webglOK() {
 }
 
 async function boot() {
+  const carousel = document.getElementById("carousel");
+  const hero = document.getElementById("hero-canvas");
   if (!webglOK()) {
-    document.querySelector(".carousel__fallback").hidden = false;
-    document.getElementById("carousel").classList.add("ready");
+    if (carousel) { carousel.querySelector(".carousel__fallback").hidden = false; carousel.classList.add("ready"); }
     return;
   }
   // wait for web fonts so canvas text uses them
@@ -684,11 +796,13 @@ async function boot() {
     document.fonts.load("400 40px 'Instrument Serif'"),
     document.fonts.load("italic 400 40px 'Instrument Serif'"),
     document.fonts.load("700 40px Montserrat"),
-    document.fonts.load("600 40px Montserrat")
+    document.fonts.load("600 40px Montserrat"),
+    document.fonts.load("500 40px Montserrat")
   ].map((p) => p.catch(() => {})));
 
   const designs = buildDesigns();
-  initHero(designs);
-  initCarousel(designs);
+  renderShots(designs);
+  if (hero) initHero(designs);
+  if (carousel) initCarousel(designs);
 }
 boot();

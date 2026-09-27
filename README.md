@@ -2,13 +2,23 @@
 
 Static, dependency-free portfolio site for **Agroalimgrup S.R.L. (AAG)**, a glass-decoration factory in Chișinău, Moldova. It covers screen printing, hot stamping, coating, bottle painting, cliché making, pad printing and decals.
 
-## Features
+## Pages
 
-- **Minimal, motion-heavy layout.** Sticky hero with a scroll-driven 3D bottle, word-by-word statement reveal, animated counters, a marquee, tilt and magnetic hover, and a pinned horizontal "process" section.
-- **3D portfolio carousel** (Three.js). Seven bottles are modelled in code, each showing one finish: screen print, gold foil, matte coating, frost with relief, gradient paint, ceramic decal and soft-touch jar. You can drag or swipe to spin it, use the arrows, dots or keyboard, or click a bottle to bring it forward. It autoplays when idle.
-- **Contact form** with service chips, validation, a honeypot field and a success state. It can post to any form backend, or fall back to opening a prefilled email.
-- **EN / RO / RU** language switch, which also translates the carousel captions.
-- Corner radii of 32–64 px throughout, responsive down to 360 px, and support for `prefers-reduced-motion`.
+| page | contents |
+| --- | --- |
+| `index.html` | Hero with a scroll-driven 3D bottle, statement and key figures, service index, selected work, about/heritage, contact form |
+| `services.html` | Six service sections (screen printing, hot stamping, coating, bottle painting, cliché making, pad printing & decals), each with a rendered product image and specs, a sticky service sub-nav, and a pinned horizontal process |
+| `portfolio.html` | Interactive 3D carousel (drag, arrows, keys, dots; autoplay when idle), plus a filterable project grid that opens each project in the 3D viewer |
+
+## Design system
+
+- **Grid.** Desktop uses 8 columns of 108 px with a 16 px gutter, centred, for a 976 px container. Tablet uses the same 8 columns fluidly; phones use 4 columns. Every section is placed on column lines. Press **G** (or add `?grid` to the URL) to show the red column overlay.
+- **Type.** One family: Gotham, with Montserrat as the fallback. Weights are 400, 500 and 600. The scale is 64 / 44 / 24 / 20 / 16 / 14 / 12, with uppercase tracked labels. There is no display serif and no italics.
+- **Colour.** Monochrome: ink `#111`, paper `#f4f4f4`, white, and night `#0c0c0c`. There are no gradients.
+- **Radius.** 32 px for components, 40 px for panels, and pills for controls.
+- **Imagery.** Product images are rendered live from the same 3D models as the carousel, including a mirrored metal cliché plate. No illustrations are used.
+- **Motion.** Line reveals, fade-up on scroll, word-by-word statement, counters, the scroll-driven hero bottle, the pinned process section and the 3D carousel. `prefers-reduced-motion` is respected.
+- EN / RO / RU language switch.
 
 ## Run locally
 
@@ -33,12 +43,7 @@ Texts live in `assets/js/i18n.js`. Portfolio bottles are defined in `buildDesign
 
 ## Fonts
 
-The brief asked for **Gotham** (body) and **Marbley** (display). Both are commercial fonts, so the site currently uses the closest free Google Fonts:
-
-- Gotham → **Montserrat**
-- Marbley → **Instrument Serif** (italic accents)
-
-To use the licensed fonts, add the `.woff2` files to `assets/fonts/` and uncomment the `@font-face` block at the top of `assets/css/style.css`. The font stacks already list `Gotham` and `Marbley` first.
+The site uses a single family, **Gotham**. It is a commercial font, so **Montserrat** (Google Fonts) stands in for it. To use the licensed files, add them to `assets/fonts/` and uncomment the `@font-face` block at the top of `assets/css/style.css`. Instrument Serif is loaded only for the printed artwork on the 3D bottle labels.
 
 ## Deploy
 
