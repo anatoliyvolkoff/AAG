@@ -89,6 +89,9 @@ const AAG_CONFIG = {
   };
   burger.addEventListener("click", () => setMenu(!document.body.classList.contains("menu-open")));
   $$(".mobile-menu a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && document.body.classList.contains("menu-open")) { setMenu(false); burger.focus(); }
+  });
 
   // home page: highlight About / Contact links while those sections are in view
   const homeLinks = $$('.nav__links a[href^="index.html#"]');

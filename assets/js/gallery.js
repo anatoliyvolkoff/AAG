@@ -210,13 +210,13 @@
         if (sx === null) return;
         const dx = e.clientX - sx, dy = e.clientY - sy;
         sx = null;
-        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { g._swiped = true; go(g._index + (dx < 0 ? 1 : -1)); }
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { g._swipedAt = Date.now(); go(g._index + (dx < 0 ? 1 : -1)); }
       });
 
       // open fullscreen
       stage.addEventListener("click", (e) => {
         if (e.target.closest(".gallery__btn")) return;
-        if (g._swiped) { g._swiped = false; return; }
+        if (Date.now() - (g._swipedAt || 0) < 350) return; // the click synthesised by the swipe itself
         openLightbox(g);
       });
       if (product) updateNote(product);

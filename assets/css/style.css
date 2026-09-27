@@ -124,7 +124,7 @@ body.show-grid .grid-overlay { display: block; }
 .nav__links a.is-active { color: var(--ink); background: var(--paper); }
 .nav__right { display: flex; align-items: center; gap: 8px; }
 .lang { display: flex; }
-.lang button { padding: 6px 8px; font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: .06em; }
+.lang button { min-width: 40px; min-height: 40px; padding: 0 8px; font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: .06em; }
 .lang button.is-active { color: var(--ink); }
 .nav__burger { display: none; width: 44px; height: 44px; border-radius: 50%; position: relative; }
 .nav__burger span { position: absolute; left: 13px; right: 13px; height: 1.5px; background: var(--ink); }

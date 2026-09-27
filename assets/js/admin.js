@@ -238,7 +238,8 @@
   const TECHS = ["screen", "hot", "coat", "paint", "pad", "cliche"];
   const PFIELDS = [["title", "Title", "input"], ["kind", "Subtitle (technique · detail)", "input"], ["text", "Description", "textarea"],
     ["specs.container", "Container", "input"], ["specs.finish", "Finish", "input"], ["specs.colours", "Colours", "input"]];
-  const openCards = new Set([0]);
+  const openCards = new Set();                 // product ids whose editor card is open
+  const pid = (item) => item.id || (item.id = "project-" + Math.random().toString(36).slice(2, 9));
   const getP = (o, path) => path.split(".").reduce((a, k) => (a ? a[k] : undefined), o);
   const setP = (o, path, lng, v) => {
     const ks = path.split(".");
@@ -251,8 +252,9 @@
       item.photos = Array.isArray(item.photos) ? item.photos : [];
       const card = document.createElement("details");
       card.className = "adm-prod";
-      card.open = openCards.has(idx);
-      card.addEventListener("toggle", () => (card.open ? openCards.add(idx) : openCards.delete(idx)));
+      if (idx === 0 && !openCards.size && !renderProducts._init) { openCards.add(pid(item)); renderProducts._init = true; }
+      card.open = openCards.has(pid(item));
+      card.addEventListener("toggle", () => (card.open ? openCards.add(pid(item)) : openCards.delete(pid(item))));
       const sum = document.createElement("summary");
       const thumb = item.photos[0] ? `<img src="${previewUrl(item.photos[0].src)}" alt="">` : "";
       sum.innerHTML = `<span class="adm-prod__thumb">${thumb}</span><span class="adm-prod__name"></span><span class="adm-prod__meta"></span>`;
@@ -300,7 +302,7 @@
         act("Delete product", () => {
           const name = (item.title && item.title.en) || "this product";
           if (!confirm(`Delete "${name}" from the portfolio?`)) return;
-          content.portfolio.splice(idx, 1); openCards.clear(); markDirty(); renderProducts();
+          openCards.delete(pid(item)); content.portfolio.splice(idx, 1); markDirty(); renderProducts();
         })
       );
       body.appendChild(acts);
@@ -310,7 +312,7 @@
   }
   $("#pf-add").addEventListener("click", () => {
     content.portfolio.push({ id: "project-" + Date.now().toString(36), tech: "screen", title: { en: "New project" }, kind: {}, text: {}, specs: {}, photos: [] });
-    openCards.clear(); openCards.add(content.portfolio.length - 1);
+    openCards.clear(); openCards.add(pid(content.portfolio[content.portfolio.length - 1]));
     markDirty(); renderProducts();
     const last = $("#pf-list .adm-prod:last-child");
     if (last) last.scrollIntoView({ behavior: "smooth", block: "center" });
