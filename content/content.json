@@ -9,9 +9,9 @@
   "banner": {
     "enabled": true,
     "type": "video",
-    "src": "assets/media/banner.mp4",
-    "srcWebm": "assets/media/banner.webm",
-    "poster": "assets/media/banner-poster.jpg",
+    "src": "assets/uploads/change_lighting_and_rendering_2026092800-20260928-004405.mp4",
+    "srcWebm": "",
+    "poster": "assets/uploads/editing_vodka_bottle_image_2k_2026092722-20260928-004409.jpg",
     "link": "portfolio.html",
     "label": {
       "en": "Showreel",
@@ -40,19 +40,20 @@
       "assets/photos/cabernet-front.jpg",
       "assets/photos/rose-front.jpg",
       "assets/photos/ice-front.jpg",
-      "assets/photos/botanica-front.jpg"
+      "assets/photos/botanica-front.jpg",
+      "assets/uploads/editing_vodka_bottle_image_2k_2026092722-20260928-004411.jpg"
     ]
   },
   "services": {
     "screen": {
-      "image": "assets/photos/botanica-angle.jpg",
+      "image": "assets/uploads/editing_vodka_bottle_image_2k_2026092722-20260928-004413.jpg",
       "credit": "",
-      "visual": true
+      "visual": false
     },
     "hot": {
-      "image": "assets/photos/noir-detail.jpg",
+      "image": "assets/uploads/emotion-cleaner-1000-20260928-004416.png",
       "credit": "",
-      "visual": true
+      "visual": false
     },
     "coat": {
       "image": "assets/photos/aura-front.jpg",
@@ -479,6 +480,37 @@
           "src": "assets/photos/aura-back.jpg",
           "credit": "",
           "visual": true
+        }
+      ]
+    },
+    {
+      "id": "project-mukchynu",
+      "tech": "screen",
+      "title": {
+        "en": "Zernoff"
+      },
+      "kind": {
+        "en": "stamp"
+      },
+      "text": {
+        "en": "tds"
+      },
+      "specs": {
+        "container": {
+          "en": "ss"
+        },
+        "finish": {
+          "en": "ss"
+        },
+        "colours": {
+          "en": "ss"
+        }
+      },
+      "photos": [
+        {
+          "src": "assets/uploads/editing_vodka_bottle_image_2k_2026092722-20260928-004417.jpg",
+          "credit": "",
+          "visual": false
         }
       ]
     }
