@@ -105,6 +105,30 @@
       </div>
     </section>
 
+    <section class="banner" id="reel" aria-label="Showreel">
+      <div class="banner__frame">
+        <a class="banner__link" href="portfolio.html" data-banner-link data-cursor="Open">
+          <div class="banner__media" data-banner-media>
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/media/banner-poster.jpg">
+              <source src="assets/media/banner.webm" type="video/webm">
+              <source src="assets/media/banner.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="banner__shade" aria-hidden="true"></div>
+          <div class="wrap grid banner__overlay">
+            <span class="label banner__label" data-banner="label">Showreel</span>
+            <h2 class="h2 banner__title" data-banner="title">Every finish, in motion.</h2>
+            <p class="banner__text" data-banner="text"></p>
+            <span class="banner__cta"><span class="roll" data-banner="cta">View portfolio</span><span class="banner__circle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+          </div>
+        </a>
+        <button class="banner__toggle" type="button" aria-label="Pause video" aria-pressed="false">
+          <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg>
+          <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+        </button>
+      </div>
+    </section>
+
     <div class="marquee" aria-hidden="true"><div class="marquee__track" data-marquee>
       <span data-i18n="svc.screen.t">screen</span><i></i><span data-i18n="svc.hot.t">hot</span><i></i><span data-i18n="svc.coat.t">coat</span><i></i><span data-i18n="svc.paint.t">paint</span><i></i><span data-i18n="svc.cliche.t">cliche</span><i></i><span data-i18n="svc.pad.t">pad</span><i></i><span data-i18n="svc.screen.t">screen</span><i></i><span data-i18n="svc.hot.t">hot</span><i></i><span data-i18n="svc.coat.t">coat</span><i></i><span data-i18n="svc.paint.t">paint</span><i></i><span data-i18n="svc.cliche.t">cliche</span><i></i><span data-i18n="svc.pad.t">pad</span><i></i>
     </div></div>
@@ -336,6 +360,7 @@
   <script src="assets/vendor/lenis/lenis.min.js"></script>
   <script src="assets/js/i18n.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/content.js"></script>
   <script src="assets/js/motion.js"></script>
   <script type="module" src="assets/js/scene.js"></script>
 </body>

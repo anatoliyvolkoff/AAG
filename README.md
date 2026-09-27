@@ -44,12 +44,37 @@ v3 adds the following, inspired by Japanese corporate-agency sites (reference: b
 
 All of these are disabled when the visitor has `prefers-reduced-motion` set.
 
+## Banner (video / GIF / image)
+
+The home page has a full-width showreel banner between the key figures and the services. The default is a 20-second seamless loop rendered from the 3D bottle models: `assets/media/banner.mp4`, `banner.webm`, and `banner-poster.jpg` as the poster. It autoplays muted, pauses when off-screen, has a pause button, and expands into place as you scroll. For visitors with reduced motion, it stays paused on the poster.
+
+## Content admin (`admin.html`)
+
+The site stays static. Editable content lives in `content/content.json`, and `admin.html` edits it through the GitHub API.
+
+| section | what you can change |
+| --- | --- |
+| Banner | show or hide it; video, GIF or image; upload a file or paste a URL; poster image; link; label, title, text and button in EN / RO / RU |
+| Service images | a real photo for each of the six services, replacing the 3D render (you can switch back to the render) |
+| Portfolio images | a photo for each project card on the home and portfolio pages |
+| Contact details | email, phone, address, and the form endpoint |
+
+**How to use it**
+
+1. Open `https://<your-site>/admin.html`. It isn't linked from the site, and `robots.txt` keeps it out of search engines.
+2. Create a **fine-grained GitHub token** with access to this repository only and the permission **Contents: Read and write**. The panel has a link and step-by-step instructions.
+3. Paste the token, click **Connect**, and pick the branch your hosting deploys from.
+4. Edit, then click **Publish changes**. Uploaded files are committed to `assets/uploads/`, then `content.json` is committed. Your host redeploys automatically.
+
+The token is kept only in that browser: for the session, or on the device if you tick *Remember*. It is never written into the site. Without a token you can still edit and use **Download JSON** to replace the file by hand. Keep videos under about 10 MB (the upload limit is 50 MB). Larger files are better hosted elsewhere and added with *or media URL*.
+
 ## Versions
 
 | branch | version |
 | --- | --- |
 | `release/v2.0-grid-design` | Approved grid redesign (frozen) |
 | `release/v3.0-motion` | v2 + motion layer |
+| `release/v3.1-banner-admin` | v3 + media banner + content admin |
 
 ## Run locally
 

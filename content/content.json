@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "contact": {
+    "email": "info@aag.md",
+    "phone": "",
+    "address": "Chișinău, Republic of Moldova",
+    "formEndpoint": ""
+  },
+  "banner": {
+    "enabled": true,
+    "type": "video",
+    "src": "assets/media/banner.mp4",
+    "srcWebm": "assets/media/banner.webm",
+    "poster": "assets/media/banner-poster.jpg",
+    "link": "portfolio.html",
+    "label": { "en": "Showreel", "ro": "Showreel", "ru": "Шоурил" },
+    "title": { "en": "Every finish, in motion.", "ro": "Fiecare finisaj, în mișcare.", "ru": "Каждая отделка — в движении." },
+    "text": {
+      "en": "Screen printing, foil, coating, paint and decals — the collection in 3D.",
+      "ro": "Serigrafie, folie, acoperire, vopsire și decaluri — colecția în 3D.",
+      "ru": "Шелкография, фольга, покрытие, покраска и деколи — коллекция в 3D."
+    },
+    "cta": { "en": "View portfolio", "ro": "Vezi portofoliul", "ru": "Смотреть портфолио" }
+  },
+  "services": {
+    "screen": { "image": "" },
+    "hot": { "image": "" },
+    "coat": { "image": "" },
+    "paint": { "image": "" },
+    "cliche": { "image": "" },
+    "pad": { "image": "" }
+  },
+  "portfolio": [
+    { "image": "" },
+    { "image": "" },
+    { "image": "" },
+    { "image": "" },
+    { "image": "" },
+    { "image": "" },
+    { "image": "" }
+  ]
+}

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Content admin — Agro Alim Grup</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='10' fill='%23111'/%3E%3Cpath d='M14 7h4v5c0 1.5 3 3 3 7v6a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 11 25v-6c0-4 3-5.5 3-7z' fill='none' stroke='%23fff' stroke-width='1.4'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body class="adm-body">
+  <header class="adm-top">
+    <a class="nav__logo" href="index.html" target="_blank" rel="noopener">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#111"/><path d="M14 7h4v5c0 1.5 3 3 3 7v6a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 11 25v-6c0-4 3-5.5 3-7z" fill="none" stroke="#fff" stroke-width="1.4"/></svg>
+      <span>AGRO ALIM GRUP</span>
+    </a>
+    <span class="adm-top__title">Content admin</span>
+    <span class="adm-pill" id="status">Not connected</span>
+    <div class="adm-top__actions">
+      <button class="btn btn--line btn--sm" id="btn-download" type="button">Download JSON</button>
+      <button class="btn btn--dark btn--sm" id="btn-publish" type="button" disabled>Publish changes</button>
+    </div>
+  </header>
+
+  <div class="adm">
+    <nav class="adm-nav" aria-label="Sections">
+      <a href="#sec-connect" class="is-active">Connection</a>
+      <a href="#sec-banner">Banner</a>
+      <a href="#sec-services">Service images</a>
+      <a href="#sec-portfolio">Portfolio images</a>
+      <a href="#sec-contact">Contact details</a>
+    </nav>
+
+    <main class="adm-main">
+      <!-- CONNECTION -->
+      <section class="adm-card" id="sec-connect">
+        <div class="adm-card__head">
+          <h2 class="h3">Connection</h2>
+          <p class="muted">Changes are saved to the website's GitHub repository. Your hosting republishes the site automatically, usually within a minute.</p>
+        </div>
+        <div class="adm-fields">
+          <label class="adm-field"><span>Repository</span><input id="repo" type="text" value="anatoliyvolkoff/AAG" autocomplete="off" spellcheck="false"></label>
+          <label class="adm-field"><span>Access token</span><input id="token" type="password" placeholder="github_pat_…" autocomplete="off" spellcheck="false"></label>
+          <label class="adm-field"><span>Branch</span><select id="branch" disabled><option>Connect first</option></select></label>
+          <label class="adm-check"><input id="remember" type="checkbox"> Remember on this device</label>
+        </div>
+        <div class="adm-row">
+          <button class="btn btn--dark" id="btn-connect" type="button">Connect</button>
+          <button class="btn btn--line" id="btn-disconnect" type="button" hidden>Disconnect</button>
+        </div>
+        <details class="adm-help">
+          <summary>How to get an access token</summary>
+          <ol>
+            <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub → Settings → Fine-grained tokens → Generate new token</a>.</li>
+            <li>Repository access: <b>Only select repositories</b> → choose this site's repository.</li>
+            <li>Permissions → Repository permissions → <b>Contents: Read and write</b>. Nothing else is needed.</li>
+            <li>Generate, copy the token and paste it above. It is stored only in this browser, never in the site.</li>
+          </ol>
+          <p class="muted">No token? You can still edit here and use <b>Download JSON</b>, then replace <code>content/content.json</code> in the repository manually.</p>
+        </details>
+      </section>
+
+      <!-- BANNER -->
+      <section class="adm-card" id="sec-banner">
+        <div class="adm-card__head">
+          <h2 class="h3">Banner</h2>
+          <p class="muted">The full-width showreel on the home page. Use an MP4 video (recommended, under 10&nbsp;MB), an animated GIF or a still image.</p>
+        </div>
+        <label class="adm-switch"><input id="b-enabled" type="checkbox"><span></span> Show banner on the home page</label>
+
+        <div class="adm-seg" role="radiogroup" aria-label="Media type">
+          <label><input type="radio" name="b-type" value="video"><span>Video</span></label>
+          <label><input type="radio" name="b-type" value="gif"><span>GIF</span></label>
+          <label><input type="radio" name="b-type" value="image"><span>Image</span></label>
+        </div>
+
+        <div class="adm-media">
+          <div class="adm-drop" id="b-drop" tabindex="0">
+            <div class="adm-drop__preview" id="b-preview"></div>
+            <div class="adm-drop__info">
+              <b id="b-name">—</b>
+              <span class="muted" id="b-hint">Drop a file here or click to upload</span>
+            </div>
+            <input type="file" id="b-file" hidden>
+          </div>
+          <div class="adm-side">
+            <label class="adm-field"><span>…or media URL</span><input id="b-url" type="url" placeholder="https://… .mp4 / .gif / .jpg"></label>
+            <div class="adm-poster" id="b-poster-wrap">
+              <span class="adm-field__l">Poster image (shown while the video loads)</span>
+              <div class="adm-thumb" id="b-poster" tabindex="0"><span>Upload poster</span></div>
+              <input type="file" id="b-poster-file" accept="image/jpeg,image/png,image/webp" hidden>
+            </div>
+            <label class="adm-field"><span>Link when clicked</span><input id="b-link" type="text" list="links"></label>
+            <datalist id="links"><option value="portfolio.html"><option value="services.html"><option value="index.html#contact"></datalist>
+          </div>
+        </div>
+
+        <div class="adm-langs" role="tablist">
+          <button type="button" class="is-active" data-l="en">English</button>
+          <button type="button" data-l="ro">Română</button>
+          <button type="button" data-l="ru">Русский</button>
+        </div>
+        <div class="adm-fields adm-fields--2">
+          <label class="adm-field"><span>Label</span><input data-bt="label" type="text"></label>
+          <label class="adm-field"><span>Button text</span><input data-bt="cta" type="text"></label>
+          <label class="adm-field adm-field--wide"><span>Title</span><input data-bt="title" type="text"></label>
+          <label class="adm-field adm-field--wide"><span>Text</span><textarea data-bt="text" rows="2"></textarea></label>
+        </div>
+      </section>
+
+      <!-- SERVICE IMAGES -->
+      <section class="adm-card" id="sec-services">
+        <div class="adm-card__head">
+          <h2 class="h3">Service images</h2>
+          <p class="muted">Replace the 3D renders on the Services page with real photos. Portrait photos (about 4:5) work best.</p>
+        </div>
+        <div class="adm-grid" id="svc-grid"></div>
+      </section>
+
+      <!-- PORTFOLIO IMAGES -->
+      <section class="adm-card" id="sec-portfolio">
+        <div class="adm-card__head">
+          <h2 class="h3">Portfolio images</h2>
+          <p class="muted">Photos for the project cards on the home and portfolio pages. The 3D viewer keeps showing the models.</p>
+        </div>
+        <div class="adm-grid" id="pf-grid"></div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="adm-card" id="sec-contact">
+        <div class="adm-card__head">
+          <h2 class="h3">Contact details</h2>
+          <p class="muted">Shown in the contact section, footer and menu. The form sends requests to the email below.</p>
+        </div>
+        <div class="adm-fields adm-fields--2">
+          <label class="adm-field"><span>Email</span><input data-ct="email" type="email"></label>
+          <label class="adm-field"><span>Phone</span><input data-ct="phone" type="tel" placeholder="+373 …"></label>
+          <label class="adm-field adm-field--wide"><span>Address</span><input data-ct="address" type="text"></label>
+          <label class="adm-field adm-field--wide"><span>Form endpoint (optional, e.g. Formspree URL)</span><input data-ct="formEndpoint" type="url" placeholder="https://formspree.io/f/…"></label>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="adm-toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

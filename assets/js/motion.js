@@ -108,11 +108,18 @@
         track.style.transform = `translate3d(${mx.toFixed(2)}px,0,0)`;
       }
     }
+    // banner: frame expands as it scrolls into view
+    if (banner) {
+      const r = banner.getBoundingClientRect();
+      const bp = reduced ? 1 : Math.min(1, Math.max(0, (vh - r.top) / (vh * .75)));
+      banner.style.setProperty("--b", bp.toFixed(3));
+    }
     // nav state
     nav && nav.classList.toggle("is-scrolled", y > 40);
     requestAnimationFrame(loop);
   }
   const nav = $(".nav");
+  const banner = $(".banner__frame");
   requestAnimationFrame(loop);
 
   /* ---------- cursor labels ---------- */

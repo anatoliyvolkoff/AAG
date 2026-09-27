@@ -732,6 +732,7 @@ function renderShots(designs) {
 
   const cache = new Map();
   targets.forEach((el) => {
+    if (el.dataset.photo) return; // a real photo was set in the admin panel
     const id = el.dataset.shot;
     const bg = el.dataset.bg || "#ededed";
     const view = el.dataset.view || "front";
@@ -763,6 +764,7 @@ function renderShots(designs) {
       scene.remove(pivot); scene.remove(shadow);
       obj.traverse((o) => { if (o.isMesh) { o.geometry.dispose(); [].concat(o.material).forEach((m) => { Object.values(m).forEach((v) => v && v.isTexture && v.dispose()); m.dispose(); }); } });
     }
+    if (el.dataset.photo) return; // photo arrived while rendering
     const img = new Image();
     img.alt = el.dataset.alt || "";
     img.decoding = "async";
@@ -806,3 +808,6 @@ async function boot() {
   if (carousel) initCarousel(designs);
 }
 boot();
+
+// exposed for tooling (e.g. rendering the banner reel)
+export { THREE, buildDesigns, makeBottle, makePlate, makeRenderer, envFor, blob };
