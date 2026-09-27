@@ -234,69 +234,56 @@ def product(item, idx, total):
 
 def work_card(item, idx):
     photo = (item.get("photos") or [{}])[0].get("src", "")
+    tech = item.get("tech", "screen")
     return f'''<a class="work reveal" href="portfolio.html#p{idx + 1}" data-item="{idx}">
-            <div class="shot mask"><img src="{e(photo)}" alt="{e(en(item.get("title")))}" loading="lazy" decoding="async"></div>
-            <div class="work__meta"><span class="work__t" data-p="title">{e(en(item.get("title")))}</span><span class="work__k" data-p="kind">{e(en(item.get("kind")))}</span></div>
+            <div class="shot"><img src="{e(photo)}" alt="{e(en(item.get("title")))}" loading="lazy" decoding="async"></div>
+            <div class="work__meta"><span class="work__t" data-p="title">{e(en(item.get("title")))}</span><span class="work__k" data-i18n="svc.{e(tech)}.t">{I18N_EN.get("svc." + tech + ".t", tech)}</span></div>
           </a>'''
+
+
+def partner_card(p):
+    logo = f'<img src="{e(p["logo"])}" alt="{e(p.get("name"))}" loading="lazy">' if p.get("logo") else f'<span class="partner__word">{e(p.get("name"))}</span>'
+    tag, href = ("a", f' href="{e(p["url"])}" target="_blank" rel="noopener"') if p.get("url") else ("div", "")
+    return f'''<{tag} class="partner reveal"{href}><span class="partner__logo">{logo}</span><span class="partner__note" data-pn>{e(en(p.get("note")))}</span></{tag}>'''
+
+
+PARTNER_CTA = f'''<a class="partner partner--cta reveal" href="#contact"><span class="partner__plus" aria-hidden="true">+</span><span class="partner__word partner__word--sm" data-i18n="pt.your">Your brand here</span><span class="partner__note" data-i18n="pt.cta">Become a partner</span></a>'''
 
 
 # ---------------------------------------------------------------- pages
 def build_index():
     items = CONTENT["portfolio"]
-    hero_imgs = CONTENT.get("hero", {}).get("images") or [items[0]["photos"][0]["src"]]
-    hero_slides = "".join(
-        f'<img src="{e(src)}" alt="" class="{"is-active" if i == 0 else ""}" loading="{"eager" if i == 0 else "lazy"}" decoding="async">'
-        for i, src in enumerate(hero_imgs))
     svc_rows = "\n".join(f'''          <a class="svc-row reveal" href="services.html#{k}">
             <span class="svc-row__n">{n}</span>
             <span class="svc-row__t" data-i18n="svc.{k}.t">{I18N_EN["svc." + k + ".t"]}</span>
             <span class="svc-row__d" data-i18n="svc.{k}.d"></span>
             <span class="svc-row__a">{ARROW}</span>
           </a>''' for k, n in SVC)
-    featured = [1, 0, 3, 2] if len(items) > 3 else list(range(len(items)))
-    cards = "\n          ".join(work_card(items[i], i) for i in featured)
+    cards = "\n          ".join(work_card(it, i) for i, it in enumerate(items))
+    partners = "\n          ".join(partner_card(p) for p in CONTENT.get("partners", [])) + "\n          " + PARTNER_CTA
     b = CONTENT["banner"]
     return head("Agro Alim Grup — Glass decoration, Chișinău",
                 "Agro Alim Grup (AAG) — glass decoration factory in Chișinău, Moldova since 2000. Screen printing, hot stamping, coating, bottle painting and cliché making.") + header("home") + f'''
   <main id="main">
-    <section class="hero" id="hero">
-      <div class="hero__sticky">
-        <div class="grid hero__grid">
-          <div class="hero__copy">
-            <span class="label" data-i18n="hero.label">Glass decoration · Chișinău · Since 2000</span>
-            <h1 class="display">
-              <span class="split-line"><span data-i18n="hero.l1">Glass decoration</span></span>
-              <span class="split-line"><span data-i18n="hero.l2">for brands</span></span>
-              <span class="split-line"><span data-i18n="hero.l3">that last.</span></span>
-            </h1>
-            <p class="lead" data-i18n="hero.lead"></p>
-            <div class="hero__cta">
-              <a href="portfolio.html" class="btn btn--dark"><span data-i18n="pf.open">Open portfolio</span>{ARROW}</a>
-              <a href="#contact" class="btn btn--line" data-i18n="hero.cta2">Request a quote</a>
-            </div>
+    <section class="hero hero--wide" id="hero">
+      <div class="wrap grid hero__head">
+        <span class="label hero__label" data-i18n="hero.label">Glass decoration · Chișinău · Since 2000</span>
+        <h1 class="display hero__title">
+          <span class="split-line"><span data-i18n="hero.l1">Glass decoration</span></span>
+          <span class="split-line"><span data-i18n="hero.l2">for brands</span></span>
+          <span class="split-line"><span data-i18n="hero.l3">that last.</span></span>
+        </h1>
+        <div class="hero__side">
+          <p class="lead" data-i18n="hero.lead"></p>
+          <div class="hero__cta">
+            <a href="portfolio.html" class="btn btn--dark"><span data-i18n="pf.open">Open portfolio</span>{ARROW}</a>
+            <a href="#contact" class="btn btn--line" data-i18n="hero.cta2">Request a quote</a>
           </div>
-          <div class="hero__stage">
-            <div class="hero__slides" data-hero-slides>{hero_slides}</div>
-            <div class="hero__meta"><span data-hero-count>01 / {len(hero_imgs):02d}</span><span class="hero__bar"><span></span></span></div>
-          </div>
-        </div>
-        <div class="scroll-ind" aria-hidden="true"><span class="scroll-ind__line"></span><span class="scroll-ind__t" data-i18n="ui.scroll">Scroll</span></div>
-      </div>
-    </section>
-
-    <section class="section" id="intro">
-      <div class="wrap">
-        <div class="grid"><p class="statement" data-split></p></div>
-        <div class="grid stats">
-          <div class="stat reveal"><span class="stat__num" data-count="2000" data-from="1974">2000</span><span class="stat__label" data-i18n="stats.founded"></span></div>
-          <div class="stat reveal"><span class="stat__num"><span data-count="25">25</span>+</span><span class="stat__label" data-i18n="stats.years"></span></div>
-          <div class="stat reveal"><span class="stat__num" data-count="6">6</span><span class="stat__label" data-i18n="stats.tech"></span></div>
-          <div class="stat reveal"><span class="stat__num">No. 1</span><span class="stat__label" data-i18n="stats.first"></span></div>
         </div>
       </div>
     </section>
 
-    <section class="banner" id="reel" aria-label="Showreel">
+    <section class="banner banner--hero" id="reel" aria-label="Showreel">
       <div class="banner__frame">
         <a class="banner__link" href="{e(b.get("link") or "portfolio.html")}" data-banner-link>
           <div class="banner__media" data-banner-media>
@@ -317,6 +304,18 @@ def build_index():
           <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg>
           <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
         </button>
+      </div>
+    </section>
+
+    <section class="section" id="intro">
+      <div class="wrap">
+        <div class="grid"><p class="statement" data-split></p></div>
+        <div class="grid stats">
+          <div class="stat reveal"><span class="stat__num" data-count="2000" data-from="1974">2000</span><span class="stat__label" data-i18n="stats.founded"></span></div>
+          <div class="stat reveal"><span class="stat__num"><span data-count="25">25</span>+</span><span class="stat__label" data-i18n="stats.years"></span></div>
+          <div class="stat reveal"><span class="stat__num" data-count="6">6</span><span class="stat__label" data-i18n="stats.tech"></span></div>
+          <div class="stat reveal"><span class="stat__num">No. 1</span><span class="stat__label" data-i18n="stats.first"></span></div>
+        </div>
       </div>
     </section>
 
@@ -344,11 +343,15 @@ def build_index():
         {sec_en("Works", "02")}
         <div class="grid sec-head">
           <span class="label reveal" data-i18n="pf.label">Portfolio</span>
-          <h2 class="h2 reveal" data-i18n="pf.title">Selected work</h2>
-          <a class="link-arrow sec-link reveal" href="portfolio.html"><span data-i18n="pf.open">Open portfolio</span>{ARROW}</a>
+          <h2 class="h2 reveal" data-i18n="pf.fullTitle">The full portfolio</h2>
+          <p class="lead reveal" data-i18n="pf.fullLead"></p>
         </div>
-        <div class="grid work-grid" data-featured>
+        <div class="grid work-grid work-grid--all" data-portfolio-grid>
           {cards}
+        </div>
+        <div class="grid cta-row reveal">
+          <a class="btn btn--light" href="portfolio.html"><span data-i18n="pf.openFull">Open full portfolio</span>{ARROW}</a>
+          <a class="btn btn--ghost-light" href="#contact" data-i18n="hero.cta2">Request a quote</a>
         </div>
       </div>
     </section>
@@ -398,8 +401,26 @@ def build_index():
       </div>
     </section>
 
+    <section class="section" id="partners">
+      <div class="wrap">
+        {sec_en("Partners", "05")}
+        <div class="grid sec-head">
+          <span class="label reveal" data-i18n="pt.label">Partners</span>
+          <h2 class="h2 reveal" data-i18n="pt.title">Brands we decorate for.</h2>
+          <p class="lead reveal" data-i18n="pt.lead"></p>
+        </div>
+        <div class="grid partners" data-partners>
+          {partners}
+        </div>
+        <div class="grid cta-row reveal">
+          <a class="btn btn--dark" href="#contact"><span data-i18n="pt.cta">Become a partner</span>{ARROW}</a>
+          <a class="btn btn--line" href="services.html" data-i18n="svc.all">All services</a>
+        </div>
+      </div>
+    </section>
+
     <section class="section section--flush-top" id="contact">
-      <div class="wrap">{sec_en("Contact", "05")}</div>
+      <div class="wrap">{sec_en("Contact", "06")}</div>
       <div class="wrap grid">
         <div class="contact__intro reveal">
           <span class="label" data-i18n="ct.label">Contact</span>

@@ -85,6 +85,8 @@ window.AAG_I18N = {
     "co.staff": "Team", "co.staffV": "10–49 employees", "co.web": "Website",
     "spec.technique": "Technique", "spec.container": "Container", "spec.finish": "Finish", "spec.colours": "Colours",
     "pf.request": "Request a similar project", "pf.visual": "Concept visualisation", "pf.nophoto": "Photos coming soon", "pf.empty": "No projects for this technique yet.",
+    "pf.fullTitle": "The full portfolio", "pf.fullLead": "Every project with its technique. Open one to see all photos and details.", "pf.openFull": "Open full portfolio",
+    "pt.label": "Partners", "pt.title": "Brands we decorate for.", "pt.lead": "Wineries, distilleries and beverage brands trust us with the first thing their customers see.", "pt.your": "Your brand here", "pt.cta": "Become a partner",
     "ui.photo": "Photo", "ui.prev": "Previous photo", "ui.next": "Next photo", "ui.expand": "Open full screen", "ui.close": "Close", "ui.skip": "Skip to content"
   },
 
@@ -172,6 +174,8 @@ window.AAG_I18N = {
     "co.staff": "Echipa", "co.staffV": "10–49 angajați", "co.web": "Site",
     "spec.technique": "Tehnică", "spec.container": "Recipient", "spec.finish": "Finisaj", "spec.colours": "Culori",
     "pf.request": "Cere un proiect similar", "pf.visual": "Vizualizare de concept", "pf.nophoto": "Fotografii în curând", "pf.empty": "Încă nu sunt proiecte pentru această tehnică.",
+    "pf.fullTitle": "Portofoliul complet", "pf.fullLead": "Fiecare proiect cu tehnica sa. Deschideți unul pentru toate fotografiile și detaliile.", "pf.openFull": "Deschide portofoliul complet",
+    "pt.label": "Parteneri", "pt.title": "Branduri pentru care decorăm.", "pt.lead": "Vinării, distilerii și branduri de băuturi ne încredințează primul lucru pe care îl văd clienții lor.", "pt.your": "Brandul dvs. aici", "pt.cta": "Deveniți partener",
     "ui.photo": "Foto", "ui.prev": "Fotografia anterioară", "ui.next": "Fotografia următoare", "ui.expand": "Deschide pe tot ecranul", "ui.close": "Închide", "ui.skip": "Salt la conținut"
   },
 
@@ -259,6 +263,8 @@ window.AAG_I18N = {
     "co.staff": "Команда", "co.staffV": "10–49 сотрудников", "co.web": "Сайт",
     "spec.technique": "Технология", "spec.container": "Тара", "spec.finish": "Отделка", "spec.colours": "Цвета",
     "pf.request": "Запросить похожий проект", "pf.visual": "Концепт-визуализация", "pf.nophoto": "Фото скоро появятся", "pf.empty": "Пока нет проектов в этой технике.",
+    "pf.fullTitle": "Всё портфолио", "pf.fullLead": "Каждый проект и его технология. Откройте любой, чтобы увидеть все фото и детали.", "pf.openFull": "Открыть всё портфолио",
+    "pt.label": "Партнёры", "pt.title": "Бренды, для которых мы декорируем.", "pt.lead": "Винодельни, ликёро-водочные заводы и бренды напитков доверяют нам то, что их клиенты видят первым.", "pt.your": "Ваш бренд здесь", "pt.cta": "Стать партнёром",
     "ui.photo": "Фото", "ui.prev": "Предыдущее фото", "ui.next": "Следующее фото", "ui.expand": "Открыть на весь экран", "ui.close": "Закрыть", "ui.skip": "Перейти к содержанию"
   }
 };

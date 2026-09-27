@@ -121,7 +121,7 @@ const AAG_CONFIG = {
     if (!document.body.classList.contains("menu-open")) nav.classList.toggle("is-hidden", y > lastY && y > 300);
     lastY = y;
 
-    if (hero) {
+    if (hero && heroSticky) {
       const hp = clamp(y / Math.max(1, hero.offsetHeight - vh));
       heroSticky.style.setProperty("--p", hp.toFixed(4));
       window.AAG.heroProgress = hp;

@@ -250,6 +250,54 @@ body.menu-open .menu__links a:nth-child(4) { transition-delay: .43s; }
 body.lb-open { overflow: hidden; }
 
 /* =========================================================
+   HOME — wide hero, full portfolio grid, partners, CTA rows
+   ========================================================= */
+.hero--wide { height: auto; padding: 176px 0 48px; }
+.hero__head { row-gap: 28px; align-items: end; }
+.hero__label { grid-column: 1 / -1; }
+.hero__title { grid-column: 1 / 6; }
+.hero__side { grid-column: 6 / 9; display: flex; flex-direction: column; gap: 28px; padding-bottom: 8px; }
+.hero__side .lead { font-size: var(--t-body); }
+.banner--hero { margin-bottom: 120px; }
+.banner--hero .banner__frame { height: min(78vh, 760px); }
+
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 56px; padding-left: calc(25% + 4px); }
+.btn--ghost-light { border: 1px solid rgba(255, 255, 255, .3); color: var(--white); }
+
+.work-grid--all { row-gap: 40px; }
+.work-grid--all .work { grid-column: span 2; gap: 14px; }
+.work-grid--all .work .shot { aspect-ratio: 4 / 5; border-radius: var(--r); }
+.work-grid--all .work__meta { flex-direction: column; gap: 2px; align-items: flex-start; }
+.work-grid--all .work__t { font-size: var(--t-body); }
+.work-grid--all .work__k { font-size: var(--t-label); letter-spacing: .14em; text-transform: uppercase; text-align: left; }
+
+.partners { row-gap: var(--gut); }
+.partner { grid-column: span 2; aspect-ratio: 1 / 1; border-radius: var(--r); background: var(--white); padding: 24px; display: flex; flex-direction: column; justify-content: space-between; }
+.partner__logo { flex: 1; display: grid; place-items: center; }
+.partner__logo img { max-width: 80%; max-height: 72px; object-fit: contain; filter: grayscale(1); opacity: .85; }
+.partner__word { font-size: var(--t-h3); font-weight: 600; letter-spacing: .08em; }
+.partner__word--sm { font-size: var(--t-body); letter-spacing: 0; font-weight: 500; }
+.partner__note { font-size: var(--t-label); letter-spacing: .06em; color: var(--ink-3); text-align: center; min-height: 3em; display: flex; align-items: flex-end; justify-content: center; }
+.partner--cta { background: transparent; border: 1.5px dashed var(--line); align-items: center; justify-content: center; gap: 8px; }
+.partner__plus { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-size: 20px; margin-bottom: 8px; }
+.partner--cta .partner__note { color: var(--ink); font-weight: 500; }
+
+@media (max-width: 1060px) {
+  .hero__title { grid-column: 1 / -1; }
+  .hero__side { grid-column: 1 / 7; }
+}
+@media (max-width: 720px) {
+  .hero--wide { padding: 120px 0 32px; }
+  .hero__side { grid-column: 1 / -1; }
+  .banner--hero { margin-bottom: 72px; }
+  .cta-row { padding-left: 0; margin-top: 40px; }
+  .cta-row .btn { flex: 1 1 100%; }
+  .work-grid--all { row-gap: 28px; }
+  .partner { padding: 18px; }
+  .partner__word { font-size: var(--t-body); }
+}
+
+/* =========================================================
    HOVERS — one easing (--ease-back), one duration (--hover).
    Simple: colour, opacity, or a 2–8px shift. No keyframes.
    ========================================================= */
@@ -258,7 +306,7 @@ body.lb-open { overflow: hidden; }
 .filters button, .pill span, .footer__col a, .ci-v, .to-top, .to-top__c, .stat,
 .heritage__t, .co-row dd, .cta-big__link, .cta-big__circle, .banner__circle, .banner__toggle,
 .gallery__btn, .gallery__expand, .gallery__thumb, .lightbox__btn, .lightbox__close,
-.menu__links a, .menu__links a svg, .svc-nav a, .zoom img {
+.menu__links a, .menu__links a svg, .svc-nav a, .zoom img, .partner, .partner__plus, .partner__logo img, .btn--ghost-light {
   transition-property: color, background-color, border-color, opacity, transform, box-shadow, background-size, outline-color;
   transition-duration: var(--hover);
   transition-timing-function: var(--ease-back);
@@ -308,6 +356,11 @@ body.lb-open { overflow: hidden; }
   .gallery__btn--prev:hover { transform: translateX(-2px); }
   .gallery__btn--next:hover { transform: translateX(2px); }
   .gallery__thumb:hover { opacity: 1; }
+  .btn--ghost-light:hover { background: var(--white); color: var(--ink); border-color: var(--white); }
+  .partner:hover { transform: translateY(-4px); }
+  .partner:hover .partner__logo img { filter: none; opacity: 1; }
+  .partner--cta:hover { border-color: var(--ink); }
+  .partner--cta:hover .partner__plus { background: var(--ink); color: var(--white); border-color: var(--ink); }
   /* zoom on hover — gallery.js adds .is-zoomed and points transform-origin at the cursor */
   .zoom.is-zoomed img { transform: scale(1.9); }
   .lightbox__btn:hover, .lightbox__close:hover { background: var(--white); color: var(--ink); border-color: var(--white); }

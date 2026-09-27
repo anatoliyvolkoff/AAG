@@ -57,18 +57,45 @@
   if (heroBox) { showHero(0); startHero(); }
 
   /* =========================================================
-     FEATURED CARDS (home)
+     HOME — full portfolio grid + partners
      ========================================================= */
-  function renderFeatured() {
-    if (!content) return;
-    $$("[data-item]").forEach((card) => {
-      const item = content.portfolio[+card.dataset.item];
-      if (!item) { card.hidden = true; return; }
-      $$("[data-p]", card).forEach((el) => { el.textContent = pick(item[el.dataset.p]); });
+  const grid = $("[data-portfolio-grid]");
+  function renderGrid() {
+    if (!grid || !content || !Array.isArray(content.portfolio)) return;
+    const items = content.portfolio;
+    const same = $$(".work", grid).length === items.length &&
+      items.every((it, i) => { const img = $(`.work[data-item="${i}"] img`, grid); return img && img.getAttribute("src") === ((it.photos || [])[0] || {}).src; });
+    if (!same) {
+      grid.innerHTML = items.map((it, i) => {
+        const tech = it.tech || "screen";
+        const src = ((it.photos || [])[0] || {}).src || "";
+        return `<a class="work reveal in" href="portfolio.html#p${i + 1}" data-item="${i}">
+            <div class="shot">${src ? `<img src="${esc(src)}" alt="" loading="lazy" decoding="async">` : ""}</div>
+            <div class="work__meta"><span class="work__t" data-p="title"></span><span class="work__k" data-i18n="svc.${esc(tech)}.t"></span></div>
+          </a>`;
+      }).join("");
+      if (AAG.translate) AAG.translate(grid);
+    }
+    $$(".work", grid).forEach((card) => {
+      const it = items[+card.dataset.item];
+      if (!it) return;
+      $("[data-p=title]", card).textContent = pick(it.title);
       const img = $("img", card);
-      const src = item.photos && item.photos[0] && item.photos[0].src;
-      if (img && src && img.getAttribute("src") !== src) img.src = src;
-      if (img) img.alt = pick(item.title);
+      if (img) img.alt = pick(it.title);
+    });
+  }
+
+  const partnersBox = $("[data-partners]");
+  function renderPartners() {
+    if (!partnersBox || !content || !Array.isArray(content.partners)) return;
+    const cta = $(".partner--cta", partnersBox);
+    $$(".partner:not(.partner--cta)", partnersBox).forEach((n) => n.remove());
+    content.partners.forEach((pt) => {
+      const el = document.createElement(pt.url ? "a" : "div");
+      el.className = "partner reveal in";
+      if (pt.url) { el.href = pt.url; el.target = "_blank"; el.rel = "noopener"; }
+      el.innerHTML = `<span class="partner__logo">${pt.logo ? `<img src="${esc(pt.logo)}" alt="${esc(pt.name)}" loading="lazy">` : `<span class="partner__word">${esc(pt.name)}</span>`}</span><span class="partner__note">${esc(pick(pt.note))}</span>`;
+      partnersBox.insertBefore(el, cta);
     });
   }
 
@@ -329,14 +356,14 @@
   window.addEventListener("aag:content", (e) => {
     content = e.detail;
     renderHero();
-    renderFeatured();
+    renderGrid(); renderPartners();
     renderProducts({ rebuild: true });
     if (document.body.classList.contains("loaded")) scrollToHash();
   });
   window.addEventListener("aag:lang", () => {
-    renderFeatured();
+    renderGrid(); renderPartners();
     renderProducts();
   });
   window.addEventListener("aag:ready", scrollToHash);
-  if (content) { renderHero(); renderFeatured(); renderProducts({ rebuild: true }); }
+  if (content) { renderHero(); renderGrid(); renderPartners(); renderProducts({ rebuild: true }); }
 })();

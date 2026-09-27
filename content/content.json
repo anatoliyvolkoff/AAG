@@ -11,7 +11,7 @@
     "type": "video",
     "src": "assets/uploads/change_lighting_and_rendering_2026092800-20260928-004652.mp4",
     "srcWebm": "",
-    "poster": "",
+    "poster": "assets/uploads/hero-banner-poster.jpg",
     "link": "portfolio.html",
     "label": {
       "en": "Showreel",
@@ -33,16 +33,6 @@
       "ro": "Vezi portofoliul",
       "ru": "Смотреть портфолио"
     }
-  },
-  "hero": {
-    "images": [
-      "assets/photos/noir-front.jpg",
-      "assets/photos/cabernet-front.jpg",
-      "assets/photos/rose-front.jpg",
-      "assets/photos/ice-front.jpg",
-      "assets/photos/botanica-front.jpg",
-      "assets/uploads/editing_vodka_bottle_image_2k_2026092722-20260928-004411.jpg"
-    ]
   },
   "services": {
     "screen": {
@@ -513,6 +503,38 @@
           "visual": false
         }
       ]
+    }
+  ],
+  "partners": [
+    {
+      "name": "EXCLUSIV",
+      "logo": "",
+      "url": "",
+      "note": {
+        "en": "Vodka · US market",
+        "ro": "Vodcă · piața SUA",
+        "ru": "Водка · рынок США"
+      }
+    },
+    {
+      "name": "HUNTER",
+      "logo": "",
+      "url": "",
+      "note": {
+        "en": "Premium vodka · bottle design",
+        "ro": "Vodcă premium · design sticlă",
+        "ru": "Премиальная водка · дизайн бутылки"
+      }
+    },
+    {
+      "name": "ICE",
+      "logo": "",
+      "url": "",
+      "note": {
+        "en": "Vodka · 3D volumetric decoration",
+        "ro": "Vodcă · decor volumetric 3D",
+        "ru": "Водка · объёмный 3D-декор"
+      }
     }
   ]
 }

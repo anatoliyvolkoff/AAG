@@ -29,10 +29,10 @@
   <div class="adm">
     <nav class="adm-nav" aria-label="Sections">
       <a href="#sec-connect" class="is-active">Connection</a>
-      <a href="#sec-banner">Banner</a>
-      <a href="#sec-hero">Hero slideshow</a>
-      <a href="#sec-services">Service images</a>
+      <a href="#sec-banner">Hero banner</a>
+            <a href="#sec-services">Service images</a>
       <a href="#sec-portfolio">Portfolio</a>
+      <a href="#sec-partners">Partners</a>
       <a href="#sec-contact">Contact details</a>
     </nav>
 
@@ -68,8 +68,8 @@
       <!-- BANNER -->
       <section class="adm-card" id="sec-banner">
         <div class="adm-card__head">
-          <h2 class="h3">Banner</h2>
-          <p class="muted">The full-width showreel on the home page. Use an MP4 video (recommended, under 10&nbsp;MB), an animated GIF or a still image.</p>
+          <h2 class="h3">Hero banner</h2>
+          <p class="muted">The wide banner at the top of the home page, right under the headline. Use an MP4 video (recommended, under 10&nbsp;MB), an animated GIF, or a PNG/JPG image — wide formats (16:9 or 21:9) work best.</p>
         </div>
         <label class="adm-switch"><input id="b-enabled" type="checkbox"><span></span> Show banner on the home page</label>
 
@@ -113,15 +113,6 @@
         </div>
       </section>
 
-      <!-- HERO -->
-      <section class="adm-card" id="sec-hero">
-        <div class="adm-card__head">
-          <h2 class="h3">Hero slideshow</h2>
-          <p class="muted">Photos that crossfade on the right of the home-page hero. Portrait photos (4:5) work best.</p>
-        </div>
-        <div id="hero-list"></div>
-      </section>
-
       <!-- SERVICE IMAGES -->
       <section class="adm-card" id="sec-services">
         <div class="adm-card__head">
@@ -144,6 +135,21 @@
         </div>
         <div id="pf-list" class="adm-prods"></div>
         <button class="btn btn--line" id="pf-add" type="button">+ Add product</button>
+      </section>
+
+      <!-- PARTNERS -->
+      <section class="adm-card" id="sec-partners">
+        <div class="adm-card__head">
+          <h2 class="h3">Partners</h2>
+          <p class="muted">Brand cards in the Partners block on the home page. Upload a logo (PNG/SVG with transparent background works best) or leave it empty to show the name as text. The note appears under the logo.</p>
+        </div>
+        <div class="adm-langs adm-langs--pt" role="group" aria-label="Language">
+          <button type="button" class="is-active" data-l="en">English</button>
+          <button type="button" data-l="ro">Română</button>
+          <button type="button" data-l="ru">Русский</button>
+        </div>
+        <div id="pt-list" class="adm-partners"></div>
+        <button class="btn btn--line" id="pt-add" type="button">+ Add partner</button>
       </section>
 
       <!-- CONTACT -->

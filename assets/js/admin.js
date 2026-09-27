@@ -100,8 +100,8 @@
   /* ---------- rendering ---------- */
   function render() {
     renderBanner();
-    renderHero();
     renderServices();
+    renderPartners();
     renderProducts();
     renderContact();
   }
@@ -225,14 +225,52 @@
     return box;
   }
 
-  /* ---------- hero slideshow ---------- */
-  function renderHero() {
-    content.hero = content.hero || { images: [] };
-    const objs = (content.hero.images || []).map((src) => ({ src }));
-    const sync = () => { content.hero.images = objs.map((o) => o.src); renderHero(); };
-    const host = $("#hero-list"); host.innerHTML = "";
-    host.appendChild(photoList(objs, { onChange: sync, credits: false, label: "Hero photo" }));
+  /* ---------- partners ---------- */
+  function renderPartners() {
+    content.partners = Array.isArray(content.partners) ? content.partners : [];
+    const host = $("#pt-list"); host.innerHTML = "";
+    content.partners.forEach((pt, idx) => {
+      const row = document.createElement("div");
+      row.className = "adm-partner";
+      const logo = document.createElement("div");
+      logo.className = "adm-partner__logo";
+      logo.tabIndex = 0; logo.setAttribute("role", "button"); logo.setAttribute("aria-label", `Upload logo for ${pt.name || "partner"}`);
+      if (pt.logo) logo.appendChild(imgWithFallback(pt.logo, pt.name)); else logo.textContent = "Logo";
+      const up = async () => { const f = await pickFile("image/png,image/svg+xml,image/jpeg,image/webp"); if (f) { const key = stagedFile(f); if (key) { pt.logo = key; markDirty(); renderPartners(); } } };
+      logo.addEventListener("click", up);
+      logo.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); up(); } });
+      const f = document.createElement("div");
+      f.className = "adm-fields adm-fields--2 adm-partner__fields";
+      const field = (lab, val, set, wide) => {
+        const l = document.createElement("label"); l.className = "adm-field" + (wide ? " adm-field--wide" : "");
+        l.innerHTML = `<span>${lab}</span>`; const inp = document.createElement("input"); inp.type = "text"; inp.value = val || "";
+        inp.addEventListener("input", () => { set(inp.value); markDirty(); }); l.appendChild(inp); return l;
+      };
+      f.append(
+        field("Name", pt.name, (v) => (pt.name = v)),
+        field("Website (optional)", pt.url, (v) => (pt.url = v.trim())),
+        field(`Note · ${lang.toUpperCase()}`, (pt.note || {})[lang], (v) => { pt.note = pt.note || {}; pt.note[lang] = v; }, true)
+      );
+      const acts = document.createElement("div");
+      acts.className = "adm-row";
+      const act = (txt, fn, dis) => { const b = document.createElement("button"); b.type = "button"; b.className = "btn btn--line btn--sm"; b.textContent = txt; b.disabled = !!dis; b.addEventListener("click", fn); return b; };
+      acts.append(
+        act("↑", () => { [content.partners[idx - 1], content.partners[idx]] = [content.partners[idx], content.partners[idx - 1]]; markDirty(); renderPartners(); }, idx === 0),
+        act("↓", () => { [content.partners[idx + 1], content.partners[idx]] = [content.partners[idx], content.partners[idx + 1]]; markDirty(); renderPartners(); }, idx === content.partners.length - 1),
+        pt.logo ? act("Remove logo", () => { pt.logo = ""; markDirty(); renderPartners(); }) : "",
+        act("Delete", () => { if (confirm(`Delete partner "${pt.name || ""}"?`)) { content.partners.splice(idx, 1); markDirty(); renderPartners(); } })
+      );
+      f.appendChild(acts);
+      row.append(logo, f);
+      host.appendChild(row);
+    });
   }
+  $("#pt-add").addEventListener("click", () => { content.partners.push({ name: "New partner", logo: "", url: "", note: {} }); markDirty(); renderPartners(); });
+  $$(".adm-langs--pt button").forEach((b) => b.addEventListener("click", () => {
+    lang = b.dataset.l;
+    $$(".adm-langs button").forEach((x) => x.classList.toggle("is-active", x.dataset.l === lang));
+    renderBanner(); renderProducts(); renderPartners();
+  }));
 
   /* ---------- products ---------- */
   const TECHS = ["screen", "hot", "coat", "paint", "pad", "cliche"];
@@ -320,7 +358,7 @@
   $$(".adm-langs--pf button").forEach((b) => b.addEventListener("click", () => {
     lang = b.dataset.l;
     $$(".adm-langs button").forEach((x) => x.classList.toggle("is-active", x.dataset.l === lang));
-    renderBanner(); renderProducts();
+    renderBanner(); renderProducts(); if (content.partners) renderPartners();
   }));
 
   function renderContact() {
@@ -373,7 +411,7 @@
   $$(".adm-langs--banner button").forEach((b) => b.addEventListener("click", () => {
     lang = b.dataset.l;
     $$(".adm-langs button").forEach((x) => x.classList.toggle("is-active", x.dataset.l === lang));
-    renderBanner(); renderProducts();
+    renderBanner(); renderProducts(); if (content.partners) renderPartners();
   }));
   $$("[data-bt]").forEach((el) => el.addEventListener("input", () => {
     const k = el.dataset.bt;
@@ -578,7 +616,7 @@
     c.contact = Object.assign({ email: "", phone: "", address: "", formEndpoint: "" }, c.contact);
     c.banner = Object.assign({ enabled: true, type: "video", src: "", srcWebm: "", poster: "", link: "portfolio.html", label: {}, title: {}, text: {}, cta: {} }, c.banner);
     c.services = c.services || {};
-    c.hero = c.hero && Array.isArray(c.hero.images) ? c.hero : { images: [] };
+    c.partners = Array.isArray(c.partners) ? c.partners : [];
     c.portfolio = (Array.isArray(c.portfolio) ? c.portfolio : []).filter((p) => p && typeof p === "object" && !("image" in p && !p.photos));
     return c;
   }
