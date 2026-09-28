@@ -220,24 +220,24 @@
       },
       "photos": [
         {
-          "src": "assets/photos/ice-front.jpg",
+          "src": "assets/uploads/create_vodka_bottle_product_design_2k_20-20260929-012226.jpg",
           "credit": "",
-          "visual": true
+          "visual": false
         },
         {
-          "src": "assets/photos/ice-angle.jpg",
+          "src": "assets/uploads/close_up_macro_2k_20260929012122-20260929-012228.jpg",
           "credit": "",
-          "visual": true
+          "visual": false
         },
         {
-          "src": "assets/photos/ice-detail.jpg",
+          "src": "assets/uploads/close_up_macro_2k_20260929012126-20260929-012231.jpg",
           "credit": "",
-          "visual": true
+          "visual": false
         },
         {
-          "src": "assets/photos/ice-back.jpg",
+          "src": "assets/uploads/chatgpt-image-29-2026-00_45_11-20260929-012233.png",
           "credit": "",
-          "visual": true
+          "visual": false
         }
       ]
     },
