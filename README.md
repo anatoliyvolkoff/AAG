@@ -40,7 +40,7 @@ The script searches [Openverse](https://openverse.org), which covers Wikimedia C
 
 ## Close-up collection
 
-A horizontal row of bottle cut-outs (`content.showcase`: `src`, `name`, `tech`). Pointing at a bottle scales it 3× around the cursor, and the zoom origin eases after the pointer, so moving over the bottle pans across the label. The other bottles fade back while one is zoomed. Navigate with the arrow buttons, the keyboard (← →), a horizontal trackpad swipe or a touch swipe. On touch screens, tap to zoom and tap again to release. For sharp close-ups, use transparent PNG or WebP images at least 1200px tall, cropped tight to the bottle. The placeholders in `assets/showcase/` are concept renders.
+An endless row of bottle cut-outs (`content.showcase`: `src`, `name`, `tech`) that drifts slowly on its own and stops while the pointer is over it. Drag or throw it with the mouse, pen or finger (it settles on a bottle), or use a horizontal trackpad swipe, the arrow buttons or the keyboard (← →). The row leans slightly with its speed, and the bottles rise one after another the first time the section is seen. Pointing at a bottle scales it 3× around the cursor; the zoom origin eases after the pointer, so moving over the bottle pans across the label. The other bottles fade back while one is zoomed. A cursor bubble shows "Drag" between bottles and shrinks to a thin ring while zoomed. On touch screens, tap to zoom and tap again to release. For sharp close-ups, use transparent PNG or WebP images at least 1200px tall, cropped tight to the bottle. The placeholders in `assets/showcase/` are concept renders.
 
 ## Banner (video / GIF / image)
 

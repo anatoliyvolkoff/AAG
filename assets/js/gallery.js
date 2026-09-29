@@ -70,57 +70,114 @@
 
   /* =========================================================
      HOME — close-up collection
-     Transparent bottles in a row. Pointing at a bottle scales it 3×
-     around the cursor (origin eases after the pointer), so the label
-     can be read up close. Touch: tap to zoom, tap again to release.
+     An endless, gently drifting row of transparent bottles.
+     · drift slows to a stop while the pointer is over the row
+     · drag / throw with inertia (mouse, pen, touch), wheel, arrows, keys
+     · the row leans a little with its speed
+     · pointing at a bottle scales it 3× around the cursor; the origin
+       eases after the pointer, so moving over the bottle pans the label
+     · a cursor bubble says "Drag" between bottles and shrinks to a ring
+       while zoomed. Touch: tap to zoom, tap again to release.
      ========================================================= */
   const sc = $("[data-showcase]");
   const scTrack = sc && $(".showcase__track", sc);
   const scSection = sc && sc.closest("section");
   const scBar = scSection && $("[data-sc-bar]", scSection);
-  const scPrev = scSection && $("[data-sc-prev]", scSection);
-  const scNext = scSection && $("[data-sc-next]", scSection);
-  let scIndex = 0, scMax = 0, scStep = 1;
+  const scCursor = sc && $(".sc-cursor", sc);
+  const S = { items: [], copies: 0, setW: 0, step: 1, x: 0, target: 0, v: 0, drift: 1, over: false, drag: null, visible: false, raf: 0, lastT: 0, idleAt: 0 };
+  const DRIFT = 0.42;          // px per frame at 60fps
+  const mod = (n, m) => ((n % m) + m) % m;
 
-  function bottleHTML(it, i) {
+  function bottleHTML(it, i, clone) {
     const tech = SERVICE_KEYS.includes(it.tech) ? it.tech : "screen";
-    return `<figure class="bottle" data-i="${i}"><div class="bottle__stage"><img src="${esc(it.src)}" alt="${esc(it.name)}" loading="lazy" decoding="async" draggable="false"></div><figcaption class="bottle__cap"><span class="bottle__n">${esc(it.name)}</span><span class="bottle__k" data-i18n="svc.${tech}.t"></span></figcaption></figure>`;
+    return `<figure class="bottle" data-i="${i}" style="--k:${i}"${clone ? ' aria-hidden="true"' : ""}><div class="bottle__stage"><img src="${esc(it.src)}" alt="${clone ? "" : esc(it.name)}" loading="eager" decoding="async" draggable="false"></div><figcaption class="bottle__cap"><span class="bottle__n">${esc(it.name)}</span><span class="bottle__k" data-i18n="svc.${tech}.t"></span></figcaption></figure>`;
   }
-  function renderShowcase() {
-    if (!scTrack || !content || !Array.isArray(content.showcase)) return;
-    const items = content.showcase.filter((it) => it && it.src);
-    const html = items.map(bottleHTML).join("");
-    if (scTrack.dataset.sig !== html) {
-      unzoom();
-      scTrack.innerHTML = html;
-      scTrack.dataset.sig = html;
-      if (AAG.translate) AAG.translate(scTrack);
-    }
+  function scCopies() {
+    const n = S.items.length || 1;
+    const cell = (scTrack.firstElementChild && scTrack.firstElementChild.offsetWidth) || 248;
+    const setW = n * (cell + 16);
+    return Math.max(2, Math.ceil((sc.clientWidth * 2) / setW) + 1);
+  }
+  function renderShowcase(force) {
+    if (!scTrack) return;
+    const items = (content && Array.isArray(content.showcase) ? content.showcase : S.dom || []).filter((it) => it && it.src);
+    const sig = JSON.stringify(items);
     scSection.hidden = !items.length;
-    scGo(scIndex);
+    if (!items.length) { scTrack.innerHTML = ""; S.items = []; return; }
+    const copies = scCopies();
+    if (!force && scTrack.dataset.sig === sig && S.copies === copies) return scMeasure();
+    unzoom();
+    S.items = items; S.copies = copies;
+    let html = "";
+    for (let c = 0; c < copies; c++) html += items.map((it, i) => bottleHTML(it, i, c > 0)).join("");
+    scTrack.innerHTML = html;
+    scTrack.dataset.sig = sig;
+    if (AAG.translate) AAG.translate(scTrack);
+    $$("img", scTrack).forEach((img) => img.complete || img.addEventListener("load", scMeasure, { once: true }));
+    scMeasure();
   }
   function scMeasure() {
-    const first = $(".bottle", scTrack);
-    if (!first) { scMax = 0; return; }
-    const gap = parseFloat(getComputedStyle(scTrack).columnGap) || 16;
-    scStep = first.offsetWidth + gap;
-    const overflow = Math.max(0, scTrack.scrollWidth - sc.clientWidth);
-    scMax = Math.ceil(overflow / scStep - .01);
-    return overflow;
+    const all = $$(".bottle", scTrack);
+    const n = S.items.length;
+    if (!n || all.length < n * 2) return;
+    S.step = all[1] ? all[1].offsetLeft - all[0].offsetLeft : 248;
+    S.setW = all[n].offsetLeft - all[0].offsetLeft;
+    if (scCopies() > S.copies) renderShowcase(true);
   }
-  function scGo(i) {
-    if (!scTrack) return;
-    const overflow = scMeasure() || 0;
-    scIndex = Math.max(0, Math.min(scMax, i));
-    const x = Math.min(scIndex * scStep, overflow);
-    scTrack.style.setProperty("--x", `${-x}px`);
-    if (scPrev) scPrev.disabled = scIndex <= 0;
-    if (scNext) scNext.disabled = scIndex >= scMax;
-    if (scBar) {
-      const total = scTrack.scrollWidth || 1, vis = Math.min(1, sc.clientWidth / total);
-      scBar.style.setProperty("--w", `${vis * 100}%`);
-      scBar.style.setProperty("--p", `${vis < 1 ? (x / (total - sc.clientWidth)) * ((1 - vis) / vis) * 100 : 0}%`);
+  const snap = (v) => Math.round(v / S.step) * S.step;
+  function nudge(dir) {
+    unzoom();
+    S.target = snap(S.target) - dir * S.step;
+    S.idleAt = performance.now();
+    wake();
+  }
+
+  function frame(t) {
+    S.raf = 0;
+    const dt = Math.min(3, (t - (S.lastT || t)) / 16.67 || 1);
+    S.lastT = t;
+    // drift eases out while the row is hovered, dragged, zoomed, or just touched
+    const idle = !S.over && !S.drag && !zoomed && t - S.idleAt > 2400 && !reduced;
+    S.drift += ((idle ? 1 : 0) - S.drift) * 0.04 * dt;
+    if (S.drift > 0.001) S.target -= DRIFT * S.drift * dt;
+    const k = S.drag ? 0.35 : 0.075;
+    const prev = S.x;
+    S.x += (S.target - S.x) * Math.min(1, k * dt);
+    if (Math.abs(S.target - S.x) < 0.05) S.x = S.target;
+    S.v += ((S.x - prev) / dt - S.v) * 0.2;
+    if (S.setW) {
+      const shown = mod(S.x, S.setW) - S.setW;
+      scTrack.style.transform = `translate3d(${shown.toFixed(2)}px,0,0)`;
+      const lean = reduced ? 0 : Math.max(-5, Math.min(5, -S.v * 0.22));
+      scTrack.style.setProperty("--lean", `${lean.toFixed(2)}deg`);
+      if (scBar) {
+        const n = S.items.length;
+        scBar.style.setProperty("--w", `${100 / n}%`);
+        scBar.style.setProperty("--p", `${(mod(-S.x, S.setW) / S.setW) * n * 100}%`);
+      }
     }
+    moveCursor();
+    const moving = S.drift > 0.001 || Math.abs(S.target - S.x) > 0.05 || Math.abs(S.v) > 0.01 || cur.show !== cur.s;
+    if (S.visible && moving) S.raf = requestAnimationFrame(frame);
+    else S.lastT = 0;
+  }
+  function wake() { if (!S.raf && S.visible) S.raf = requestAnimationFrame(frame); }
+
+  // cursor bubble
+  const cur = { x: 0, y: 0, tx: 0, ty: 0, s: 0, show: 0 };
+  function moveCursor() {
+    if (!scCursor) return;
+    cur.x += (cur.tx - cur.x) * 0.22;
+    cur.y += (cur.ty - cur.y) * 0.22;
+    cur.s += (cur.show - cur.s) * 0.2;
+    if (Math.abs(cur.show - cur.s) < 0.01) cur.s = cur.show;
+    scCursor.style.transform = `translate3d(${cur.x.toFixed(1)}px,${cur.y.toFixed(1)}px,0)`;
+    scCursor.style.opacity = cur.s.toFixed(3);
+  }
+  function cursorState() {
+    if (!scCursor) return;
+    scCursor.classList.toggle("is-zoom", !!zoomed && !S.drag);
+    scCursor.classList.toggle("is-drag", !!S.drag);
   }
 
   // zoom — the origin follows the pointer with a little easing
@@ -136,8 +193,8 @@
   function follow() {
     zRaf = 0;
     if (!zoomed) return;
-    zNow[0] += (zTarget[0] - zNow[0]) * .16;
-    zNow[1] += (zTarget[1] - zNow[1]) * .16;
+    zNow[0] += (zTarget[0] - zNow[0]) * .14;
+    zNow[1] += (zTarget[1] - zNow[1]) * .14;
     setOrigin($("img", zoomed), zNow);
     if (Math.abs(zTarget[0] - zNow[0]) + Math.abs(zTarget[1] - zNow[1]) > .05) zRaf = requestAnimationFrame(follow);
   }
@@ -150,6 +207,7 @@
       zoomed = bottle;
       bottle.classList.add("is-zoomed");
       scTrack.classList.add("has-zoom");
+      cursorState();
     } else if (!zRaf) zRaf = requestAnimationFrame(follow);
   }
   function unzoom() {
@@ -157,50 +215,116 @@
     zoomed.classList.remove("is-zoomed");
     zoomed = null;
     if (scTrack) scTrack.classList.remove("has-zoom");
+    cursorState();
+    wake();
   }
 
   function initShowcase() {
     if (!sc || !scTrack) return;
+    S.dom = $$(".bottle", scTrack).map((f) => ({ src: $("img", f).getAttribute("src"), name: $(".bottle__n", f).textContent, tech: ($(".bottle__k", f).dataset.i18n || "").split(".")[1] }));
     const hint = scSection && $("[data-sc-hint]", scSection);
     if (hint && !fine) { hint.setAttribute("data-i18n", "sc.hintTouch"); if (AAG.translate) AAG.translate(hint.parentNode); }
     const bottleAt = (e) => { const st = e.target.closest && e.target.closest(".bottle__stage"); return st && st.parentElement; };
 
-    if (fine) {
-      scTrack.addEventListener("pointerover", (e) => { const b = bottleAt(e); if (b) zoomIn(b, e); });
-      scTrack.addEventListener("pointermove", (e) => { const b = bottleAt(e); if (b) zoomIn(b, e); else unzoom(); });
-      sc.addEventListener("pointerleave", unzoom);
-    }
-    let sx = 0, sy = 0, swiped = 0;
-    sc.addEventListener("pointerdown", (e) => { sx = e.clientX; sy = e.clientY; });
-    sc.addEventListener("pointerup", (e) => {
-      if (e.pointerType === "mouse") return;
-      const dx = e.clientX - sx, dy = e.clientY - sy;
-      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { swiped = Date.now(); unzoom(); scGo(scIndex + (dx < 0 ? 1 : -1)); }
+    // visibility drives the loop; the first reveal plays the staggered entrance
+    sc.classList.add("sc-armed");
+    new IntersectionObserver((ents) => ents.forEach((en) => {
+      S.visible = en.isIntersecting;
+      if (S.visible) {
+        if (!sc.classList.contains("sc-in")) { sc.classList.add("sc-in"); setTimeout(() => sc.classList.add("sc-live"), 1800); }
+        wake();
+      }
+    }), { threshold: 0.15 }).observe(sc);
+
+    const local = (e) => { const r = sc.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+    sc.addEventListener("pointerenter", (e) => {
+      if (e.pointerType !== "mouse") return;
+      S.over = true;
+      [cur.tx, cur.ty] = local(e); cur.x = cur.tx; cur.y = cur.ty; cur.show = 1;
+      wake();
     });
+    sc.addEventListener("pointerleave", (e) => {
+      if (e.pointerType !== "mouse") return;
+      S.over = false; cur.show = 0; S.idleAt = performance.now() - 1600;
+      if (!S.drag) unzoom();
+      wake();
+    });
+    sc.addEventListener("pointermove", (e) => {
+      if (e.pointerType === "mouse") { [cur.tx, cur.ty] = local(e); wake(); }
+      if (S.drag) {
+        const dx = e.clientX - S.drag.x0;
+        if (!S.drag.moved && Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(e.clientY - S.drag.y0)) {
+          S.drag.moved = true; unzoom(); sc.classList.add("is-dragging"); cursorState();
+          try { sc.setPointerCapture(e.pointerId); } catch (err) {}
+        }
+        if (S.drag.moved) {
+          const now = performance.now();
+          const v = Math.max(-48, Math.min(48, (e.clientX - S.drag.lx) / Math.max(8, now - S.drag.lt) * 16.67));
+          S.drag.vel += (v - S.drag.vel) * 0.5;
+          S.drag.lx = e.clientX; S.drag.lt = now;
+          S.target = S.drag.t0 + dx;
+          wake();
+          return;
+        }
+      }
+      if (fine && e.pointerType === "mouse" && !(S.drag && S.drag.moved)) {
+        const b = bottleAt(e);
+        if (b) zoomIn(b, e); else unzoom();
+      }
+    });
+    sc.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0) return;
+      S.drag = { x0: e.clientX, y0: e.clientY, lx: e.clientX, lt: performance.now(), t0: S.target, vel: 0, moved: false, type: e.pointerType };
+      S.target = S.x; S.drag.t0 = S.x;     // catch the row where it is
+      wake();
+    });
+    const release = (e) => {
+      if (!S.drag) return;
+      const d = S.drag;
+      S.drag = null;
+      sc.classList.remove("is-dragging");
+      if (d.moved) {
+        S.swipedAt = Date.now();
+        const fresh = performance.now() - d.lt < 90;  // a pause before letting go = no throw
+        S.target = snap(S.target + (fresh ? d.vel * 12 : 0));   // throw, then settle on a bottle
+        S.idleAt = performance.now();
+      }
+      cursorState();
+      if (e && fine && e.pointerType === "mouse" && e.type === "pointerup") { const b = bottleAt(e); if (b && !d.moved) zoomIn(b, e); }
+      wake();
+    };
+    sc.addEventListener("pointerup", release);
+    sc.addEventListener("pointercancel", release);
+    sc.addEventListener("lostpointercapture", () => S.drag && S.drag.moved && release());
+
     sc.addEventListener("click", (e) => {
-      if (fine || Date.now() - swiped < 350) return;
+      if (fine || Date.now() - (S.swipedAt || 0) < 350) return;
       const b = bottleAt(e);
+      S.idleAt = performance.now();
       if (!b || b === zoomed) { unzoom(); return; }
       zoomIn(b, e);
     });
-    let wheelAt = 0;
     sc.addEventListener("wheel", (e) => {
-      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY) || Math.abs(e.deltaX) < 12) return;
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
       e.preventDefault();
-      if (Date.now() - wheelAt < 600) return;
-      wheelAt = Date.now(); unzoom(); scGo(scIndex + (e.deltaX > 0 ? 1 : -1));
+      unzoom();
+      S.target -= e.deltaX;
+      S.idleAt = performance.now();
+      clearTimeout(S.wheelT);
+      S.wheelT = setTimeout(() => { S.target = snap(S.target); wake(); }, 160);
+      wake();
     }, { passive: false });
     sc.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") { e.preventDefault(); unzoom(); scGo(scIndex + 1); }
-      else if (e.key === "ArrowLeft") { e.preventDefault(); unzoom(); scGo(scIndex - 1); }
+      if (e.key === "ArrowRight") { e.preventDefault(); nudge(1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); nudge(-1); }
       else if (e.key === "Escape") unzoom();
     });
-    if (scPrev) scPrev.addEventListener("click", () => { unzoom(); scGo(scIndex - 1); });
-    if (scNext) scNext.addEventListener("click", () => { unzoom(); scGo(scIndex + 1); });
+    const prev = scSection && $("[data-sc-prev]", scSection), next = scSection && $("[data-sc-next]", scSection);
+    if (prev) prev.addEventListener("click", () => nudge(-1));
+    if (next) next.addEventListener("click", () => nudge(1));
     let rz = 0;
-    window.addEventListener("resize", () => { cancelAnimationFrame(rz); rz = requestAnimationFrame(() => scGo(scIndex)); });
-    $$("img", scTrack).forEach((img) => img.complete || img.addEventListener("load", () => scGo(scIndex), { once: true }));
-    scGo(0);
+    window.addEventListener("resize", () => { cancelAnimationFrame(rz); rz = requestAnimationFrame(() => { renderShowcase(); scMeasure(); wake(); }); });
+    renderShowcase(true);
   }
 
   /* =========================================================

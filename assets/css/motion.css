@@ -285,21 +285,35 @@ body.lb-open { overflow: hidden; }
 
 /* close-up collection — transparent bottles in a row, 3× zoom under the cursor */
 .showcase { overflow: clip; }
-.showcase__viewport { --edge: max(var(--margin), (100vw - var(--wrap)) / 2); position: relative; overflow: hidden; padding: 32px 0; outline: none; touch-action: pan-y; }
+.showcase__viewport { --edge: max(var(--margin), (100vw - var(--wrap)) / 2); position: relative; overflow: hidden; padding: 32px 0; outline: none; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.showcase__viewport.is-dragging, .showcase__viewport.is-dragging .bottle__stage { cursor: grabbing; }
 .showcase__viewport:focus-visible { box-shadow: inset 0 0 0 2px var(--ink); border-radius: var(--r); }
-.showcase__track { display: flex; gap: var(--gut); padding-inline: var(--edge); width: max-content; transform: translate3d(var(--x, 0px), 0, 0); transition: transform 1s var(--ease); will-change: transform; }
+.showcase__track { display: flex; gap: var(--gut); padding-left: var(--edge); width: max-content; will-change: transform; }
 .bottle { position: relative; flex: 0 0 calc(2 * var(--col) + var(--gut)); margin: 0; display: flex; flex-direction: column; gap: 20px; }
-.bottle__stage { position: relative; height: 440px; padding: 0 28px; cursor: zoom-in; }
+.bottle__stage { position: relative; height: 440px; padding: 0 28px; cursor: zoom-in; transform: skewX(var(--lean, 0deg)); transform-origin: 50% 100%; }
+/* entrance — bottles rise one after another the first time the row is seen */
+.showcase__viewport.sc-armed .bottle { opacity: 0; transform: translate3d(0, 72px, 0); }
+.showcase__viewport.sc-in .bottle { opacity: 1; transform: none; transition: opacity 1s var(--ease) calc(var(--k, 0) * 90ms), transform 1.2s var(--ease) calc(var(--k, 0) * 90ms); }
+.showcase__viewport.sc-live .bottle { transition-delay: 0s; }
+/* cursor bubble — "Drag" between bottles, a thin ring while zoomed */
+.sc-cursor { position: absolute; left: 0; top: 0; z-index: 8; pointer-events: none; opacity: 0; will-change: transform; }
+.sc-cursor span { position: absolute; left: -44px; top: -44px; width: 88px; height: 88px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--ink); color: var(--white); font-size: var(--t-label); letter-spacing: .14em; text-transform: uppercase;
+  transition: transform var(--hover) var(--ease-back), background-color var(--hover) var(--ease-back), color var(--hover) var(--ease-back), box-shadow var(--hover) var(--ease-back); }
+.sc-cursor.is-zoom span { transform: scale(.42); background: transparent; color: transparent; box-shadow: inset 0 0 0 2.5px rgba(255, 255, 255, .9), 0 0 0 1px rgba(0, 0, 0, .25); }
+.sc-cursor.is-drag span { transform: scale(.8); }
+@media (hover: none) { .sc-cursor { display: none; } }
 .bottle__stage::after { content: ""; position: absolute; left: 18%; right: 18%; bottom: -10px; height: 24px; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, .16), transparent); z-index: -1; }
 .bottle__stage img { position: relative; width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; display: block; transform-origin: var(--ox, 50%) var(--oy, 50%); pointer-events: none; -webkit-user-drag: none; user-select: none; }
 .bottle__cap { display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; }
 .bottle__n { font-size: var(--t-body); font-weight: 500; }
 .bottle__k { font-size: var(--t-label); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
 .bottle.is-zoomed { z-index: 5; }
-.bottle.is-zoomed .bottle__stage { z-index: 2; }
+.bottle.is-zoomed .bottle__stage { z-index: 2; transform: none; }
 .bottle.is-zoomed .bottle__stage { cursor: zoom-out; }
 .bottle.is-zoomed .bottle__stage img { transform: scale(3); }
-.showcase__track.has-zoom .bottle:not(.is-zoomed) { opacity: .08; }
+.showcase__viewport.sc-live .bottle { transition: opacity var(--hover) var(--ease-back), transform var(--hover) var(--ease-back); }
+.showcase__track.has-zoom .bottle:not(.is-zoomed) { opacity: .08; transform: scale(.94); }
 .showcase__track.has-zoom .bottle__cap, .showcase__track.has-zoom .bottle__stage::after { opacity: 0; }
 .showcase__bar { align-items: center; margin-top: 32px; row-gap: 16px; }
 .showcase__progress { grid-column: 1 / 3; position: relative; height: 2px; border-radius: 2px; background: var(--line); overflow: hidden; }
@@ -308,7 +322,6 @@ body.lb-open { overflow: hidden; }
 .showcase__nav { grid-column: 7 / 9; justify-self: end; display: flex; gap: 8px; }
 .sc-btn { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; color: var(--ink); background: transparent; cursor: pointer; }
 .sc-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.sc-btn:disabled { opacity: .3; cursor: default; }
 
 @media (max-width: 1060px) {
   .hero__title { grid-column: 1 / -1; }
@@ -340,7 +353,7 @@ body.lb-open { overflow: hidden; }
 .heritage__t, .co-row dd, .cta-big__link, .cta-big__circle, .banner__circle, .banner__toggle,
 .gallery__btn, .gallery__expand, .gallery__thumb, .lightbox__btn, .lightbox__close,
 .menu__links a, .menu__links a svg, .svc-nav a, .zoom img, .partner, .partner__plus, .partner__logo img, .partner__word, .partner__note, .btn--ghost-light,
-.sc-btn, .bottle, .bottle__cap, .bottle__stage::after {
+.sc-btn, .bottle__cap, .bottle__stage::after {
   transition-property: color, background-color, border-color, opacity, transform, box-shadow, background-size, outline-color;
   transition-duration: var(--hover);
   transition-timing-function: var(--ease-back);
@@ -397,7 +410,7 @@ body.lb-open { overflow: hidden; }
   .partner:hover .partner__logo img { filter: none; opacity: 1; }
   .partner:hover .partner__word { color: var(--ink); }
   .partner:hover .partner__note { opacity: 1; transform: none; }
-  .sc-btn:not(:disabled):hover { background: var(--ink); border-color: var(--ink); color: var(--white); }
+  .sc-btn:hover { background: var(--ink); border-color: var(--ink); color: var(--white); }
   .partner--cta:hover { border-color: var(--ink); }
   .partner--cta:hover .partner__plus { background: var(--ink); color: var(--white); border-color: var(--ink); }
   /* zoom on hover — gallery.js adds .is-zoomed and points transform-origin at the cursor */
@@ -451,6 +464,7 @@ body.lb-open { overflow: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .showcase__viewport.sc-armed .bottle { opacity: 1; transform: none; }
   .loader, .curtain { display: none !important; }
   .ch { transform: none; }
   .mask { clip-path: none; }

@@ -87,7 +87,7 @@ window.AAG_I18N = {
     "pf.request": "Request a similar project", "pf.visual": "Concept visualisation", "pf.nophoto": "Photos coming soon", "pf.empty": "No projects for this technique yet.",
     "pf.fullTitle": "The full portfolio", "pf.fullLead": "Every project with its technique. Open one to see all photos and details.", "pf.openFull": "Open full portfolio",
     "pt.label": "Our partners", "pt.title": "Clients who trust our glass.", "pt.lead": "Wineries, distilleries and beverage brands trust us with the first thing their customers see.", "pt.your": "Your brand here", "pt.cta": "Become a partner",
-    "sc.label": "Collection", "sc.title": "Look closer.", "sc.lead": "Finished bottles from our line. Point at a bottle and it grows 3× — read every print, foil edge and texture up close.", "sc.hint": "Hover a bottle to zoom 3×", "sc.hintTouch": "Tap a bottle to zoom 3×",
+    "sc.label": "Collection", "sc.title": "Look closer.", "sc.lead": "Finished bottles from our line. Point at a bottle and it grows 3× — read every print, foil edge and texture up close.", "sc.hint": "Hover a bottle to zoom 3× · drag to browse", "sc.hintTouch": "Tap a bottle to zoom 3× · swipe to browse", "sc.drag": "Drag",
     "ui.photo": "Photo", "ui.prev": "Previous photo", "ui.next": "Next photo", "ui.expand": "Open full screen", "ui.close": "Close", "ui.skip": "Skip to content"
   },
 
@@ -177,7 +177,7 @@ window.AAG_I18N = {
     "pf.request": "Cere un proiect similar", "pf.visual": "Vizualizare de concept", "pf.nophoto": "Fotografii în curând", "pf.empty": "Încă nu sunt proiecte pentru această tehnică.",
     "pf.fullTitle": "Portofoliul complet", "pf.fullLead": "Fiecare proiect cu tehnica sa. Deschideți unul pentru toate fotografiile și detaliile.", "pf.openFull": "Deschide portofoliul complet",
     "pt.label": "Partenerii noștri", "pt.title": "Clienți care ne încredințează sticla.", "pt.lead": "Vinării, distilerii și branduri de băuturi ne încredințează primul lucru pe care îl văd clienții lor.", "pt.your": "Brandul dvs. aici", "pt.cta": "Deveniți partener",
-    "sc.label": "Colecție", "sc.title": "Priviți mai aproape.", "sc.lead": "Sticle finite din producția noastră. Îndreptați cursorul spre o sticlă și aceasta se mărește de 3× — fiecare imprimeu, margine de folie și textură, de aproape.", "sc.hint": "Treceți cu cursorul peste o sticlă pentru zoom 3×", "sc.hintTouch": "Atingeți o sticlă pentru zoom 3×",
+    "sc.label": "Colecție", "sc.title": "Priviți mai aproape.", "sc.lead": "Sticle finite din producția noastră. Îndreptați cursorul spre o sticlă și aceasta se mărește de 3× — fiecare imprimeu, margine de folie și textură, de aproape.", "sc.hint": "Cursorul pe sticlă — zoom 3× · trageți pentru a naviga", "sc.hintTouch": "Atingeți o sticlă pentru zoom 3×", "sc.drag": "Trageți",
     "ui.photo": "Foto", "ui.prev": "Fotografia anterioară", "ui.next": "Fotografia următoare", "ui.expand": "Deschide pe tot ecranul", "ui.close": "Închide", "ui.skip": "Salt la conținut"
   },
 
@@ -267,7 +267,7 @@ window.AAG_I18N = {
     "pf.request": "Запросить похожий проект", "pf.visual": "Концепт-визуализация", "pf.nophoto": "Фото скоро появятся", "pf.empty": "Пока нет проектов в этой технике.",
     "pf.fullTitle": "Всё портфолио", "pf.fullLead": "Каждый проект и его технология. Откройте любой, чтобы увидеть все фото и детали.", "pf.openFull": "Открыть всё портфолио",
     "pt.label": "Наши партнёры", "pt.title": "Клиенты, которые доверяют нам стекло.", "pt.lead": "Винодельни, ликёро-водочные заводы и бренды напитков доверяют нам то, что их клиенты видят первым.", "pt.your": "Ваш бренд здесь", "pt.cta": "Стать партнёром",
-    "sc.label": "Коллекция", "sc.title": "Смотрите ближе.", "sc.lead": "Готовые бутылки с нашей линии. Наведите курсор на бутылку — она увеличится в 3 раза: каждый оттиск, край фольги и фактура крупным планом.", "sc.hint": "Наведите на бутылку — увеличение 3×", "sc.hintTouch": "Нажмите на бутылку — увеличение 3×",
+    "sc.label": "Коллекция", "sc.title": "Смотрите ближе.", "sc.lead": "Готовые бутылки с нашей линии. Наведите курсор на бутылку — она увеличится в 3 раза: каждый оттиск, край фольги и фактура крупным планом.", "sc.hint": "Наведите на бутылку — 3× · тяните, чтобы листать", "sc.hintTouch": "Нажмите на бутылку — увеличение 3×", "sc.drag": "Тяните",
     "ui.photo": "Фото", "ui.prev": "Предыдущее фото", "ui.next": "Следующее фото", "ui.expand": "Открыть на весь экран", "ui.close": "Закрыть", "ui.skip": "Перейти к содержанию"
   }
 };

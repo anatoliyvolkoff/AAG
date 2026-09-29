@@ -254,7 +254,7 @@ PARTNER_CTA = f'''<a class="partner partner--cta reveal" href="#contact"><span c
 def bottle(it, i):
     tech = it.get("tech") or "screen"
     name = e(it.get("name"))
-    return f'''<figure class="bottle" data-i="{i}"><div class="bottle__stage"><img src="{e(it.get("src"))}" alt="{name}" loading="lazy" decoding="async" draggable="false"></div><figcaption class="bottle__cap"><span class="bottle__n">{name}</span><span class="bottle__k" data-i18n="svc.{e(tech)}.t">{I18N_EN.get("svc." + tech + ".t", tech)}</span></figcaption></figure>'''
+    return f'''<figure class="bottle" data-i="{i}" style="--k:{i}"><div class="bottle__stage"><img src="{e(it.get("src"))}" alt="{name}" loading="eager" decoding="async" draggable="false"></div><figcaption class="bottle__cap"><span class="bottle__n">{name}</span><span class="bottle__k" data-i18n="svc.{e(tech)}.t">{I18N_EN.get("svc." + tech + ".t", tech)}</span></figcaption></figure>'''
 
 
 # ---------------------------------------------------------------- pages
@@ -374,10 +374,11 @@ def build_index():
           <p class="lead reveal" data-i18n="sc.lead"></p>
         </div>
       </div>
-      <div class="showcase__viewport reveal" data-showcase tabindex="0" role="region" aria-roledescription="carousel" data-i18n-aria="sc.label" aria-label="Collection">
+      <div class="showcase__viewport" data-showcase tabindex="0" role="region" aria-roledescription="carousel" data-i18n-aria="sc.label" aria-label="Collection">
         <div class="showcase__track">
           {bottles}
         </div>
+        <span class="sc-cursor" aria-hidden="true"><span data-i18n="sc.drag">Drag</span></span>
       </div>
       <div class="wrap">
         <div class="grid showcase__bar reveal">
