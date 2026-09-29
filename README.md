@@ -85,7 +85,7 @@ Run them after changes: *"use the qa-bug-hunter agent"* or *"run the design-syst
 | `release/v3.0-motion` | v2 + motion layer |
 | `release/v3.1-banner-admin` | v3 + media banner + content admin |
 | `release/v4.0-photo-portfolio` | Photos instead of 3D, product carousels with zoom and info panel, unified hover easing, QA fixes |
-| `release/v4.1-home-blocks` | Wide hero banner, full portfolio block, partners block, CTA rows |
+| `release/v4.1-partners-wide-hero` | Wide hero banner, full portfolio block, partners block, CTA rows |
 | `release/v4.2-closeup-logos` | Close-up collection (3× bottle zoom) and partners logo wall, both editable in the admin |
 
 ## Run locally
