@@ -536,5 +536,37 @@
         "ru": "Водка · объёмный 3D-декор"
       }
     }
+  ],
+  "showcase": [
+    {
+      "src": "assets/showcase/noir.png",
+      "name": "Noir",
+      "tech": "hot"
+    },
+    {
+      "src": "assets/showcase/cabernet.png",
+      "name": "Cabernet Reserve",
+      "tech": "screen"
+    },
+    {
+      "src": "assets/showcase/ice.png",
+      "name": "Ice",
+      "tech": "coat"
+    },
+    {
+      "src": "assets/showcase/rose.png",
+      "name": "Rosé Dégradé",
+      "tech": "paint"
+    },
+    {
+      "src": "assets/showcase/botanica.png",
+      "name": "Botanica",
+      "tech": "screen"
+    },
+    {
+      "src": "assets/showcase/heritage.png",
+      "name": "Heritage",
+      "tech": "pad"
+    }
   ]
 }

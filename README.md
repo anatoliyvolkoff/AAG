@@ -8,7 +8,7 @@ Live (GitHub Pages): https://anatoliyvolkoff.github.io/AAG/
 
 | page | contents |
 | --- | --- |
-| `index.html` | Hero with a photo crossfade, statement and key figures, showreel banner, service index, selected work, about/heritage, company profile, contact form |
+| `index.html` | Wide hero with a full-width media banner (video / GIF / image), statement and key figures, service index, the full portfolio grid, the **close-up collection** (a row of transparent bottles that zoom 3× under the cursor), about/heritage, company profile, the **partners logo wall**, contact form |
 | `services.html` | Six service sections, each with a photo and specs, a sticky service sub-nav, and a pinned horizontal process |
 | `portfolio.html` | Product showcase. Each product has its own **photo carousel** (arrows, thumbnails, swipe, keyboard), **zoom on hover** that follows the cursor, a **fullscreen lightbox**, and an **information panel beside the photos** (technique, container, finish, colours, "Request a similar project"). Filter by technique. Deep links go to a product: `portfolio.html#p3`. |
 | `admin.html` | Content editor (see below) |
@@ -38,6 +38,10 @@ python3 tools/build.py
 
 The script searches [Openverse](https://openverse.org), which covers Wikimedia Commons, Flickr and other sources, for photos licensed for commercial use and modification. It downloads them to `assets/photos/web/` with full attribution (`credits.json`) and rebuilds the portfolio as technique showcases. Credits appear under each photo and in the footer's **Photo credits**. It needs network access to `api.openverse.org` and the image hosts. **Review every photo and licence before publishing.** The best option is still AAG's own photos, uploaded through the admin.
 
+## Close-up collection
+
+A horizontal row of bottle cut-outs (`content.showcase`: `src`, `name`, `tech`). Pointing at a bottle scales it 3× around the cursor, and the zoom origin eases after the pointer, so moving over the bottle pans across the label. The other bottles fade back while one is zoomed. Navigate with the arrow buttons, the keyboard (← →), a horizontal trackpad swipe or a touch swipe. On touch screens, tap to zoom and tap again to release. For sharp close-ups, use transparent PNG or WebP images at least 1200px tall, cropped tight to the bottle. The placeholders in `assets/showcase/` are concept renders.
+
 ## Banner (video / GIF / image)
 
 The home page has a full-width showreel banner. The default is a 22-second photo slideshow (`assets/media/banner.mp4`, `banner.webm`, and `banner-poster.jpg` as the poster). It autoplays muted, pauses when off-screen, has a pause button, and stays paused on the poster for reduced-motion visitors. You can replace it in the admin with any MP4, GIF or image.
@@ -49,9 +53,10 @@ Editable content lives in `content/content.json`. `admin.html` edits it and publ
 | section | what you can change |
 | --- | --- |
 | Banner | show or hide it; video, GIF or image; upload or URL; poster; link; texts in EN / RO / RU |
-| Hero slideshow | the photos that crossfade in the home hero: add, reorder, remove |
 | Service images | one photo per service |
 | Portfolio | products: add, delete, reorder; technique; title, subtitle, description and specs in EN / RO / RU; a **photo list** per product (add several, reorder, remove, credit/licence per photo) |
+| Close-up collection | bottles for the 3× zoom row: upload transparent PNG / WebP (several at once or drag and drop), name, technique, reorder, replace, remove |
+| Partners / clients | logo wall: add, delete, reorder; colour logo (shown black & white, colour on hover) or the name as text; website link; note in EN / RO / RU |
 | Contact details | email, phone, address, form endpoint |
 
 **How to use it**
@@ -80,6 +85,8 @@ Run them after changes: *"use the qa-bug-hunter agent"* or *"run the design-syst
 | `release/v3.0-motion` | v2 + motion layer |
 | `release/v3.1-banner-admin` | v3 + media banner + content admin |
 | `release/v4.0-photo-portfolio` | Photos instead of 3D, product carousels with zoom and info panel, unified hover easing, QA fixes |
+| `release/v4.1-home-blocks` | Wide hero banner, full portfolio block, partners block, CTA rows |
+| `release/v4.2-closeup-logos` | Close-up collection (3× bottle zoom) and partners logo wall, both editable in the admin |
 
 ## Run locally
 

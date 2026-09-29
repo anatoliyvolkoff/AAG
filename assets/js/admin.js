@@ -102,6 +102,7 @@
     renderBanner();
     renderServices();
     renderPartners();
+    renderShowcase();
     renderProducts();
     renderContact();
   }
@@ -223,6 +224,63 @@
     add.addEventListener("drop", (e) => { e.preventDefault(); add.classList.remove("is-over"); addFiles(e.dataTransfer.files); });
     box.appendChild(add);
     return box;
+  }
+
+  /* ---------- close-up collection (transparent bottles) ---------- */
+  function renderShowcase() {
+    content.showcase = Array.isArray(content.showcase) ? content.showcase : [];
+    const list = content.showcase;
+    const host = $("#sc-list"); host.innerHTML = "";
+    list.forEach((it, i) => {
+      const cell = document.createElement("div");
+      cell.className = "adm-bottle" + (String(it.src).startsWith(PENDING) ? " is-pending" : "");
+      const fig = document.createElement("div");
+      fig.className = "adm-bottle__img";
+      fig.tabIndex = 0; fig.setAttribute("role", "button"); fig.setAttribute("aria-label", `Replace image of ${it.name || "bottle " + (i + 1)}`);
+      if (it.src) fig.appendChild(imgWithFallback(it.src, it.name || ""));
+      const replace = async () => { const f = await pickFile("image/png,image/webp"); if (f) { const key = stagedFile(f); if (key) { it.src = key; markDirty(); renderShowcase(); } } };
+      fig.addEventListener("click", replace);
+      fig.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); replace(); } });
+      const name = document.createElement("input");
+      name.type = "text"; name.className = "adm-photo__credit"; name.placeholder = "Name (e.g. brand)"; name.value = it.name || "";
+      name.setAttribute("aria-label", `Name of bottle ${i + 1}`);
+      name.addEventListener("input", () => { it.name = name.value; markDirty(); });
+      const sel = document.createElement("select");
+      sel.className = "adm-photo__credit"; sel.setAttribute("aria-label", `Technique of bottle ${i + 1}`);
+      sel.innerHTML = TECHS.map((k) => `<option value="${k}"${(it.tech || "screen") === k ? " selected" : ""}>${I18N.en[`svc.${k}.t`] || k}</option>`).join("");
+      sel.addEventListener("change", () => { it.tech = sel.value; markDirty(); });
+      const bar = document.createElement("div");
+      bar.className = "adm-photo__bar";
+      const mk = (txt, title, fn, dis) => { const b = document.createElement("button"); b.type = "button"; b.textContent = txt; b.title = title; b.setAttribute("aria-label", `${title} (bottle ${i + 1})`); b.disabled = !!dis; b.addEventListener("click", fn); return b; };
+      bar.append(
+        mk("←", "Move left", () => { [list[i - 1], list[i]] = [list[i], list[i - 1]]; markDirty(); renderShowcase(); }, i === 0),
+        mk("→", "Move right", () => { [list[i + 1], list[i]] = [list[i], list[i + 1]]; markDirty(); renderShowcase(); }, i === list.length - 1),
+        mk("✕", "Remove", () => { if (confirm(`Remove "${it.name || "bottle " + (i + 1)}" from the collection?`)) { list.splice(i, 1); markDirty(); renderShowcase(); } })
+      );
+      cell.append(fig, bar, name, sel);
+      host.appendChild(cell);
+    });
+    const add = document.createElement("button");
+    add.type = "button"; add.className = "adm-bottle adm-photo--add";
+    add.innerHTML = "<span>+ Add bottles</span><small>Transparent PNG · WebP · drop here</small>";
+    const addFiles = (files) => {
+      let n = 0;
+      [...files].filter((f) => /^image\/(png|webp)$/.test(f.type)).forEach((f) => {
+        const key = stagedFile(f);
+        if (key) { list.push({ src: key, name: f.name.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " "), tech: "screen" }); n++; }
+      });
+      if (n) { markDirty(); renderShowcase(); } else toast("Please choose transparent PNG or WebP images.");
+    };
+    add.addEventListener("click", () => {
+      const inp = document.createElement("input");
+      inp.type = "file"; inp.accept = "image/png,image/webp"; inp.multiple = true;
+      inp.onchange = () => addFiles(inp.files);
+      inp.click();
+    });
+    add.addEventListener("dragover", (e) => { e.preventDefault(); add.classList.add("is-over"); });
+    add.addEventListener("dragleave", () => add.classList.remove("is-over"));
+    add.addEventListener("drop", (e) => { e.preventDefault(); add.classList.remove("is-over"); addFiles(e.dataTransfer.files); });
+    host.appendChild(add);
   }
 
   /* ---------- partners ---------- */
@@ -617,6 +675,7 @@
     c.banner = Object.assign({ enabled: true, type: "video", src: "", srcWebm: "", poster: "", link: "portfolio.html", label: {}, title: {}, text: {}, cta: {} }, c.banner);
     c.services = c.services || {};
     c.partners = Array.isArray(c.partners) ? c.partners : [];
+    c.showcase = Array.isArray(c.showcase) ? c.showcase : [];
     c.portfolio = (Array.isArray(c.portfolio) ? c.portfolio : []).filter((p) => p && typeof p === "object" && !("image" in p && !p.photos));
     return c;
   }

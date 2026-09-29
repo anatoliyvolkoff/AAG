@@ -62,9 +62,145 @@
       const el = document.createElement(pt.url ? "a" : "div");
       el.className = "partner reveal in";
       if (pt.url) { el.href = pt.url; el.target = "_blank"; el.rel = "noopener"; }
+      el.title = pt.name || "";
       el.innerHTML = `<span class="partner__logo">${pt.logo ? `<img src="${esc(pt.logo)}" alt="${esc(pt.name)}" loading="lazy">` : `<span class="partner__word">${esc(pt.name)}</span>`}</span><span class="partner__note">${esc(pick(pt.note))}</span>`;
       partnersBox.insertBefore(el, cta);
     });
+  }
+
+  /* =========================================================
+     HOME — close-up collection
+     Transparent bottles in a row. Pointing at a bottle scales it 3×
+     around the cursor (origin eases after the pointer), so the label
+     can be read up close. Touch: tap to zoom, tap again to release.
+     ========================================================= */
+  const sc = $("[data-showcase]");
+  const scTrack = sc && $(".showcase__track", sc);
+  const scSection = sc && sc.closest("section");
+  const scBar = scSection && $("[data-sc-bar]", scSection);
+  const scPrev = scSection && $("[data-sc-prev]", scSection);
+  const scNext = scSection && $("[data-sc-next]", scSection);
+  let scIndex = 0, scMax = 0, scStep = 1;
+
+  function bottleHTML(it, i) {
+    const tech = SERVICE_KEYS.includes(it.tech) ? it.tech : "screen";
+    return `<figure class="bottle" data-i="${i}"><div class="bottle__stage"><img src="${esc(it.src)}" alt="${esc(it.name)}" loading="lazy" decoding="async" draggable="false"></div><figcaption class="bottle__cap"><span class="bottle__n">${esc(it.name)}</span><span class="bottle__k" data-i18n="svc.${tech}.t"></span></figcaption></figure>`;
+  }
+  function renderShowcase() {
+    if (!scTrack || !content || !Array.isArray(content.showcase)) return;
+    const items = content.showcase.filter((it) => it && it.src);
+    const html = items.map(bottleHTML).join("");
+    if (scTrack.dataset.sig !== html) {
+      unzoom();
+      scTrack.innerHTML = html;
+      scTrack.dataset.sig = html;
+      if (AAG.translate) AAG.translate(scTrack);
+    }
+    scSection.hidden = !items.length;
+    scGo(scIndex);
+  }
+  function scMeasure() {
+    const first = $(".bottle", scTrack);
+    if (!first) { scMax = 0; return; }
+    const gap = parseFloat(getComputedStyle(scTrack).columnGap) || 16;
+    scStep = first.offsetWidth + gap;
+    const overflow = Math.max(0, scTrack.scrollWidth - sc.clientWidth);
+    scMax = Math.ceil(overflow / scStep - .01);
+    return overflow;
+  }
+  function scGo(i) {
+    if (!scTrack) return;
+    const overflow = scMeasure() || 0;
+    scIndex = Math.max(0, Math.min(scMax, i));
+    const x = Math.min(scIndex * scStep, overflow);
+    scTrack.style.setProperty("--x", `${-x}px`);
+    if (scPrev) scPrev.disabled = scIndex <= 0;
+    if (scNext) scNext.disabled = scIndex >= scMax;
+    if (scBar) {
+      const total = scTrack.scrollWidth || 1, vis = Math.min(1, sc.clientWidth / total);
+      scBar.style.setProperty("--w", `${vis * 100}%`);
+      scBar.style.setProperty("--p", `${vis < 1 ? (x / (total - sc.clientWidth)) * ((1 - vis) / vis) * 100 : 0}%`);
+    }
+  }
+
+  // zoom — the origin follows the pointer with a little easing
+  let zoomed = null, zTarget = [50, 50], zNow = [50, 50], zRaf = 0;
+  function originFrom(bottle, e) {
+    const stage = $(".bottle__stage", bottle), img = $("img", bottle);
+    const r = stage.getBoundingClientRect();
+    const x = (e.clientX - r.left - img.offsetLeft) / (img.offsetWidth || 1);
+    const y = (e.clientY - r.top - img.offsetTop) / (img.offsetHeight || 1);
+    return [Math.max(0, Math.min(1, x)) * 100, Math.max(0, Math.min(1, y)) * 100];
+  }
+  function setOrigin(img, o) { img.style.setProperty("--ox", `${o[0].toFixed(2)}%`); img.style.setProperty("--oy", `${o[1].toFixed(2)}%`); }
+  function follow() {
+    zRaf = 0;
+    if (!zoomed) return;
+    zNow[0] += (zTarget[0] - zNow[0]) * .16;
+    zNow[1] += (zTarget[1] - zNow[1]) * .16;
+    setOrigin($("img", zoomed), zNow);
+    if (Math.abs(zTarget[0] - zNow[0]) + Math.abs(zTarget[1] - zNow[1]) > .05) zRaf = requestAnimationFrame(follow);
+  }
+  function zoomIn(bottle, e) {
+    if (zoomed && zoomed !== bottle) unzoom();
+    zTarget = originFrom(bottle, e);
+    if (zoomed !== bottle) {
+      zNow = zTarget.slice();
+      setOrigin($("img", bottle), zNow);
+      zoomed = bottle;
+      bottle.classList.add("is-zoomed");
+      scTrack.classList.add("has-zoom");
+    } else if (!zRaf) zRaf = requestAnimationFrame(follow);
+  }
+  function unzoom() {
+    if (!zoomed) return;
+    zoomed.classList.remove("is-zoomed");
+    zoomed = null;
+    if (scTrack) scTrack.classList.remove("has-zoom");
+  }
+
+  function initShowcase() {
+    if (!sc || !scTrack) return;
+    const hint = scSection && $("[data-sc-hint]", scSection);
+    if (hint && !fine) { hint.setAttribute("data-i18n", "sc.hintTouch"); if (AAG.translate) AAG.translate(hint.parentNode); }
+    const bottleAt = (e) => { const st = e.target.closest && e.target.closest(".bottle__stage"); return st && st.parentElement; };
+
+    if (fine) {
+      scTrack.addEventListener("pointerover", (e) => { const b = bottleAt(e); if (b) zoomIn(b, e); });
+      scTrack.addEventListener("pointermove", (e) => { const b = bottleAt(e); if (b) zoomIn(b, e); else unzoom(); });
+      sc.addEventListener("pointerleave", unzoom);
+    }
+    let sx = 0, sy = 0, swiped = 0;
+    sc.addEventListener("pointerdown", (e) => { sx = e.clientX; sy = e.clientY; });
+    sc.addEventListener("pointerup", (e) => {
+      if (e.pointerType === "mouse") return;
+      const dx = e.clientX - sx, dy = e.clientY - sy;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { swiped = Date.now(); unzoom(); scGo(scIndex + (dx < 0 ? 1 : -1)); }
+    });
+    sc.addEventListener("click", (e) => {
+      if (fine || Date.now() - swiped < 350) return;
+      const b = bottleAt(e);
+      if (!b || b === zoomed) { unzoom(); return; }
+      zoomIn(b, e);
+    });
+    let wheelAt = 0;
+    sc.addEventListener("wheel", (e) => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY) || Math.abs(e.deltaX) < 12) return;
+      e.preventDefault();
+      if (Date.now() - wheelAt < 600) return;
+      wheelAt = Date.now(); unzoom(); scGo(scIndex + (e.deltaX > 0 ? 1 : -1));
+    }, { passive: false });
+    sc.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { e.preventDefault(); unzoom(); scGo(scIndex + 1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); unzoom(); scGo(scIndex - 1); }
+      else if (e.key === "Escape") unzoom();
+    });
+    if (scPrev) scPrev.addEventListener("click", () => { unzoom(); scGo(scIndex - 1); });
+    if (scNext) scNext.addEventListener("click", () => { unzoom(); scGo(scIndex + 1); });
+    let rz = 0;
+    window.addEventListener("resize", () => { cancelAnimationFrame(rz); rz = requestAnimationFrame(() => scGo(scIndex)); });
+    $$("img", scTrack).forEach((img) => img.complete || img.addEventListener("load", () => scGo(scIndex), { once: true }));
+    scGo(0);
   }
 
   /* =========================================================
@@ -326,11 +462,12 @@
 
   /* ---------- boot ---------- */
   initGalleries();
+  initShowcase();
   if (list) syncChips();
   if (list) $$(".product", list).forEach(updateNote);
   window.addEventListener("aag:content", (e) => {
     content = e.detail;
-        renderGrid(); renderPartners();
+    renderGrid(); renderPartners(); renderShowcase();
     renderProducts({ rebuild: true });
     if (document.body.classList.contains("loaded")) scrollToHash();
   });
@@ -339,5 +476,5 @@
     renderProducts();
   });
   window.addEventListener("aag:ready", scrollToHash);
-  if (content) { renderGrid(); renderPartners(); renderProducts({ rebuild: true }); }
+  if (content) { renderGrid(); renderPartners(); renderShowcase(); renderProducts({ rebuild: true }); }
 })();

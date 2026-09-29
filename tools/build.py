@@ -242,12 +242,19 @@ def work_card(item, idx):
 
 
 def partner_card(p):
-    logo = f'<img src="{e(p["logo"])}" alt="{e(p.get("name"))}" loading="lazy">' if p.get("logo") else f'<span class="partner__word">{e(p.get("name"))}</span>'
+    name = e(p.get("name"))
+    logo = f'<img src="{e(p["logo"])}" alt="{name}" loading="lazy">' if p.get("logo") else f'<span class="partner__word">{name}</span>'
     tag, href = ("a", f' href="{e(p["url"])}" target="_blank" rel="noopener"') if p.get("url") else ("div", "")
-    return f'''<{tag} class="partner reveal"{href}><span class="partner__logo">{logo}</span><span class="partner__note" data-pn>{e(en(p.get("note")))}</span></{tag}>'''
+    return f'''<{tag} class="partner reveal"{href} title="{name}"><span class="partner__logo">{logo}</span><span class="partner__note" data-pn>{e(en(p.get("note")))}</span></{tag}>'''
 
 
-PARTNER_CTA = f'''<a class="partner partner--cta reveal" href="#contact"><span class="partner__plus" aria-hidden="true">+</span><span class="partner__word partner__word--sm" data-i18n="pt.your">Your brand here</span><span class="partner__note" data-i18n="pt.cta">Become a partner</span></a>'''
+PARTNER_CTA = f'''<a class="partner partner--cta reveal" href="#contact"><span class="partner__plus" aria-hidden="true">+</span><span class="partner__note" data-i18n="pt.cta">Become a partner</span></a>'''
+
+
+def bottle(it, i):
+    tech = it.get("tech") or "screen"
+    name = e(it.get("name"))
+    return f'''<figure class="bottle" data-i="{i}"><div class="bottle__stage"><img src="{e(it.get("src"))}" alt="{name}" loading="lazy" decoding="async" draggable="false"></div><figcaption class="bottle__cap"><span class="bottle__n">{name}</span><span class="bottle__k" data-i18n="svc.{e(tech)}.t">{I18N_EN.get("svc." + tech + ".t", tech)}</span></figcaption></figure>'''
 
 
 # ---------------------------------------------------------------- pages
@@ -261,6 +268,8 @@ def build_index():
           </a>''' for k, n in SVC)
     cards = "\n          ".join(work_card(it, i) for i, it in enumerate(items))
     partners = "\n          ".join(partner_card(p) for p in CONTENT.get("partners", [])) + "\n          " + PARTNER_CTA
+    showcase = CONTENT.get("showcase", [])
+    bottles = "\n          ".join(bottle(it, i) for i, it in enumerate(showcase))
     b = CONTENT["banner"]
     return head("Agro Alim Grup — Glass decoration, Chișinău",
                 "Agro Alim Grup (AAG) — glass decoration factory in Chișinău, Moldova since 2000. Screen printing, hot stamping, coating, bottle painting and cliché making.") + header("home") + f'''
@@ -356,9 +365,35 @@ def build_index():
       </div>
     </section>
 
+    <section class="section showcase" id="closeup">
+      <div class="wrap">
+        {sec_en("Close-up", "03")}
+        <div class="grid sec-head">
+          <span class="label reveal" data-i18n="sc.label">Collection</span>
+          <h2 class="h2 reveal" data-i18n="sc.title">Look closer.</h2>
+          <p class="lead reveal" data-i18n="sc.lead"></p>
+        </div>
+      </div>
+      <div class="showcase__viewport reveal" data-showcase tabindex="0" role="region" aria-roledescription="carousel" data-i18n-aria="sc.label" aria-label="Collection">
+        <div class="showcase__track">
+          {bottles}
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="grid showcase__bar reveal">
+          <span class="showcase__progress" aria-hidden="true"><i data-sc-bar></i></span>
+          <span class="showcase__hint" data-sc-hint data-i18n="sc.hint">Hover a bottle to zoom 3×</span>
+          <div class="showcase__nav">
+            <button class="sc-btn" type="button" data-sc-prev data-i18n-aria="ui.prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button class="sc-btn" type="button" data-sc-next data-i18n-aria="ui.next" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="about">
       <div class="wrap">
-        {sec_en("About", "03")}
+        {sec_en("About", "04")}
         <div class="grid sec-head">
           <span class="label reveal" data-i18n="ab.label">About</span>
           <h2 class="h2 reveal" data-i18n="ab.title">A quarter-century on glass.</h2>
@@ -382,7 +417,7 @@ def build_index():
         </div>
 
         <div class="company" id="company">
-          {sec_en("Company", "04")}
+          {sec_en("Company", "05")}
           <div class="grid sec-head">
             <span class="label reveal" data-i18n="co.label">Company</span>
             <h2 class="h2 reveal" data-i18n="co.title">Company profile</h2>
@@ -403,13 +438,13 @@ def build_index():
 
     <section class="section" id="partners">
       <div class="wrap">
-        {sec_en("Partners", "05")}
+        {sec_en("Partners", "06")}
         <div class="grid sec-head">
-          <span class="label reveal" data-i18n="pt.label">Partners</span>
-          <h2 class="h2 reveal" data-i18n="pt.title">Brands we decorate for.</h2>
+          <span class="label reveal" data-i18n="pt.label">Our partners</span>
+          <h2 class="h2 reveal" data-i18n="pt.title">Clients who trust our glass.</h2>
           <p class="lead reveal" data-i18n="pt.lead"></p>
         </div>
-        <div class="grid partners" data-partners>
+        <div class="grid partners logo-wall" data-partners>
           {partners}
         </div>
         <div class="grid cta-row reveal">
@@ -420,7 +455,7 @@ def build_index():
     </section>
 
     <section class="section section--flush-top" id="contact">
-      <div class="wrap">{sec_en("Contact", "06")}</div>
+      <div class="wrap">{sec_en("Contact", "07")}</div>
       <div class="wrap grid">
         <div class="contact__intro reveal">
           <span class="label" data-i18n="ct.label">Contact</span>

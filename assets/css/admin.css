@@ -145,3 +145,13 @@ html:has(.adm-body) { scroll-behavior: auto; scroll-padding-top: 96px; }
 .adm-partner__fields { margin: 0; }
 .adm-partner__fields .adm-row { grid-column: 1 / -1; }
 @media (max-width: 900px) { .adm-partner { grid-template-columns: 1fr; } }
+
+/* close-up collection — transparent bottles on a checkerboard so the cut-out is visible */
+.adm-bottles { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin: 10px 0 4px; }
+.adm-bottle { display: flex; flex-direction: column; gap: 6px; }
+.adm-bottle.adm-photo--add { aspect-ratio: 1 / 2; }
+.adm-bottle__img { position: relative; aspect-ratio: 1 / 2; border-radius: var(--r); overflow: hidden; cursor: pointer; padding: 16px;
+  background: repeating-conic-gradient(var(--paper) 0 25%, var(--white) 0 50%) 0 0 / 16px 16px; }
+.adm-bottle__img img { width: 100%; height: 100%; object-fit: contain; }
+.adm-bottle.is-pending .adm-bottle__img { outline: 2px solid #e0a100; outline-offset: 3px; }
+.adm-bottle select.adm-photo__credit { appearance: none; cursor: pointer; }
