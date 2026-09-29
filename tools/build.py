@@ -378,7 +378,7 @@ def build_index():
         <div class="showcase__track">
           {bottles}
         </div>
-        <span class="sc-cursor" aria-hidden="true"><span data-i18n="sc.drag">Drag</span></span>
+        <span class="sc-cursor" aria-hidden="true"><svg class="sc-ring" viewBox="0 0 64 64"><circle class="sc-ring__track" cx="32" cy="32" r="29"/><circle class="sc-ring__bar" cx="32" cy="32" r="29" pathLength="1"/><circle class="sc-ring__dot" cx="32" cy="32" r="2.5"/></svg><span class="sc-cursor__label" data-i18n="sc.drag">Drag</span></span>
       </div>
       <div class="wrap">
         <div class="grid showcase__bar reveal">

@@ -74,10 +74,13 @@
      · drift slows to a stop while the pointer is over the row
      · drag / throw with inertia (mouse, pen, touch), wheel, arrows, keys
      · the row leans a little with its speed
-     · pointing at a bottle scales it 3× around the cursor; the origin
-       eases after the pointer, so moving over the bottle pans the label
-     · a cursor bubble says "Drag" between bottles and shrinks to a ring
-       while zoomed. Touch: tap to zoom, tap again to release.
+     · rest to zoom: hovering primes a bottle (it lifts, the others dim)
+       and the cursor turns into a ring that fills while the pointer rests;
+       when it closes the bottle glides to 3× around the cursor. Skimming
+       across the row never zooms; a click zooms at once. The origin eases
+       after the pointer, so moving over a zoomed bottle pans the label.
+     · a cursor bubble says "Drag" between bottles.
+       Touch: tap to zoom (with a tiny haptic tick), tap again to release.
      ========================================================= */
   const sc = $("[data-showcase]");
   const scTrack = sc && $(".showcase__track", sc);
@@ -86,6 +89,8 @@
   const scCursor = sc && $(".sc-cursor", sc);
   const S = { items: [], copies: 0, setW: 0, step: 1, x: 0, target: 0, v: 0, drift: 1, over: false, drag: null, visible: false, raf: 0, lastT: 0, idleAt: 0 };
   const DRIFT = 0.42;          // px per frame at 60fps
+  const DWELL = 1100;          // ms of resting on a bottle before it zooms
+  const DWELL_WARM = 420;      // …shorter right after another bottle was zoomed
   const mod = (n, m) => ((n % m) + m) % m;
 
   function bottleHTML(it, i, clone) {
@@ -106,7 +111,7 @@
     if (!items.length) { scTrack.innerHTML = ""; S.items = []; return; }
     const copies = scCopies();
     if (!force && scTrack.dataset.sig === sig && S.copies === copies) return scMeasure();
-    unzoom();
+    setPrime(null);
     S.items = items; S.copies = copies;
     let html = "";
     for (let c = 0; c < copies; c++) html += items.map((it, i) => bottleHTML(it, i, c > 0)).join("");
@@ -126,7 +131,7 @@
   }
   const snap = (v) => Math.round(v / S.step) * S.step;
   function nudge(dir) {
-    unzoom();
+    setPrime(null);
     S.target = snap(S.target) - dir * S.step;
     S.idleAt = performance.now();
     wake();
@@ -156,8 +161,9 @@
         scBar.style.setProperty("--p", `${(mod(-S.x, S.setW) / S.setW) * n * 100}%`);
       }
     }
+    const focusing = tickFocus(dt);
     moveCursor();
-    const moving = S.drift > 0.001 || Math.abs(S.target - S.x) > 0.05 || Math.abs(S.v) > 0.01 || cur.show !== cur.s;
+    const moving = focusing || S.drift > 0.001 || Math.abs(S.target - S.x) > 0.05 || Math.abs(S.v) > 0.01 || cur.show !== cur.s;
     if (S.visible && moving) S.raf = requestAnimationFrame(frame);
     else S.lastT = 0;
   }
@@ -173,15 +179,18 @@
     if (Math.abs(cur.show - cur.s) < 0.01) cur.s = cur.show;
     scCursor.style.transform = `translate3d(${cur.x.toFixed(1)}px,${cur.y.toFixed(1)}px,0)`;
     scCursor.style.opacity = cur.s.toFixed(3);
+    scCursor.style.setProperty("--ring", zoomed ? 1 : Math.max(0, F.dwell).toFixed(3));
   }
   function cursorState() {
     if (!scCursor) return;
+    scCursor.classList.toggle("is-prime", !!primed && !zoomed && !S.drag);
     scCursor.classList.toggle("is-zoom", !!zoomed && !S.drag);
     scCursor.classList.toggle("is-drag", !!S.drag);
   }
 
-  // zoom — the origin follows the pointer with a little easing
-  let zoomed = null, zTarget = [50, 50], zNow = [50, 50], zRaf = 0;
+  // focus — prime on hover, zoom after resting; the origin eases after the pointer
+  let primed = null, zoomed = null, zTarget = [50, 50], zNow = [50, 50];
+  const F = { dwell: 0, speed: 0, px: 0, py: 0, pt: 0, warmUntil: 0, lock: null };
   function originFrom(bottle, e) {
     const stage = $(".bottle__stage", bottle), img = $("img", bottle);
     const r = stage.getBoundingClientRect();
@@ -190,33 +199,56 @@
     return [Math.max(0, Math.min(1, x)) * 100, Math.max(0, Math.min(1, y)) * 100];
   }
   function setOrigin(img, o) { img.style.setProperty("--ox", `${o[0].toFixed(2)}%`); img.style.setProperty("--oy", `${o[1].toFixed(2)}%`); }
-  function follow() {
-    zRaf = 0;
-    if (!zoomed) return;
-    zNow[0] += (zTarget[0] - zNow[0]) * .14;
-    zNow[1] += (zTarget[1] - zNow[1]) * .14;
-    setOrigin($("img", zoomed), zNow);
-    if (Math.abs(zTarget[0] - zNow[0]) + Math.abs(zTarget[1] - zNow[1]) > .05) zRaf = requestAnimationFrame(follow);
+  function setPrime(b, e) {
+    if (primed === b) return;
+    if (zoomed && zoomed !== b) unzoom();
+    if (primed) primed.classList.remove("is-primed");
+    primed = b;
+    F.dwell = 0;
+    F.lock = null;
+    if (b) {
+      if (e) { zTarget = originFrom(b, e); zNow = zTarget.slice(); setOrigin($("img", b), zNow); }
+      b.classList.add("is-primed");
+    }
+    if (scTrack) scTrack.classList.toggle("has-prime", !!b);
+    cursorState();
+    wake();
   }
   function zoomIn(bottle, e) {
-    if (zoomed && zoomed !== bottle) unzoom();
-    zTarget = originFrom(bottle, e);
-    if (zoomed !== bottle) {
-      zNow = zTarget.slice();
-      setOrigin($("img", bottle), zNow);
-      zoomed = bottle;
-      bottle.classList.add("is-zoomed");
-      scTrack.classList.add("has-zoom");
-      cursorState();
-    } else if (!zRaf) zRaf = requestAnimationFrame(follow);
+    if (primed !== bottle) setPrime(bottle, e);
+    if (e) zTarget = originFrom(bottle, e);
+    if (zoomed === bottle) return;
+    zoomed = bottle;
+    F.dwell = 1;
+    bottle.classList.add("is-zoomed");
+    scTrack.classList.add("has-zoom");
+    cursorState();
+    wake();
   }
-  function unzoom() {
+  function unzoom(cooldown) {
     if (!zoomed) return;
     zoomed.classList.remove("is-zoomed");
     zoomed = null;
+    F.warmUntil = cooldown ? 0 : performance.now() + 900;
+    F.dwell = 0;
+    F.lock = cooldown ? [F.px, F.py] : null;   // after a click-out, zoom again only once the pointer moves on
     if (scTrack) scTrack.classList.remove("has-zoom");
     cursorState();
     wake();
+  }
+  function tickFocus(dt) {
+    if (!primed) return false;
+    const ms = dt * 16.67;
+    F.speed *= Math.pow(0.7, dt);           // no events = the pointer is resting
+    if (!zoomed && !S.drag && !F.lock) {
+      const dur = performance.now() < F.warmUntil ? DWELL_WARM : DWELL;
+      F.dwell = F.speed < 0.35 ? F.dwell + ms / dur : Math.max(0, F.dwell - ms / 500);
+      if (F.dwell >= 1) zoomIn(primed);
+    }
+    zNow[0] += (zTarget[0] - zNow[0]) * Math.min(1, 0.12 * dt);
+    zNow[1] += (zTarget[1] - zNow[1]) * Math.min(1, 0.12 * dt);
+    setOrigin($("img", primed), zNow);
+    return !zoomed || Math.abs(zTarget[0] - zNow[0]) + Math.abs(zTarget[1] - zNow[1]) > 0.05;
   }
 
   function initShowcase() {
@@ -246,7 +278,7 @@
     sc.addEventListener("pointerleave", (e) => {
       if (e.pointerType !== "mouse") return;
       S.over = false; cur.show = 0; S.idleAt = performance.now() - 1600;
-      if (!S.drag) unzoom();
+      if (!S.drag) setPrime(null);
       wake();
     });
     sc.addEventListener("pointermove", (e) => {
@@ -254,7 +286,7 @@
       if (S.drag) {
         const dx = e.clientX - S.drag.x0;
         if (!S.drag.moved && Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(e.clientY - S.drag.y0)) {
-          S.drag.moved = true; unzoom(); sc.classList.add("is-dragging"); cursorState();
+          S.drag.moved = true; setPrime(null); sc.classList.add("is-dragging"); cursorState();
           try { sc.setPointerCapture(e.pointerId); } catch (err) {}
         }
         if (S.drag.moved) {
@@ -269,7 +301,15 @@
       }
       if (fine && e.pointerType === "mouse" && !(S.drag && S.drag.moved)) {
         const b = bottleAt(e);
-        if (b) zoomIn(b, e); else unzoom();
+        const now = performance.now();
+        if (F.pt) {
+          const sp = Math.hypot(e.clientX - F.px, e.clientY - F.py) / Math.max(4, now - F.pt);
+          F.speed += (sp - F.speed) * 0.5;
+        }
+        F.px = e.clientX; F.py = e.clientY; F.pt = now;
+        if (F.lock && Math.hypot(F.px - F.lock[0], F.py - F.lock[1]) > 24) F.lock = null;
+        setPrime(b || null, e);
+        if (b) zTarget = originFrom(b, e);
       }
     });
     sc.addEventListener("pointerdown", (e) => {
@@ -290,7 +330,10 @@
         S.idleAt = performance.now();
       }
       cursorState();
-      if (e && fine && e.pointerType === "mouse" && e.type === "pointerup") { const b = bottleAt(e); if (b && !d.moved) zoomIn(b, e); }
+      if (e && fine && e.pointerType === "mouse" && e.type === "pointerup" && !d.moved) {
+        const b = bottleAt(e);
+        if (b && b === zoomed) unzoom(true); else if (b) zoomIn(b, e);   // click = no waiting
+      }
       wake();
     };
     sc.addEventListener("pointerup", release);
@@ -301,13 +344,14 @@
       if (fine || Date.now() - (S.swipedAt || 0) < 350) return;
       const b = bottleAt(e);
       S.idleAt = performance.now();
-      if (!b || b === zoomed) { unzoom(); return; }
+      if (!b || b === zoomed) { setPrime(null); return; }
       zoomIn(b, e);
+      if (navigator.vibrate) try { navigator.vibrate(8); } catch (err) {}
     });
     sc.addEventListener("wheel", (e) => {
       if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
       e.preventDefault();
-      unzoom();
+      setPrime(null);
       S.target -= e.deltaX;
       S.idleAt = performance.now();
       clearTimeout(S.wheelT);
@@ -317,7 +361,7 @@
     sc.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight") { e.preventDefault(); nudge(1); }
       else if (e.key === "ArrowLeft") { e.preventDefault(); nudge(-1); }
-      else if (e.key === "Escape") unzoom();
+      else if (e.key === "Escape") setPrime(null);
     });
     const prev = scSection && $("[data-sc-prev]", scSection), next = scSection && $("[data-sc-next]", scSection);
     if (prev) prev.addEventListener("click", () => nudge(-1));
