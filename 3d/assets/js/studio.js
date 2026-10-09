@@ -16,8 +16,12 @@ export function initStudio() {
   const canvas = $("cv3"), view = canvas.closest(".studio__view");
   const textIn = $("stText"), fileIn = $("stFile"), inv = $("stInv"), sum = $("stSum");
   const drop = $("stDrop"), fileRow = $("stFileRow"), fileName = $("stFileName");
-  textIn.value = t("st.default");  // the module loads after the language is applied
-  const S = { shape: 0, tech: 2, glass: 0, img: null, alpha: true, text: textIn.value, edited: false, th: 0.35, vth: 0, drag: false, vis: false, w: 0, h: 0 };
+  const typed = !!textIn.dataset.edited;               // typed into before this module loaded
+  if (!typed) textIn.value = t("st.default");          // the module loads after the language is applied
+  sum.dataset.live = "1";
+  // Start from whatever the controls show (another section may have pre-selected a technology)
+  const pressed = key => { const b = document.querySelector(`[data-studio="${key}"] [aria-pressed="true"]`); return b ? +b.dataset.v : 0; };
+  const S = { shape: pressed("shape"), tech: pressed("tech"), glass: pressed("glass"), img: null, alpha: true, text: textIn.value, edited: typed, th: 0.35, vth: 0, drag: false, vis: false, w: 0, h: 0 };
 
   const renderer = makeRenderer(canvas, { preserveDrawingBuffer: true });
   const scene = new THREE.Scene();
@@ -27,7 +31,7 @@ export function initStudio() {
   const cam = new THREE.PerspectiveCamera(30, 0.9, 0.1, 50); cam.position.set(0, 0.1, 13.4);
   const sh = contactShadow(3, 0.5); sh.position.y = -3.02; scene.add(sh);
   const bottles = SHAPES.map(shape => { const o = makeBottle(0, { shape }); o.h.rotation.z = -0.08; scene.add(o.h); return o; });
-  bottles[1].h.visible = false;
+  bottles.forEach((o, i) => { o.h.visible = i === S.shape; });
   const PC = document.createElement("canvas"); PC.width = PC.height = N;
 
   const active = () => bottles[S.shape];

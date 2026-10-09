@@ -121,7 +121,21 @@ export const DICT = {
     "f.fail": "Что-то пошло не так. Напишите нам напрямую:", "f.check": "Проверьте выделенные поля.", "f.subject": "Заявка с сайта",
 
     "ft.about": "Декор и печать на стеклянной таре. Кишинёв, Молдова. С 2000 года.", "ft.sitemap": "Карта сайта",
-    "ft.more": "Покрытие, покраска, деколи", "ft.company": "Компания", "ft.ds": "Дизайн-система", "ft.rights": "Все права защищены.", "ft.top": "Наверх"
+    "ft.more": "Покрытие, покраска, деколи", "ft.company": "Компания", "ft.ds": "Дизайн-система", "ft.rights": "Все права защищены.", "ft.top": "Наверх",
+    "j.end.eyebrow": "Все четыре — под одной крышей",
+    "cmp.lead2": "Всё главное — в одной таблице. Выберите технологию, и конфигуратор откроется с ней.",
+    "cmp.table.tech": "Технология",
+    "cmp.table.swipe": "Листайте в сторону →",
+    "cmp.pick": "Примерить",
+    "st.art": "Надпись или логотип",
+    "svc.drag": "Листайте в сторону",
+    "ui.prev": "Назад",
+    "ui.next": "Вперёд",
+    "ui.version.v1": "Классическая версия",
+    "ui.version.v2": "Новая версия сайта",
+    "tech.0.short": "Шелкография",
+    "tech.1.short": "Тампопечать",
+    "tech.3.short": "УФ‑печать"
   },
 
   ro: {
@@ -242,7 +256,21 @@ export const DICT = {
     "f.fail": "Ceva nu a mers. Scrieți-ne direct:", "f.check": "Verificați câmpurile evidențiate.", "f.subject": "Cerere de pe site",
 
     "ft.about": "Decor și imprimare pe recipiente din sticlă. Chișinău, Moldova. Din 2000.", "ft.sitemap": "Harta site-ului",
-    "ft.more": "Acoperire, vopsire, decaluri", "ft.company": "Companie", "ft.ds": "Sistem de design", "ft.rights": "Toate drepturile rezervate.", "ft.top": "Sus"
+    "ft.more": "Acoperire, vopsire, decaluri", "ft.company": "Companie", "ft.ds": "Sistem de design", "ft.rights": "Toate drepturile rezervate.", "ft.top": "Sus",
+    "j.end.eyebrow": "Toate patru — sub același acoperiș",
+    "cmp.lead2": "Esențialul într-un singur tabel. Alegeți o tehnologie și configuratorul se deschide cu ea.",
+    "cmp.table.tech": "Tehnologie",
+    "cmp.table.swipe": "Glisați lateral →",
+    "cmp.pick": "Încearcă",
+    "st.art": "Inscripție sau logo",
+    "svc.drag": "Derulați lateral",
+    "ui.prev": "Înapoi",
+    "ui.next": "Înainte",
+    "ui.version.v1": "Versiunea clasică",
+    "ui.version.v2": "Versiunea nouă a site-ului",
+    "tech.0.short": "Serigrafie",
+    "tech.1.short": "Tampografie",
+    "tech.3.short": "Imprimare UV"
   },
 
   en: {
@@ -363,7 +391,21 @@ export const DICT = {
     "f.fail": "Something went wrong. Email us directly:", "f.check": "Please check the highlighted fields.", "f.subject": "Website enquiry",
 
     "ft.about": "Decoration and printing on glass containers. Chișinău, Moldova. Since 2000.", "ft.sitemap": "Site map",
-    "ft.more": "Coating, painting, decals", "ft.company": "Company", "ft.ds": "Design system", "ft.rights": "All rights reserved.", "ft.top": "Back to top"
+    "ft.more": "Coating, painting, decals", "ft.company": "Company", "ft.ds": "Design system", "ft.rights": "All rights reserved.", "ft.top": "Back to top",
+    "j.end.eyebrow": "All four under one roof",
+    "cmp.lead2": "The essentials in one table. Pick a technology and the configurator opens with it.",
+    "cmp.table.tech": "Technology",
+    "cmp.table.swipe": "Swipe sideways →",
+    "cmp.pick": "Try it",
+    "st.art": "Text or logo",
+    "svc.drag": "Scroll sideways",
+    "ui.prev": "Previous",
+    "ui.next": "Next",
+    "ui.version.v1": "Classic version",
+    "ui.version.v2": "New version of the site",
+    "tech.0.short": "Screen print",
+    "tech.1.short": "Pad print",
+    "tech.3.short": "UV print"
   }
 };
 

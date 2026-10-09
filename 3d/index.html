@@ -136,7 +136,7 @@
       <canvas id="gl" aria-hidden="true"></canvas>
       <div class="stage__vig" id="vig"></div>
 
-      <div class="hero" id="hero">
+      <div class="hero" id="hero" data-hero>
         <p class="eyebrow hero__eyebrow" data-i18n="hero.eyebrow">Декор стекла · Кишинёв · с 2000 года</p>
         <h1 class="t-display hero__title" id="heroTitle" data-split data-i18n-html="hero.title">Печать на стекле,<br>которая остаётся.</h1>
         <p class="t-lead hero__lead" data-i18n="hero.lead">Рисунок, который живёт на бутылке всю её жизнь. Шелкография, тампопечать, горячее тиснение и УФ‑печать — для вина, крепких напитков, воды и косметики.</p>
@@ -615,7 +615,10 @@
     </div>
     <div class="ftr__bottom">
       <p class="t-caption">© <span id="year">2026</span> Agroalimgrup S.R.L. <span data-i18n="ft.rights">Все права защищены.</span></p>
-      <a class="link ftr__top-link" href="#top"><span data-i18n="ft.top">Наверх</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-u"/></svg></a>
+      <div class="cluster">
+        <a class="link" href="v2/" data-i18n="ui.version.v2">Новая версия сайта</a>
+        <a class="link ftr__top-link" href="#top"><span data-i18n="ft.top">Наверх</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-u"/></svg></a>
+      </div>
     </div>
   </div>
 </footer>

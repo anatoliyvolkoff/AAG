@@ -4,15 +4,21 @@ Marketing site for **Agroalimgrup S.R.L.**, a glass-decoration factory in Chiși
 
 A static site with an interactive three.js story: scroll through the four print processes on 3D bottles, compare the technologies, and try your own text or logo on a bottle in the configurator. Russian, Romanian and English.
 
+There are two layouts of the same site, sharing the design system, texts, 3D and configurator:
+
+- **Classic** (`/`) — a vertical scroll story.
+- **New** (`/v2/`) — a tour that runs **sideways on landscape screens and downwards on portrait screens**, switching live when the device rotates, plus horizontal sections (swipeable comparison table, services gallery, moving industries band).
+
 ## Pages
 
 | File | What it is |
 | --- | --- |
-| `index.html` | The website: hero, scroll story, comparison, configurator, services, industries, about, process, FAQ, quote form, footer |
+| `index.html` | Classic layout: hero, scroll story, comparison, configurator, services, industries, about, process, FAQ, quote form, footer |
+| `v2/index.html` | New layout (same sections and features, orientation-aware tour, horizontal sections) |
 | `design-system.html` | Living reference for tokens and components (colour, type, spacing, motion, buttons, fields, cards, icons) |
 | `404.html` | Not-found page used by GitHub Pages |
 
-## Sections on the home page
+## Sections (classic layout)
 
 1. **Hero** — floating 3D bottles behind a bold headline, two calls to action.
 2. **Scroll story** (sticky stage) — four chapters. Each one zooms in on a bottle while the tool prints it: screen frame and squeegee, silicone pad, heated die with foil ribbon (with live footage from the print line), UV head and lamp. A glass card lists the process steps and ticks them off as they happen. A chapter navigator at the top jumps between chapters; ← → keys work too.
@@ -24,6 +30,15 @@ A static site with an interactive three.js story: scroll through the four print 
 8. **Process** — six steps from brief to delivery; the rail draws as you scroll.
 9. **FAQ** — accordion.
 10. **Contact** — quote form (validation, technology chips, run size, configurator mock-up).
+
+## New layout (`/v2/`)
+
+1. **Tour** — one sticky stage. The four technologies sit side by side on wide screens and one above the other on tall ones; scrolling moves the camera and the text panels together, so each bottle stops in its own slot next to its copy (never under it). Hero and finale show all four bottles in a line-up with numbered tags; the tags, a navigator bar (bottom on landscape, right edge on portrait), ← → keys and sideways trackpad/touch swipes all move through the tour. Rotating a phone or tablet keeps you on the same step.
+2. **Compare** — one table with a rotating bottle per column and a "Try it" button that opens the configurator with that technology selected. On phones it swipes sideways with the row labels pinned.
+3. **Configurator** — numbered steps; on phones and tablets the 3D preview stays pinned at the top and the request button stays pinned at the bottom while you change options.
+4. **Services** — horizontal gallery (swipe, drag, arrows, progress bar).
+5. **Industries** — two rows moving in opposite directions (static wrap with reduced motion).
+6. **About**, **Process** (timeline runs across on wide landscape screens, down otherwise), **FAQ**, **Contact** — as in the classic layout.
 
 ## Design system
 
@@ -42,10 +57,15 @@ assets/
   css/fonts.css      self-hosted Inter
   css/ds.css         design system
   css/site.css       page layout
-  js/main.js         UI: language, reveals, header, menu, FAQ, counters, form, preloader
+  css/v2.css         new layout
+  js/ui.js           shared UI: config, language, reveals, header, menu, FAQ, counters, form, preloader
+  js/main.js         classic layout entry
+  js/v2.js           new layout entry: gallery, marquee, compare → configurator, process rail
   js/i18n.js         RU / RO / EN texts
   js/bottles.js      shared 3D: bottle profiles, label art, studio lighting, shadows
-  js/story.js        scroll story + comparison bottles
+  js/props.js        print-tool props (screen frame, pad, foil die, UV head)
+  js/story.js        classic scroll story + comparison bottles
+  js/journey.js      new layout's sideways/downwards tour
   js/studio.js       configurator
   vendor/three/      three.js r169 (MIT)
   media/             foil texture + bump map, print-line footage
@@ -57,14 +77,14 @@ No build step. `three` is resolved with an import map; the 3D modules load lazil
 
 ```bash
 python3 -m http.server 8080
-# open http://localhost:8080
+# open http://localhost:8080 (classic) or http://localhost:8080/v2/ (new layout)
 ```
 
 Language: `?lang=ru`, `?lang=ro` or `?lang=en` (the choice is remembered).
 
 ## Configure
 
-At the top of `assets/js/main.js`:
+At the top of `assets/js/ui.js` (used by both layouts):
 
 ```js
 export const CONFIG = {
@@ -77,7 +97,7 @@ export const CONFIG = {
 
 ## Deploy
 
-GitHub Pages serves the repository root (`.nojekyll` is included). Any static host works.
+Any static host works: serve the folder as is (`.nojekyll` is included for GitHub Pages). The live preview is on Vercel: https://agrialimgrup.vercel.app (classic) and https://agrialimgrup.vercel.app/v2/ (new layout).
 
 ## To confirm with the client before launch
 

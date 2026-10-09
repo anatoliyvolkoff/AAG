@@ -134,9 +134,9 @@ export function foilMaps(onLoad) {
   const L = new THREE.TextureLoader();
   let res; const ready = new Promise(r => (res = r));
   let n = 0; const done = () => { if (++n === 2) res(); };
-  const map = L.load("assets/media/foil.webp", done, undefined, done);
+  const map = L.load(new URL("../media/foil.webp", import.meta.url).href, done, undefined, done);
   map.colorSpace = THREE.SRGBColorSpace; map.anisotropy = 8; map.generateMipmaps = false; map.minFilter = THREE.LinearFilter;
-  const bump = L.load("assets/media/foil-bump.webp", done, undefined, done);
+  const bump = L.load(new URL("../media/foil-bump.webp", import.meta.url).href, done, undefined, done);
   bump.anisotropy = 8; bump.generateMipmaps = false; bump.minFilter = THREE.LinearFilter;
   FOIL = { map, bump, ready };
   if (onLoad) ready.then(onLoad);
