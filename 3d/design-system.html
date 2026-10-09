@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Design System — Agro Alim Grup</title>
+<meta name="description" content="Tokens, type, motion and components behind the Agro Alim Grup website.">
+<meta name="theme-color" content="#f5f5f7">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/ds.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>document.documentElement.classList.replace('no-js','js')</script>
+<style>
+  .ds-hdr { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--gray-50) 80%, transparent); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgb(0 0 0 / .07); }
+  .ds-hdr .container { display: flex; align-items: center; gap: 20px; height: 60px; }
+  .ds-hdr nav { display: flex; gap: 2px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+  .ds-hdr nav a { padding: 8px 12px; border-radius: 999px; font-size: .875rem; font-weight: 500; color: var(--ink-2); text-decoration: none; white-space: nowrap; }
+  .ds-hdr nav a:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
+  .ds-hero { padding: clamp(72px, 10vw, 140px) 0 clamp(48px, 6vw, 80px); }
+  .ds-hero .t-display { max-width: 12ch; margin: 20px 0 24px; }
+  .ds-sec { padding: clamp(64px, 8vw, 112px) 0; border-top: 1px solid var(--line-soft); }
+  .ds-sec > .container > header { display: grid; gap: 14px; margin-bottom: 40px; max-width: 760px; }
+  .ds-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(var(--min, 160px), 100%), 1fr)); }
+  .ds-label { font: 600 .75rem/1.3 var(--font); letter-spacing: .02em; color: var(--ink); }
+  .ds-code { font: 500 .75rem/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--mute); }
+  .sw-card { display: grid; gap: 10px; }
+  .sw-chip { height: 88px; border-radius: var(--r-md); box-shadow: inset 0 0 0 1px rgb(0 0 0 / .06); }
+  .ramp { display: grid; grid-template-columns: repeat(14, 1fr); border-radius: var(--r-md); overflow: hidden; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .06); }
+  .ramp div { height: 96px; display: flex; align-items: flex-end; padding: 8px; font: 600 .625rem/1 var(--font); }
+  .roles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .role-panel { border-radius: var(--r-lg); padding: 24px; background: var(--bg); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-soft); display: grid; gap: 10px; }
+  .role-row { display: flex; align-items: center; gap: 12px; font-size: .875rem; }
+  .role-row i { width: 28px; height: 28px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgb(127 127 127 / .3); flex: none; }
+  .type-row { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--line-soft); }
+  .type-row:first-child { border-top: 1px solid var(--line-soft); }
+  .space-row { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; align-items: center; padding: 6px 0; }
+  .space-row b { display: block; max-width: 100%; height: 14px; border-radius: 4px; background: var(--accent-fill); }
+  .radius-box { aspect-ratio: 1; background: var(--card); box-shadow: inset 0 0 0 1.5px var(--line); }
+  .elev-box { height: 120px; border-radius: var(--r-lg); background: var(--gray-0); display: grid; place-items: center; font-weight: 600; }
+  .ease-demo { position: relative; height: 64px; border-radius: var(--r-md); background: var(--card); overflow: hidden; cursor: pointer; }
+  .ease-demo i { position: absolute; left: 8px; top: 8px; width: 48px; height: 48px; border-radius: 14px; background: var(--ink); transition: transform var(--dur-5) var(--e); }
+  .ease-demo.go i { transform: translateX(calc(var(--w, 300px) - 64px)); }
+  .demo-box { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: clamp(18px, 5vw, 28px); border-radius: var(--r-lg); background: var(--card); overflow-x: auto; }
+  .demo-box--col { flex-direction: column; align-items: stretch; }
+  .icon-tile { display: grid; justify-items: center; gap: 10px; padding: 20px 8px; border-radius: var(--r-md); background: var(--card); }
+  .icon-tile .ico { width: 28px; height: 28px; stroke-width: 1.6; }
+  .cmp-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+  .cmp-table th, .cmp-table td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  .cmp-table th { color: var(--mute); font-weight: 500; font-size: .8125rem; }
+  @media (max-width: 760px) { .roles { grid-template-columns: 1fr; } .type-row { grid-template-columns: 1fr; gap: 8px; } .ramp { grid-template-columns: repeat(7, 1fr); } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo-mark" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="currentColor"/><path style="fill:var(--bg)" d="M13.5 5h5v2h-.5v3.2c0 .5.2.9.5 1.3l2.6 2.9c.6.7.9 1.5.9 2.4V25a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2v-7.9c0-.9.3-1.7.9-2.4l2.6-2.9c.3-.4.5-.8.5-1.3V7h-.5z"/><rect x="10" y="18.2" width="12" height="3.6" fill="currentColor"/></symbol>
+  <symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-d" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+  <symbol id="i-arrow-u" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+  <symbol id="i-arrow-ur" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11.5a7 7 0 0 0-14 0C5 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5.5 4h3.2l1.8 4.6-2.3 1.5a11 11 0 0 0 5.7 5.7l1.5-2.3 4.6 1.8v3.2a2 2 0 0 1-2.1 2A16.5 16.5 0 0 1 3.5 6.1 2 2 0 0 1 5.5 4z"/></symbol>
+  <symbol id="i-drag" viewBox="0 0 24 24"><path d="M7 12h10M4 12l3-3M4 12l3 3M20 12l-3-3M20 12l-3 3"/></symbol>
+  <symbol id="i-wine" viewBox="0 0 24 24"><path d="M8 3h8l-.4 5.2a3.6 3.6 0 0 1-7.2 0L8 3zM12 11.8V20M8.5 20h7M8.3 7h7.4"/></symbol>
+  <symbol id="i-spirits" viewBox="0 0 24 24"><path d="M10 3h4v4l1.6 2.3c.3.5.4 1 .4 1.5V20a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-9.2c0-.5.1-1 .4-1.5L10 7V3zM8 13h8M8 17h8"/></symbol>
+  <symbol id="i-beer" viewBox="0 0 24 24"><path d="M6 8h9v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8zM15 10.5h2a2 2 0 0 1 2 2V15a2 2 0 0 1-2 2h-2M6 8c-.6-2.2.9-3.8 2.8-3.4.6-1.4 2.9-1.6 3.8-.2 1.8-.6 3.3.9 2.4 3.6M9.5 12v5M12 12v5"/></symbol>
+  <symbol id="i-water" viewBox="0 0 24 24"><path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11zM9 14.5a3 3 0 0 0 3 3"/></symbol>
+  <symbol id="i-perfume" viewBox="0 0 24 24"><rect x="5.5" y="10" width="13" height="11" rx="3"/><path d="M10 10V7h4v3M9 4h6M9.5 15.5h5"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><path d="M4 9h16v4H4zM6 13v8h12v-8M12 9v12M12 9c-1.8 0-4.6-.6-4.6-2.6S10.6 4.2 12 9zm0 0c1.8 0 4.6-.6 4.6-2.6S13.4 4.2 12 9z"/></symbol>
+  <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3zM4 7.5l8 4.5 8-4.5M12 12v9"/></symbol>
+</svg>
+
+<header class="ds-hdr">
+  <div class="container">
+    <a class="logo" href="./"><svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#logo-mark"/></svg><span class="logo__name">Agro Alim Grup</span></a>
+    <nav aria-label="Design system sections">
+      <a href="#principles">Principles</a><a href="#color">Color</a><a href="#type">Type</a><a href="#space">Space &amp; shape</a><a href="#motion">Motion</a><a href="#components">Components</a><a href="#icons">Icons</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="ds-hero">
+    <div class="container">
+      <p class="eyebrow">Design system · v1.0</p>
+      <h1 class="t-display">Clear, calm, bold.</h1>
+      <p class="t-lead" style="max-width:44rem">The tokens and components behind the Agro Alim Grup website. Neutral surfaces let the glass and the print take the stage; one action blue and one foil gold carry meaning; type does the heavy lifting so every section can be scanned in a second.</p>
+      <div class="cluster" style="margin-top:32px"><a class="btn btn--primary btn--lg" href="./">Open the website<svg class="ico ico--next" aria-hidden="true"><use href="#i-arrow-r"/></svg></a><a class="btn btn--tonal btn--lg" href="#components">Jump to components</a></div>
+    </div>
+  </section>
+
+  <section class="ds-sec" id="principles">
+    <div class="container">
+      <header><p class="eyebrow">01 · Principles</p><h2 class="t-h2">Four rules for every screen.</h2></header>
+      <div class="ds-grid" style="--min:240px">
+        <article class="card"><h3 class="t-h4">Product first</h3><p class="t-small" style="margin-top:8px">Surfaces stay neutral so the bottle, the foil and the ink are the only colour on screen.</p></article>
+        <article class="card"><h3 class="t-h4">One idea per block</h3><p class="t-small" style="margin-top:8px">Eyebrow → headline → one-line lead → content. Headlines are statements, not labels.</p></article>
+        <article class="card"><h3 class="t-h4">Scan in a second</h3><p class="t-small" style="margin-top:8px">Numbers, short specs, meters and tags. Paragraphs never exceed ~70 characters per line.</p></article>
+        <article class="card"><h3 class="t-h4">Motion explains</h3><p class="t-small" style="margin-top:8px">Animation shows how things work (the print processes) or where you are. Everything respects reduced motion.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ds-sec" id="color">
+    <div class="container">
+      <header><p class="eyebrow">02 · Color</p><h2 class="t-h2">A cool neutral ramp, two accents.</h2><p class="t-body">Components use semantic roles (<code class="ds-code">--ink</code>, <code class="ds-code">--card</code>, <code class="ds-code">--accent</code>…). Wrapping a block in <code class="ds-code">.section--dark</code> or <code class="ds-code">.theme-dark</code> re-maps the roles, so the same component works on both themes.</p></header>
+      <div class="ramp" id="ramp"></div>
+      <div class="ds-grid" style="--min:180px; margin-top:16px">
+        <div class="sw-card"><div class="sw-chip" style="background:var(--blue-500)"></div><span class="ds-label">Action blue</span><span class="ds-code">--blue-500 #0071e3</span></div>
+        <div class="sw-card"><div class="sw-chip" style="background:var(--blue-400)"></div><span class="ds-label">Action blue (dark)</span><span class="ds-code">--blue-400 #2997ff</span></div>
+        <div class="sw-card"><div class="sw-chip" style="background:linear-gradient(100deg,var(--gold-600),var(--gold-400) 30%,var(--gold-200) 50%,var(--gold-400) 70%,var(--gold-600))"></div><span class="ds-label">Foil gold</span><span class="ds-code">--gold-200 / 400 / 600</span></div>
+        <div class="sw-card"><div class="sw-chip" style="background:var(--green-500)"></div><span class="ds-label">Success</span><span class="ds-code">--green-500 #1d9a50</span></div>
+        <div class="sw-card"><div class="sw-chip" style="background:var(--red-500)"></div><span class="ds-label">Error</span><span class="ds-code">--red-500 #d70015</span></div>
+      </div>
+      <div class="roles" style="margin-top:16px">
+        <div class="role-panel"><span class="ds-label">Light (default)</span>
+          <div class="role-row"><i style="background:var(--bg)"></i>--bg</div><div class="role-row"><i style="background:var(--card)"></i>--card</div><div class="role-row"><i style="background:var(--ink)"></i>--ink</div><div class="role-row"><i style="background:var(--mute)"></i>--mute</div><div class="role-row"><i style="background:var(--line)"></i>--line</div><div class="role-row"><i style="background:var(--accent)"></i>--accent</div>
+        </div>
+        <div class="role-panel theme-dark"><span class="ds-label">Dark (.section--dark)</span>
+          <div class="role-row"><i style="background:var(--bg)"></i>--bg</div><div class="role-row"><i style="background:var(--card)"></i>--card</div><div class="role-row"><i style="background:var(--ink)"></i>--ink</div><div class="role-row"><i style="background:var(--mute)"></i>--mute</div><div class="role-row"><i style="background:var(--line)"></i>--line</div><div class="role-row"><i style="background:var(--accent)"></i>--accent</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ds-sec" id="type">
+    <div class="container">
+      <header><p class="eyebrow">03 · Typography</p><h2 class="t-h2">Inter, set tight and big.</h2><p class="t-body">One variable family (Inter, optical size 14–32, self-hosted) with Latin, Romanian and Cyrillic. Display sizes are fluid (<code class="ds-code">clamp()</code>) and tracked negative; body text stays at 17 px with 1.6 leading.</p></header>
+      <div>
+        <div class="type-row"><div><div class="ds-label">Display</div><div class="ds-code">.t-display · 48→120 / 700</div></div><div class="t-display">Печать.</div></div>
+        <div class="type-row"><div><div class="ds-label">Heading 1</div><div class="ds-code">.t-h1 · 40→88 / 700</div></div><div class="t-h1">Four technologies.</div></div>
+        <div class="type-row"><div><div class="ds-label">Heading 2</div><div class="ds-code">.t-h2 · 34→64 / 700</div></div><div class="t-h2">Imprimare pe sticlă.</div></div>
+        <div class="type-row"><div><div class="ds-label">Heading 3</div><div class="ds-code">.t-h3 · 22→30 / 650</div></div><div class="t-h3">Горячее тиснение</div></div>
+        <div class="type-row"><div><div class="ds-label">Heading 4</div><div class="ds-code">.t-h4 · 19 / 600</div></div><div class="t-h4">Design &amp; 3D visualisation</div></div>
+        <div class="type-row"><div><div class="ds-label">Lead</div><div class="ds-code">.t-lead · 19→24 / 500</div></div><p class="t-lead">Artwork that lives on the bottle for its whole life.</p></div>
+        <div class="type-row"><div><div class="ds-label">Body</div><div class="ds-code">.t-body · 17 / 400</div></div><p class="t-body">Ceramic inks are fixed by firing: the decoration becomes part of the glass and withstands washing.</p></div>
+        <div class="type-row"><div><div class="ds-label">Small · Caption</div><div class="ds-code">.t-small 15 · .t-caption 13</div></div><div><p class="t-small">Up to 6 spot colours, gloss or matte.</p><p class="t-caption">Chișinău, Republic of Moldova</p></div></div>
+        <div class="type-row"><div><div class="ds-label">Eyebrow</div><div class="ds-code">.eyebrow · 13 / 600 / +8%</div></div><p class="eyebrow">Under one roof</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ds-sec" id="space">
+    <div class="container">
+      <header><p class="eyebrow">04 · Space, shape &amp; depth</p><h2 class="t-h2">A 4-pixel rhythm.</h2></header>
+      <div id="spaceRows"></div>
+      <div class="ds-grid" style="--min:120px; margin-top:40px">
+        <div class="sw-card"><div class="radius-box" style="border-radius:var(--r-xs)"></div><span class="ds-label">--r-xs</span><span class="ds-code">8px</span></div>
+        <div class="sw-card"><div class="radius-box" style="border-radius:var(--r-sm)"></div><span class="ds-label">--r-sm</span><span class="ds-code">12px · fields</span></div>
+        <div class="sw-card"><div class="radius-box" style="border-radius:var(--r-md)"></div><span class="ds-label">--r-md</span><span class="ds-code">18px · tiles</span></div>
+        <div class="sw-card"><div class="radius-box" style="border-radius:var(--r-lg)"></div><span class="ds-label">--r-lg</span><span class="ds-code">28px · cards</span></div>
+        <div class="sw-card"><div class="radius-box" style="border-radius:var(--r-xl)"></div><span class="ds-label">--r-xl</span><span class="ds-code">40px · panels</span></div>
+        <div class="sw-card"><div class="radius-box" style="border-radius:var(--r-full)"></div><span class="ds-label">--r-full</span><span class="ds-code">pills · controls</span></div>
+      </div>
+      <div class="ds-grid section--alt" style="--min:200px; margin-top:40px; padding:24px; border-radius:var(--r-xl); background:var(--gray-100)">
+        <div class="elev-box" style="box-shadow:var(--sh-1)">--sh-1</div>
+        <div class="elev-box" style="box-shadow:var(--sh-2)">--sh-2</div>
+        <div class="elev-box" style="box-shadow:var(--sh-3)">--sh-3</div>
+        <div class="elev-box" style="box-shadow:var(--sh-4)">--sh-4</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ds-sec" id="motion">
+    <div class="container">
+      <header><p class="eyebrow">05 · Motion</p><h2 class="t-h2">Ease out, never bounce twice.</h2><p class="t-body">Entrances use <code class="ds-code">--ease-out</code> over 700–1100 ms; state changes use 150–420 ms. The spring curve is reserved for toggles and small icons. Click a track to play it.</p></header>
+      <div class="ds-grid" style="--min:280px" id="easeGrid">
+        <div class="sw-card"><div class="ease-demo" style="--e:var(--ease-out)"><i></i></div><span class="ds-label">--ease-out</span><span class="ds-code">cubic-bezier(.16, 1, .3, 1) · entrances, reveals</span></div>
+        <div class="sw-card"><div class="ease-demo" style="--e:var(--ease-in-out)"><i></i></div><span class="ds-label">--ease-in-out</span><span class="ds-code">cubic-bezier(.65, 0, .35, 1) · curtains, page moves</span></div>
+        <div class="sw-card"><div class="ease-demo" style="--e:var(--ease-emph)"><i></i></div><span class="ds-label">--ease-emph</span><span class="ds-code">cubic-bezier(.2, 0, 0, 1) · emphasised UI</span></div>
+        <div class="sw-card"><div class="ease-demo" style="--e:var(--ease-spring)"><i></i></div><span class="ds-label">--ease-spring</span><span class="ds-code">cubic-bezier(.34, 1.4, .64, 1) · switches, icons</span></div>
+      </div>
+      <table class="cmp-table" style="margin-top:32px">
+        <thead><tr><th>Token</th><th>Duration</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td class="ds-code">--dur-1</td><td>150 ms</td><td>Press feedback, colour</td></tr>
+          <tr><td class="ds-code">--dur-2</td><td>260 ms</td><td>Hover, focus, chips</td></tr>
+          <tr><td class="ds-code">--dur-3</td><td>420 ms</td><td>Segmented thumb, accordion, switches</td></tr>
+          <tr><td class="ds-code">--dur-4</td><td>700 ms</td><td>Header, menu, toasts</td></tr>
+          <tr><td class="ds-code">--dur-5</td><td>1100 ms</td><td>Scroll reveals, headline word masks</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ds-sec" id="components">
+    <div class="container">
+      <header><p class="eyebrow">06 · Components</p><h2 class="t-h2">Built once, used everywhere.</h2></header>
+
+      <div class="stack" style="--stack:40px">
+        <div class="stack"><h3 class="t-h4">Buttons</h3>
+          <div class="demo-box">
+            <a class="btn btn--primary btn--lg" href="#components">Primary<svg class="ico ico--next" aria-hidden="true"><use href="#i-arrow-r"/></svg></a>
+            <a class="btn btn--accent" href="#components">Accent</a>
+            <a class="btn btn--tonal" href="#components">Tonal</a>
+            <a class="btn btn--outline" href="#components">Outline</a>
+            <a class="btn btn--glass" href="#components">Glass</a>
+            <a class="btn btn--primary btn--sm" href="#components">Small</a>
+            <a class="link" href="#components">Inline link<svg class="ico" aria-hidden="true"><use href="#i-arrow-r"/></svg></a>
+          </div>
+          <div class="demo-box theme-dark" style="background:var(--bg)">
+            <a class="btn btn--primary btn--lg" href="#components">Primary on dark</a>
+            <a class="btn btn--tonal" href="#components">Tonal</a>
+            <a class="btn btn--outline" href="#components">Outline</a>
+            <a class="link" href="#components">Link on dark<svg class="ico" aria-hidden="true"><use href="#i-arrow-r"/></svg></a>
+          </div>
+        </div>
+
+        <div class="stack"><h3 class="t-h4">Chips, segmented control, badges, tags, meter</h3>
+          <div class="demo-box">
+            <div class="chips" data-chips><button class="chip" type="button" aria-pressed="true">Шелкография</button><button class="chip" type="button" aria-pressed="false">Тампопечать</button><button class="chip" type="button" aria-pressed="false"><span class="swatch" style="background:#141414"></span>Swatch chip</button></div>
+            <div class="seg seg--lg" role="group" aria-label="Demo"><button type="button" aria-pressed="true">Водочная 1 л</button><button type="button" aria-pressed="false">Бордо 0,75 л</button></div>
+            <div class="seg" role="group" aria-label="Language"><button type="button" aria-pressed="false">RU</button><button type="button" aria-pressed="true">RO</button><button type="button" aria-pressed="false">EN</button></div>
+          </div>
+          <div class="demo-box">
+            <span class="badge">Badge</span><span class="badge badge--live">LIVE</span>
+            <span class="tags"><span class="tag">Мат</span><span class="tag">Глянец</span><span class="tag">Soft-touch</span></span>
+            <span class="meter" aria-label="4 of 5" role="img"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+          </div>
+        </div>
+
+        <div class="stack"><h3 class="t-h4">Form fields</h3>
+          <div class="ds-grid" style="--min:260px">
+            <div class="demo-box demo-box--col">
+              <label class="field"><span class="field__label">Text input</span><input class="input" placeholder="Placeholder"></label>
+              <div class="field is-invalid"><label class="field__label" for="dsBad">Invalid</label><input class="input" id="dsBad" value="name@"><span class="field__error">Please enter a valid email.</span></div>
+              <label class="field"><span class="field__label">Select</span><select class="select"><option>Up to 1,000 pcs</option><option>1,000 – 10,000 pcs</option></select></label>
+            </div>
+            <div class="demo-box demo-box--col">
+              <label class="field"><span class="field__label">Textarea</span><textarea class="textarea" placeholder="Tell us about the project"></textarea></label>
+              <label class="check"><input type="checkbox" checked><span>Checkbox with a two-line label that wraps nicely under itself.</span></label>
+              <label class="switch"><span>Switch</span><input type="checkbox" role="switch" checked></label>
+              <label class="drop"><span class="drop__icon"><svg class="ico" aria-hidden="true"><use href="#i-upload"/></svg></span><span class="drop__text"><span>Drop zone</span><small>PNG, SVG or JPG</small></span><input type="file"></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack"><h3 class="t-h4">Cards</h3>
+          <div class="ds-grid" style="--min:240px">
+            <article class="card card--hover"><span class="ind__icon" style="margin-bottom:14px"><svg class="ico" aria-hidden="true"><use href="#i-wine"/></svg></span><h4 class="t-h4">Card · hover lift</h4><p class="t-small">Default surface for grids.</p></article>
+            <article class="card card--glass" style="background-image:none"><h4 class="t-h4">Glass card</h4><p class="t-small">Floats over 3D and imagery.</p></article>
+            <article class="card theme-dark" style="background:#000"><h4 class="t-h4">Dark card</h4><p class="t-small">Roles re-map inside dark themes.</p></article>
+          </div>
+        </div>
+
+        <div class="stack"><h3 class="t-h4">Accordion &amp; toast</h3>
+          <div class="acc">
+            <div class="acc__item"><h3><button class="acc__btn" type="button" aria-expanded="false" aria-controls="dsA1" id="dsQ1"><span>Accordion item</span><span class="acc__icon"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></span></button></h3><div class="acc__panel" id="dsA1" role="region" aria-labelledby="dsQ1"><div><p>Panels animate their height with --ease-out and the icon turns into a close mark.</p></div></div></div>
+          </div>
+          <div><button class="btn btn--tonal" type="button" id="dsToast">Show toast</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ds-sec" id="icons">
+    <div class="container">
+      <header><p class="eyebrow">07 · Icons</p><h2 class="t-h2">24-pixel line icons.</h2><p class="t-body">1.8 px stroke, round caps and joins, drawn on a 24 grid. Inline SVG sprite; colour follows <code class="ds-code">currentColor</code>.</p></header>
+      <div class="ds-grid" style="--min:110px" id="iconGrid"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr section--alt">
+  <div class="container ftr__bottom">
+    <p class="t-caption">© <span id="year">2026</span> Agroalimgrup S.R.L.</p>
+    <a class="link" href="./">Back to the website<svg class="ico" aria-hidden="true"><use href="#i-arrow-r"/></svg></a>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span></span></div>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  $('#year').textContent = new Date().getFullYear();
+  // Neutral ramp
+  const ramp = ['0','50','100','150','200','300','400','500','600','700','800','850','900','1000'];
+  $('#ramp').innerHTML = ramp.map((k, i) => `<div style="background:var(--gray-${k});color:${i > 7 ? '#fff' : '#1d1d1f'}">${k}</div>`).join('');
+  // Spacing
+  const sp = [[1,4],[2,8],[3,12],[4,16],[5,24],[6,32],[7,48],[8,64],[9,96],[10,128]];
+  $('#spaceRows').innerHTML = sp.map(([k, v]) => `<div class="space-row"><span class="ds-code">--space-${k} · ${v}</span><b style="width:${v * 2.4}px"></b></div>`).join('');
+  // Icons
+  $('#iconGrid').innerHTML = $$('symbol[id^="i-"]').map(s => `<div class="icon-tile"><svg class="ico" aria-hidden="true"><use href="#${s.id}"/></svg><span class="ds-code">${s.id}</span></div>`).join('');
+  // Easing demos
+  $$('.ease-demo').forEach(d => d.addEventListener('click', () => { d.style.setProperty('--w', d.clientWidth + 'px'); d.classList.toggle('go'); }));
+  // Chips
+  $$('[data-chips] .chip').forEach(c => c.addEventListener('click', () => c.setAttribute('aria-pressed', String(c.getAttribute('aria-pressed') !== 'true'))));
+  // Segmented thumbs
+  const sync = seg => { let th = seg.querySelector('.seg__thumb'); if (!th) { th = document.createElement('span'); th.className = 'seg__thumb'; seg.prepend(th); } const on = seg.querySelector('[aria-pressed="true"]'); th.style.width = on.offsetWidth + 'px'; th.style.transform = `translateX(${on.offsetLeft}px)`; };
+  $$('.seg').forEach(seg => { seg.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; seg.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); sync(seg); }); });
+  const syncAll = () => $$('.seg').forEach(sync);
+  addEventListener('resize', syncAll); (document.fonts ? document.fonts.ready : Promise.resolve()).then(syncAll); syncAll();
+  // Accordion
+  $$('.acc__btn').forEach(btn => { const p = document.getElementById(btn.getAttribute('aria-controls')); btn.addEventListener('click', () => { const open = btn.getAttribute('aria-expanded') !== 'true'; btn.setAttribute('aria-expanded', String(open)); const h = p.firstElementChild.offsetHeight; if (open) { p.style.height = h + 'px'; } else { p.style.height = h + 'px'; p.offsetHeight; p.style.height = '0px'; } }); });
+  // Toast
+  let tm; $('#dsToast').addEventListener('click', () => { const t = $('#toast'); t.querySelector('span').textContent = 'Saved. This is a toast.'; t.classList.add('is-on'); clearTimeout(tm); tm = setTimeout(() => t.classList.remove('is-on'), 2800); });
+})();
+</script>
+</body>
+</html>
