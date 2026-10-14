@@ -198,6 +198,7 @@ export function initCounters() {
 /* ---------- Quote form ---------- */
 export function initForm() {
   const form = $("quote"), status = $("fStatus"), send = $("fSend");
+  if (!form) return;
   const techChips = $$("#fTech .chip");
   techChips.forEach(c => c.addEventListener("click", () => c.setAttribute("aria-pressed", String(c.getAttribute("aria-pressed") !== "true"))));
 

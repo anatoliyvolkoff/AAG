@@ -70,6 +70,28 @@ function initPicks() {
   });
 }
 
+/* Compare: "What matters most?" points at the technology that fits, and the cards swipe to it on phones */
+function initNeeds() {
+  const chips = $$("[data-need]"), cards = $$("[data-card]"), clear = document.querySelector("[data-need-clear]"), grid = $("tgrid");
+  if (!chips.length || !grid) return;
+  const show = k => {
+    chips.forEach(c => c.setAttribute("aria-pressed", String(k !== null && +c.dataset.need === k)));
+    cards.forEach(card => {
+      const on = k !== null && +card.dataset.card === k;
+      card.classList.toggle("is-match", on);
+      card.classList.toggle("is-dim", k !== null && !on);
+    });
+    clear.hidden = k === null;
+    const hit = k === null ? null : cards.find(c => +c.dataset.card === k);
+    if (hit && grid.scrollWidth > grid.clientWidth + 2) {
+      const pad = parseFloat(getComputedStyle(grid).scrollPaddingLeft) || 0;
+      grid.scrollBy({ left: hit.getBoundingClientRect().left - grid.getBoundingClientRect().left - pad, behavior: reduce ? "auto" : "smooth" });
+    }
+  };
+  chips.forEach(c => c.addEventListener("click", () => show(c.getAttribute("aria-pressed") === "true" ? null : +c.dataset.need)));
+  clear.addEventListener("click", () => show(null));
+}
+
 async function init3D(finish) {
   const { hasWebGL } = await import("./bottles.js");
   if (!hasWebGL()) throw new Error("no webgl");
@@ -83,7 +105,7 @@ async function init3D(finish) {
 initCommon(detectLang());
 initHeader({ onScroll: updateRail });
 initJumps(() => journey);
-initGallery(); initMarquee(); initPicks();
+initGallery(); initMarquee(); initPicks(); initNeeds();
 const finish = initPreloader();
 init3D(finish).catch(err => {
   console.warn("3D disabled:", err);

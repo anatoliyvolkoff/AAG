@@ -268,32 +268,88 @@
       <header class="section-head section-head--split">
         <p class="eyebrow" data-i18n="cmp.eyebrow">Сравнение</p>
         <h2 class="t-h2" id="cmpTitle" data-split data-i18n="cmp.title">Какая технология подойдёт вашей бутылке?</h2>
-        <p class="t-lead" data-reveal data-i18n="cmp.lead2">Всё главное — в одной таблице. Выберите технологию, и конфигуратор откроется с ней.</p>
+        <p class="t-lead" data-reveal data-i18n="cmp.lead2">Четыре способа декорировать стекло. Начните с того, что важнее для вашей бутылки.</p>
       </header>
     </div>
-    <div class="ctable-wrap container" data-reveal>
-      <div class="ctable" id="ctable" role="region" aria-labelledby="cmpTitle" tabindex="0">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col" class="ctable__corner"><span data-i18n="cmp.table.tech">Технология</span><small class="ctable__swipe" data-i18n="cmp.table.swipe">Листайте в сторону →</small></th>
-              <th scope="col"><div class="ctable__head"><div class="ctable__view"><canvas class="cmp__canvas" width="520" height="640" data-bottle="0" aria-hidden="true"></canvas></div><span class="ctable__idx">01</span><b data-i18n="tech.0.name">Шелкография</b><span class="ctable__sum" data-i18n="cmp.0.sum">Плотный яркий слой по кругу бутылки.</span><button class="btn btn--tonal btn--sm" type="button" data-pick="0"><span data-i18n="cmp.pick">Примерить</span><svg class="ico ico--next" aria-hidden="true"><use href="#i-arrow-r"/></svg></button></div></th>
-              <th scope="col"><div class="ctable__head"><div class="ctable__view"><canvas class="cmp__canvas" width="520" height="640" data-bottle="1" aria-hidden="true"></canvas></div><span class="ctable__idx">02</span><b data-i18n="tech.1.name">Тампопечать</b><span class="ctable__sum" data-i18n="cmp.1.sum">Точный оттиск даже на сложной форме.</span><button class="btn btn--tonal btn--sm" type="button" data-pick="1"><span data-i18n="cmp.pick">Примерить</span><svg class="ico ico--next" aria-hidden="true"><use href="#i-arrow-r"/></svg></button></div></th>
-              <th scope="col" class="is-foil"><div class="ctable__head"><div class="ctable__view"><canvas class="cmp__canvas" width="520" height="640" data-bottle="2" aria-hidden="true"></canvas></div><span class="ctable__idx">03</span><b data-i18n="tech.2.name">Горячее тиснение</b><span class="ctable__sum" data-i18n="cmp.2.sum">Зеркальный металлик с чёткими краями.</span><button class="btn btn--tonal btn--sm" type="button" data-pick="2"><span data-i18n="cmp.pick">Примерить</span><svg class="ico ico--next" aria-hidden="true"><use href="#i-arrow-r"/></svg></button></div></th>
-              <th scope="col"><div class="ctable__head"><div class="ctable__view"><canvas class="cmp__canvas" width="520" height="640" data-bottle="3" aria-hidden="true"></canvas></div><span class="ctable__idx">04</span><b data-i18n="tech.3.name">УФ‑печать</b><span class="ctable__sum" data-i18n="cmp.3.sum">Полноцвет и градиенты без форм.</span><button class="btn btn--tonal btn--sm" type="button" data-pick="3"><span data-i18n="cmp.pick">Примерить</span><svg class="ico ico--next" aria-hidden="true"><use href="#i-arrow-r"/></svg></button></div></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row" data-i18n="cmp.row.colors">Цвета</th><td data-i18n="cmp.0.colors">До 6 плашечных</td><td data-i18n="cmp.1.colors">Плашечные, по слоям</td><td data-i18n="cmp.2.colors">Золото, серебро, медь, голография</td><td data-i18n="cmp.3.colors">Полноцвет + белый</td></tr>
-            <tr><th scope="row" data-i18n="cmp.row.detail">Детализация</th><td><span class="meter" data-v="3"></span></td><td><span class="meter" data-v="5"></span></td><td><span class="meter" data-v="4"></span></td><td><span class="meter" data-v="4"></span></td></tr>
-            <tr><th scope="row" data-i18n="cmp.row.effect">Эффект</th><td data-i18n="cmp.0.effect">Плотный, слегка рельефный</td><td data-i18n="cmp.1.effect">Тонкий и чёткий</td><td data-i18n="cmp.2.effect">Зеркальный блеск</td><td data-i18n="cmp.3.effect">Фото и градиенты</td></tr>
-            <tr><th scope="row" data-i18n="cmp.row.run">Тираж</th><td data-i18n="cmp.0.run">Серийный</td><td data-i18n="cmp.1.run">Любой</td><td data-i18n="cmp.2.run">Серийный</td><td data-i18n="cmp.3.run">От образца до серии</td></tr>
-            <tr><th scope="row" data-i18n="cmp.row.tooling">Оснастка</th><td data-i18n="cmp.0.tooling">Сетка на каждый цвет</td><td data-i18n="cmp.1.tooling">Клише</td><td data-i18n="cmp.2.tooling">Нагреваемый штамп</td><td data-i18n="cmp.3.tooling">Не нужна</td></tr>
-            <tr class="ctable__best"><th scope="row" data-i18n="cmp.row.best">Лучше всего для</th><td data-i18n="cmp.0.best">Ярких плашек по кругу бутылки</td><td data-i18n="cmp.1.best">Мелкого текста, штрихкодов, сложных форм</td><td data-i18n="cmp.2.best">Гербов, логотипов, премиальных линеек</td><td data-i18n="cmp.3.best">Градиентов, фото и малых партий</td></tr>
-          </tbody>
-        </table>
+    <div class="tcmp container" data-reveal>
+      <div class="tneeds">
+        <p class="tneeds__q t-small" id="tneedsQ" data-i18n="cmp.ask">Что для вас важнее?</p>
+        <div class="chips chips--scroll" role="group" aria-labelledby="tneedsQ">
+          <button class="chip" type="button" data-need="0" aria-pressed="false" data-i18n="need.0">Яркий цвет со всех сторон</button>
+          <button class="chip" type="button" data-need="1" aria-pressed="false" data-i18n="need.1">Мелкий текст и штрихкоды</button>
+          <button class="chip" type="button" data-need="2" aria-pressed="false" data-i18n="need.2">Премиальный металлик</button>
+          <button class="chip" type="button" data-need="3" aria-pressed="false" data-i18n="need.3">Фото и градиенты</button>
+        </div>
+        <button class="tneeds__clear" type="button" data-need-clear hidden data-i18n="cmp.clear">Показать все</button>
       </div>
-      <p class="t-small ctable__note" data-i18n="cmp.note">Не уверены, что выбрать? Технологии можно сочетать на одной бутылке — подскажем лучшее решение.</p>
+
+      <div class="tgrid" id="tgrid">
+        <article class="tcard" data-card="0">
+          <div class="tcard__view"><canvas class="cmp__canvas" width="520" height="640" data-bottle="0" aria-hidden="true"></canvas></div>
+          <header class="tcard__head">
+            <span class="tcard__idx">01</span>
+            <h3 class="tcard__name" data-i18n="tech.0.name">Шелкография</h3>
+            <p class="tcard__sum" data-i18n="cmp.0.sum">Плотный яркий слой по кругу бутылки.</p>
+          </header>
+          <p class="tcard__need"><span class="tcard__label" data-i18n="cmp.row.best">Лучше всего для</span><b data-i18n="need.0">Яркий цвет со всех сторон</b></p>
+          <div class="tcard__detail"><span class="tcard__label" data-i18n="cmp.row.detail">Детализация</span><span class="meter" data-v="3"></span></div>
+          <dl class="tcard__specs">
+            <div><dt data-i18n="cmp.row.colors">Цвета</dt><dd data-i18n="cmp.0.colors">До 6 плашечных</dd></div>
+            <div><dt data-i18n="cmp.row.run">Тираж</dt><dd data-i18n="cmp.0.run">Серийный</dd></div>
+            <div><dt data-i18n="cmp.row.tooling">Оснастка</dt><dd data-i18n="cmp.0.tooling">Сетка на каждый цвет</dd></div>
+          </dl>
+          <button class="btn btn--tonal btn--sm tcard__cta" type="button" data-pick="0"><span data-i18n="cmp.pick">Примерить</span><svg class="ico ico--next" aria-hidden="true"><use href="#i-arrow-r"/></svg></button>
+        </article>
+        <article class="tcard" data-card="1">
+          <div class="tcard__view"><canvas class="cmp__canvas" width="520" height="640" data-bottle="1" aria-hidden="true"></canvas></div>
+          <header class="tcard__head">
+            <span class="tcard__idx">02</span>
+            <h3 class="tcard__name" data-i18n="tech.1.name">Тампопечать</h3>
+            <p class="tcard__sum" data-i18n="cmp.1.sum">Точный оттиск даже на сложной форме.</p>
+          </header>
+          <p class="tcard__need"><span class="tcard__label" data-i18n="cmp.row.best">Лучше всего для</span><b data-i18n="need.1">Мелкий текст и штрихкоды</b></p>
+          <div class="tcard__detail"><span class="tcard__label" data-i18n="cmp.row.detail">Детализация</span><span class="meter" data-v="5"></span></div>
+          <dl class="tcard__specs">
+            <div><dt data-i18n="cmp.row.colors">Цвета</dt><dd data-i18n="cmp.1.colors">Плашечные, по слоям</dd></div>
+            <div><dt data-i18n="cmp.row.run">Тираж</dt><dd data-i18n="cmp.1.run">Любой</dd></div>
+            <div><dt data-i18n="cmp.row.tooling">Оснастка</dt><dd data-i18n="cmp.1.tooling">Клише</dd></div>
+          </dl>
+          <button class="btn btn--tonal btn--sm tcard__cta" type="button" data-pick="1"><span data-i18n="cmp.pick">Примерить</span><svg class="ico ico--next" aria-hidden="true"><use href="#i-arrow-r"/></svg></button>
+        </article>
+        <article class="tcard" data-card="2">
+          <div class="tcard__view"><canvas class="cmp__canvas" width="520" height="640" data-bottle="2" aria-hidden="true"></canvas></div>
+          <header class="tcard__head">
+            <span class="tcard__idx">03</span>
+            <h3 class="tcard__name" data-i18n="tech.2.name">Горячее тиснение</h3>
+            <p class="tcard__sum" data-i18n="cmp.2.sum">Зеркальный металлик с чёткими краями.</p>
+          </header>
+          <p class="tcard__need"><span class="tcard__label" data-i18n="cmp.row.best">Лучше всего для</span><b data-i18n="need.2">Премиальный металлик</b></p>
+          <div class="tcard__detail"><span class="tcard__label" data-i18n="cmp.row.detail">Детализация</span><span class="meter" data-v="4"></span></div>
+          <dl class="tcard__specs">
+            <div><dt data-i18n="cmp.row.colors">Цвета</dt><dd data-i18n="cmp.2.colors">Золото, серебро, медь, голография</dd></div>
+            <div><dt data-i18n="cmp.row.run">Тираж</dt><dd data-i18n="cmp.2.run">Серийный</dd></div>
+            <div><dt data-i18n="cmp.row.tooling">Оснастка</dt><dd data-i18n="cmp.2.tooling">Нагреваемый штамп</dd></div>
+          </dl>
+          <button class="btn btn--tonal btn--sm tcard__cta" type="button" data-pick="2"><span data-i18n="cmp.pick">Примерить</span><svg class="ico ico--next" aria-hidden="true"><use href="#i-arrow-r"/></svg></button>
+        </article>
+        <article class="tcard" data-card="3">
+          <div class="tcard__view"><canvas class="cmp__canvas" width="520" height="640" data-bottle="3" aria-hidden="true"></canvas></div>
+          <header class="tcard__head">
+            <span class="tcard__idx">04</span>
+            <h3 class="tcard__name" data-i18n="tech.3.name">УФ‑печать</h3>
+            <p class="tcard__sum" data-i18n="cmp.3.sum">Полноцвет и градиенты без форм.</p>
+          </header>
+          <p class="tcard__need"><span class="tcard__label" data-i18n="cmp.row.best">Лучше всего для</span><b data-i18n="need.3">Фото и градиенты</b></p>
+          <div class="tcard__detail"><span class="tcard__label" data-i18n="cmp.row.detail">Детализация</span><span class="meter" data-v="4"></span></div>
+          <dl class="tcard__specs">
+            <div><dt data-i18n="cmp.row.colors">Цвета</dt><dd data-i18n="cmp.3.colors">Полноцвет + белый</dd></div>
+            <div><dt data-i18n="cmp.row.run">Тираж</dt><dd data-i18n="cmp.3.run">От образца до серии</dd></div>
+            <div><dt data-i18n="cmp.row.tooling">Оснастка</dt><dd data-i18n="cmp.3.tooling">Не нужна</dd></div>
+          </dl>
+          <button class="btn btn--tonal btn--sm tcard__cta" type="button" data-pick="3"><span data-i18n="cmp.pick">Примерить</span><svg class="ico ico--next" aria-hidden="true"><use href="#i-arrow-r"/></svg></button>
+        </article>
+      </div>
+      <p class="t-small tcmp__note" data-i18n="cmp.note">Не уверены, что выбрать? Технологии можно сочетать на одной бутылке — подскажем лучшее решение.</p>
     </div>
   </section>
 
@@ -411,6 +467,7 @@
             <h3 class="t-h3" data-i18n="svc.paint.t">Покраска</h3>
             <p class="t-body" data-i18n="svc.paint.d">Сплошной цвет или плавный градиент. Прозрачные зоны можно оставить, чтобы был виден напиток.</p>
             <div class="tags"><span class="tag" data-i18n="svc.paint.t1">Сплошная</span><span class="tag" data-i18n="svc.paint.t2">Градиент</span><span class="tag" data-i18n="svc.paint.t3">Частичная</span></div>
+            <a class="link hs__more" href="painting/"><span data-i18n="svc.more">Подробнее</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-r"/></svg></a>
           </div>
         </article>
         <article class="hs__card card" data-reveal style="--i:3">

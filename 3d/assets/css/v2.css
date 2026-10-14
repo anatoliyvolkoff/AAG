@@ -241,51 +241,54 @@ html.no-js .jfacts, html.no-gl .jfacts { display: grid; }
 .no-js .jback, .no-gl .jback, .no-js .jtags, .no-gl .jtags, .no-js .jnav, .no-gl .jnav, .no-js .jend, .no-gl .jend, .no-js .jgl, .no-gl .jgl { display: none; }
 .no-gl .jpanel__body > *, .no-js .jpanel__body > * { opacity: 1 !important; transform: none !important; }
 
-/* ---------- Compare: a real table ---------- */
-.ctable-wrap { display: grid; gap: 20px; }
-.ctable { border-radius: var(--r-xl); background: var(--card); }
-.ctable table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
-.ctable th, .ctable td { padding: 18px 20px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line-soft); }
-.ctable tbody tr:last-child > * { border-bottom: 0; }
-.ctable tbody th { width: 17%; font-size: var(--fs-caption); font-weight: 600; color: var(--mute); letter-spacing: 0.02em; }
-.ctable td { font-size: 0.9375rem; font-weight: 500; line-height: 1.4; }
-.ctable__best td { font-weight: 600; }
-.ctable thead th { padding: 16px 16px 20px; border-bottom: 1px solid var(--line); background: var(--card); }
-.ctable thead th:first-child { border-top-left-radius: var(--r-xl); vertical-align: bottom; }
-.ctable thead th:last-child { border-top-right-radius: var(--r-xl); }
-.ctable__corner { font-size: var(--fs-caption); font-weight: 600; color: var(--mute); }
-.ctable__swipe { display: none; margin-top: 6px; font-size: var(--fs-micro); font-weight: 500; color: var(--accent); }
-.ctable__head { display: grid; gap: 6px; justify-items: start; }
-.ctable__view {
-  position: relative; width: 100%; height: clamp(170px, 18vw, 250px); margin-bottom: 8px; border-radius: var(--r-md); overflow: hidden;
+/* ---------- Compare: one question, four cards that line up ---------- */
+.tcmp { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(22px, 3vw, 32px); }
+.tneeds { display: grid; gap: 12px; min-width: 0; }
+.tneeds__q, .tneeds__clear { justify-self: start; }
+.tneeds__q { font-weight: 600; color: var(--mute); }
+.tneeds__clear { padding: 0; border: 0; background: none; font: inherit; font-size: var(--fs-small); font-weight: 600; color: var(--accent); cursor: pointer; }
+.tneeds__clear[hidden] { display: none; }
+
+.tgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 16px; min-width: 0; }
+.tcard {
+  grid-row: span 6; display: grid; grid-template-rows: subgrid; row-gap: 14px; padding: 12px 12px 16px;
+  border-radius: var(--r-xl); background: var(--card);
+  transition: opacity var(--dur-3) var(--ease-out), box-shadow var(--dur-3) var(--ease-out), filter var(--dur-3) var(--ease-out);
+}
+.tcard:hover { box-shadow: var(--sh-2); }
+.tcard.is-dim { opacity: 0.4; filter: saturate(0.5); }
+.tcard.is-match { box-shadow: 0 0 0 2px var(--ink); }
+.tcard__view {
+  position: relative; height: clamp(170px, 15vw, 230px); border-radius: var(--r-lg); overflow: hidden;
   background: radial-gradient(90% 75% at 50% 42%, #ffffff 0%, #ececef 55%, #d9d9de 100%);
 }
-.is-foil .ctable__view { background: radial-gradient(90% 75% at 50% 40%, #3a3a3e 0%, #161618 60%, #0b0b0c 100%); }
-.ctable__view canvas { position: absolute; left: 50%; top: 50%; height: 118%; width: auto; aspect-ratio: 520 / 640; translate: -50% -48%; touch-action: pan-y; }
-.ctable__idx { font-size: var(--fs-micro); font-weight: 700; color: var(--mute); font-variant-numeric: tabular-nums; }
-.ctable__head b { font-size: clamp(1.0625rem, 0.9rem + 0.5vw, 1.375rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; }
-.ctable__sum { font-size: var(--fs-caption); font-weight: 400; color: var(--mute); line-height: 1.4; min-height: 2.8em; }
-.ctable__head .btn { margin-top: 6px; }
-/* Column highlight on hover */
-.ctable table:has(tr > :nth-child(2):hover) tr > :nth-child(2),
-.ctable table:has(tr > :nth-child(3):hover) tr > :nth-child(3),
-.ctable table:has(tr > :nth-child(4):hover) tr > :nth-child(4),
-.ctable table:has(tr > :nth-child(5):hover) tr > :nth-child(5) { background: color-mix(in srgb, var(--ink) 3.5%, var(--card)); }
-.ctable__note { padding-inline: 4px; }
+.tcard__view canvas { position: absolute; left: 50%; top: 50%; height: 108%; width: auto; aspect-ratio: 520 / 640; translate: -50% -50%; touch-action: pan-y; }
+.tcard__head { display: grid; gap: 6px; align-content: start; padding: 0 6px; }
+.tcard__idx { font-size: var(--fs-micro); font-weight: 700; color: var(--mute); font-variant-numeric: tabular-nums; }
+.tcard__name { font-size: clamp(1.0625rem, 0.95rem + 0.4vw, 1.3125rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; }
+.tcard__sum { font-size: var(--fs-caption); color: var(--mute); line-height: 1.4; }
+.tcard__label { font-size: var(--fs-micro); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--mute); }
+.tcard__need { display: grid; gap: 4px; align-content: start; padding: 0 6px; }
+.tcard__need b { font-size: 0.9375rem; font-weight: 700; line-height: 1.3; }
+.tcard__detail { display: flex; align-items: center; justify-content: space-between; gap: 8px; align-self: start; padding: 0 6px; }
+.tcard__specs { display: grid; gap: 10px; align-content: start; margin: 0; padding: 12px 6px 0; border-top: 1px solid var(--line-soft); }
+.tcard__specs > div { display: grid; gap: 2px; }
+.tcard__specs dt { font-size: var(--fs-micro); font-weight: 600; color: var(--mute); }
+.tcard__specs dd { margin: 0; font-size: 0.875rem; font-weight: 500; line-height: 1.35; }
+.tcard__cta { justify-self: start; align-self: end; margin-left: 6px; }
+.tcmp__note { padding-inline: 4px; }
 
-@media (max-width: 860px) {
-  .ctable-wrap { padding-inline: 0; }
-  .ctable { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 0; scroll-padding-left: 112px; }
-  .ctable::-webkit-scrollbar { display: none; }
-  .ctable table { width: auto; table-layout: auto; }
-  .ctable th, .ctable td { padding: 14px 14px; }
-  .ctable thead th:not(:first-child), .ctable td { min-width: min(64vw, 300px); max-width: min(64vw, 300px); scroll-snap-align: start; }
-  .ctable thead th:first-child, .ctable tbody th { position: sticky; left: 0; z-index: 2; width: 112px; min-width: 112px; background: var(--card); box-shadow: 1px 0 0 var(--line-soft); }
-  .ctable thead th:first-child { border-radius: 0; }
-  .ctable thead th:last-child { border-radius: 0; }
-  .ctable__swipe { display: block; }
-  .ctable__view { height: 190px; }
-  .ctable__note { padding-inline: var(--gutter); }
+/* Phones and tablets: the cards swipe sideways, the way the services gallery does */
+@media (max-width: 1099px) {
+  .tgrid {
+    display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1); padding: 4px var(--gutter) 14px; scroll-padding-inline: var(--gutter);
+  }
+  .tgrid::-webkit-scrollbar { display: none; }
+  .tcard { flex: 0 0 min(80vw, 340px); display: flex; flex-direction: column; gap: 14px; scroll-snap-align: start; }
+  .tcard__view { height: clamp(200px, 56vw, 280px); }
+  .tcard__cta { margin-top: auto; }
+  .tcmp__note { padding-inline: 0; }
 }
 
 /* ---------- Studio v2: preview stays on screen while you configure ---------- */
@@ -349,6 +352,7 @@ html.no-js .jfacts, html.no-gl .jfacts { display: grid; }
 .hs__card--wide .wire { height: 200px; min-height: 0; }
 .hs__body { display: grid; gap: 12px; align-content: start; flex: 1; }
 .hs__body .tags { align-self: end; margin-top: auto; padding-top: 6px; }
+.hs__more { margin-top: 4px; align-self: start; }
 .hs__foot { display: flex; align-items: center; gap: 20px; margin-top: 8px; }
 .hs__foot .t-caption { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
 .hs__progress { position: relative; flex: 1; height: 3px; border-radius: 3px; background: var(--line-soft); overflow: hidden; }

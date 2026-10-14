@@ -15,6 +15,7 @@ There are two layouts of the same site, sharing the design system, texts, 3D and
 | --- | --- |
 | `index.html` | Classic layout: hero, scroll story, comparison, configurator, services, industries, about, process, FAQ, quote form, footer |
 | `v2/index.html` | New layout (same sections and features, orientation-aware tour, horizontal sections) |
+| `v2/painting/index.html` | Glass painting service page: a factory film that plays frame by frame as you scroll, then coverage options, finishes, process, key facts and a call to action |
 | `design-system.html` | Living reference for tokens and components (colour, type, spacing, motion, buttons, fields, cards, icons) |
 | `404.html` | Not-found page used by GitHub Pages |
 
@@ -34,7 +35,7 @@ There are two layouts of the same site, sharing the design system, texts, 3D and
 ## New layout (`/v2/`)
 
 1. **Tour** — one sticky stage. The four technologies sit side by side on wide screens and one above the other on tall ones; scrolling moves the camera and the text panels together, so each bottle stops in its own slot next to its copy (never under it). Hero and finale show all four bottles in a line-up with numbered tags; the tags, a navigator bar (bottom on landscape, right edge on portrait), ← → keys and sideways trackpad/touch swipes all move through the tour. Rotating a phone or tablet keeps you on the same step.
-2. **Compare** — one table with a rotating bottle per column and a "Try it" button that opens the configurator with that technology selected. On phones it swipes sideways with the row labels pinned.
+2. **Compare** — a "what matters most?" filter (colour, fine detail, metallic, photos) that highlights the technology that fits. Four cards line up side by side on wide screens and swipe sideways on phones and tablets; "Try it" opens the configurator with that technology selected.
 3. **Configurator** — numbered steps; on phones and tablets the 3D preview stays pinned at the top and the request button stays pinned at the bottom while you change options.
 4. **Services** — horizontal gallery (swipe, drag, arrows, progress bar).
 5. **Industries** — two rows moving in opposite directions (static wrap with reduced motion).
@@ -67,6 +68,8 @@ assets/
   js/story.js        classic scroll story + comparison bottles
   js/journey.js      new layout's sideways/downwards tour
   js/studio.js       configurator
+  css/painting.css   painting service page
+  js/painting.js     painting page: scroll-scrubbed film (144 WebP frames in media/paint/, cross-faded)
   vendor/three/      three.js r169 (MIT)
   media/             foil texture + bump map, print-line footage
 ```
