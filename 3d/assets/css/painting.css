@@ -1,0 +1,100 @@
+/* Glass painting page: a film you scrub by scrolling, then the service on one white page */
+
+/* ---------- Scroll-scrubbed film ---------- */
+.pt { --pv-col: clamp(300px, 34vw, 540px); }
+.pv { position: relative; height: 420vh; height: 420svh; }
+.pv__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: #fff; }
+
+/* Wide screens: clean text column on the left, the film fills the rest and melts into white */
+.pv__media { position: absolute; top: 0; right: 0; bottom: 0; left: calc(var(--edge) + var(--pv-col)); background: #eef0f2; }
+.pv__media::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, #fff 0%, rgb(255 255 255 / 0.55) 9%, rgb(255 255 255 / 0) 22%);
+}
+.pv__poster, .pv__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pv__poster { object-fit: cover; object-position: 45% 50%; }
+.pv__canvas { display: block; }
+
+.pv__copy {
+  position: absolute; top: 0; bottom: 0; left: var(--edge); width: var(--pv-col); z-index: 2;
+  display: grid; align-content: center; gap: clamp(24px, 4vh, 40px); padding-top: var(--hdr-h);
+}
+.pv__steps { display: grid; }
+.pv__step { grid-area: 1 / 1; display: grid; gap: 14px; align-content: center; justify-items: start; opacity: 0; visibility: hidden; will-change: opacity, transform; }
+.pv__step.is-first { opacity: 1; visibility: visible; }
+.pv__title { font-size: clamp(2.5rem, min(6vw, 11vh), 6.25rem); font-weight: 700; letter-spacing: -0.055em; line-height: 0.95; }
+.pv__h { font-size: clamp(2rem, min(4.2vw, 8vh), 4.25rem); font-weight: 700; letter-spacing: -0.045em; line-height: 1; }
+.pv__p { max-width: 26ch; font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.375rem); line-height: 1.4; color: var(--ink-2); }
+.pv__num { font-size: var(--fs-small); font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.pv__cta { margin-top: 8px; }
+
+.pv__bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; max-width: 220px; }
+.pv__bar i { height: 3px; border-radius: 3px; background: var(--line-soft); overflow: hidden; }
+.pv__bar b { display: block; height: 100%; background: var(--ink); transform: scaleX(0); transform-origin: left; }
+
+.pv__hint {
+  position: absolute; right: var(--edge); bottom: clamp(20px, 4vh, 36px); z-index: 2; display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-radius: var(--r-full); background: rgb(255 255 255 / 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  font-size: var(--fs-caption); font-weight: 600; color: var(--ink-2);
+}
+.pv__hint .ico { width: 16px; height: 16px; animation: pv-nudge 1.6s var(--ease-in-out) infinite; }
+@keyframes pv-nudge { 50% { transform: translateY(3px); } }
+
+/* Tall screens: the film on top, the words underneath */
+@media (max-aspect-ratio: 1/1) {
+  .pv__media { left: 0; bottom: 42%; }
+  .pv__media::after { background: linear-gradient(0deg, #fff 0%, rgb(255 255 255 / 0.5) 8%, rgb(255 255 255 / 0) 22%); }
+  .pv__copy { top: 58%; bottom: 0; left: var(--gutter); right: var(--gutter); width: auto; align-content: start; gap: 18px; padding: 8px 0 calc(16px + env(safe-area-inset-bottom, 0px)); }
+  .pv__step { align-content: start; gap: 10px; }
+  .pv__title { font-size: clamp(2.5rem, 12vw, 4.5rem); }
+  .pv__h { font-size: clamp(1.875rem, 8.5vw, 3.25rem); }
+  .pv__p { font-size: 1.0625rem; max-width: 32ch; }
+  .pv__hint { top: calc(58% - 52px); bottom: auto; right: var(--gutter); }
+}
+/* Short landscape screens (phones turned sideways) */
+@media (min-aspect-ratio: 1/1) and (max-height: 520px) {
+  .pt { --pv-col: clamp(260px, 40vw, 420px); }
+  .pv__copy { gap: 14px; }
+  .pv__step { gap: 8px; }
+  .pv__p { font-size: 0.9375rem; }
+  .pv__hint { display: none; }
+}
+.no-js .pv { height: 100vh; height: 100svh; }
+
+/* ---------- Three ways to colour a bottle ---------- */
+.pw { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.pw__card { display: grid; gap: 10px; align-content: start; padding: clamp(20px, 2.4vw, 32px); border-radius: var(--r-xl); background: var(--card); }
+.pw__art { display: grid; place-items: center; height: clamp(220px, 22vw, 300px); margin-bottom: 10px; border-radius: var(--r-lg); background: radial-gradient(80% 70% at 50% 45%, #fff 0%, #f1f3f6 70%); }
+.pw__svg { height: 86%; width: auto; filter: drop-shadow(0 18px 18px rgb(26 79 201 / 0.12)); }
+.pw__t { font-size: clamp(1.375rem, 1.1rem + 0.8vw, 1.875rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.05; }
+.pw__d { font-size: 1rem; line-height: 1.45; color: var(--ink-2); max-width: 32ch; }
+.pw__surf { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: clamp(28px, 3.5vw, 44px); }
+.pw__label { font-size: var(--fs-micro); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mute); }
+.pw__chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.pw__chips li { padding: 10px 18px; border: 1px solid var(--line); border-radius: var(--r-full); font-size: 1rem; font-weight: 600; }
+@media (max-width: 860px) {
+  .pw { grid-template-columns: minmax(0, 1fr); }
+  .pw__card { grid-template-columns: 112px minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: 20px; align-items: start; }
+  .pw__art { grid-row: 1 / 3; height: 150px; margin: 0; }
+  .pw__t { align-self: end; }
+}
+
+/* ---------- How we paint ---------- */
+.ph { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); margin: 0; padding: 0; list-style: none; counter-reset: none; }
+.ph__step { display: grid; gap: 10px; align-content: start; padding-top: 22px; border-top: 2px solid var(--ink); }
+.ph__n { font-size: var(--fs-small); font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.ph__t { font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.625rem); font-weight: 700; letter-spacing: -0.03em; }
+.ph__d { font-size: 1rem; line-height: 1.45; color: var(--ink-2); }
+@media (max-width: 960px) { .ph { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .ph { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- In short ---------- */
+.pf { margin: 0; }
+.pf__row { display: grid; grid-template-columns: minmax(140px, 0.4fr) minmax(0, 1fr); gap: 8px 32px; align-items: baseline; padding: clamp(18px, 2.4vw, 28px) 0; border-bottom: 1px solid var(--line-soft); }
+.pf__row:first-child { border-top: 1px solid var(--line-soft); }
+.pf__row dt { font-size: var(--fs-micro); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mute); }
+.pf__row dd { margin: 0; font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.625rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; }
+@media (max-width: 640px) { .pf__row { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Call to action ---------- */
+.pc__in { display: grid; gap: 22px; justify-items: start; max-width: 860px; }
