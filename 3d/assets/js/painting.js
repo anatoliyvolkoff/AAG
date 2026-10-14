@@ -2,7 +2,7 @@
 import { detectLang } from "./i18n.js";
 import { $, $$, initCommon, initHeader, initPreloader } from "./ui.js";
 
-const N = 144;                                         // frames 000–143, 1280×720 WebP
+const N = +(document.getElementById("pv")?.dataset.frames) || 144;   // 1280×720 WebP frames 000…N-1
 const DIR = new URL("../media/paint/", import.meta.url).href;
 const src = i => `${DIR}${String(i).padStart(3, "0")}.webp`;
 const CL = v => Math.max(0, Math.min(1, v));
@@ -20,13 +20,14 @@ function initScrub(onReady) {
   const order = [];
   for (let step = 32; step >= 1; step >>= 1) for (let i = 0; i < N; i += step) if (!order.includes(i)) order.push(i);
   if (!order.includes(N - 1)) order.push(N - 1);
-  let next = 0;
+  let next = 0, loaded = 0;
   const load = () => {
     if (next >= order.length) return;
     const i = order[next++], im = new Image();
     im.decoding = "async";
     im.onload = () => {
       imgs[i] = im; ok[i] = 1; need = true;
+      sec.dataset.loaded = ++loaded;
       if (!ready) { ready = true; sec.classList.add("is-ready"); onReady(); }
       load();
     };

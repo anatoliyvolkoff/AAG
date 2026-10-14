@@ -69,7 +69,7 @@ assets/
   js/journey.js      new layout's sideways/downwards tour
   js/studio.js       configurator
   css/painting.css   painting service page
-  js/painting.js     painting page: scroll-scrubbed film (144 WebP frames in media/paint/, cross-faded)
+  js/painting.js     painting page: scroll-scrubbed film (427 WebP frames in media/paint/: the 24 fps clip motion-interpolated to 72 fps, cross-faded)
   vendor/three/      three.js r169 (MIT)
   media/             foil texture + bump map, print-line footage
 ```
